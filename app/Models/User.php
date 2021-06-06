@@ -12,12 +12,36 @@ class User extends Authenticatable
     use HasFactory, Notifiable;
 
     /**
+     * Table connected with this model
+     *
+     * @var string
+     */
+    protected $table = 'user';
+
+    /**
+     * Primary key of this table
+     *
+     * @var string
+     */
+    protected $primaryKey = 'user_id';
+
+    /**
+     * Default attributes values
+     *
+     * @var bool[]
+     */
+    protected $attributes = [
+        'active' => true,
+    ];
+
+    /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
     ];
