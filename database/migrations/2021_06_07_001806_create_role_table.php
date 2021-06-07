@@ -26,9 +26,9 @@ class CreateRoleTable extends Migration{
             $table->foreignId('role_id');
             $table->timestamps();
 
-            $table->primary(['user_id', 'role_id']);
             $table->foreign('user_id')->references('user_id')->on('user')->onUpdate('cascade')->onDelete('cascade');
             $table->foreign('role_id')->references('role_id')->on('role')->onUpdate('cascade')->onDelete('cascade');
+            $table->primary(['user_id', 'role_id']);
         } );
 
     }
@@ -39,6 +39,13 @@ class CreateRoleTable extends Migration{
      * @return void
      */
     public function down(){
+
+        Schema::table('user_role', function(Blueprint $table){
+            $table->dropPrimary();
+            $table->dropForeign('user_role_role_id_foreign');
+            $table->dropForeign('user_role_user_id_foreign');
+        });
+
         Schema::dropIfExists( 'role' );
         Schema::dropIfExists( 'user_role' );
     }
