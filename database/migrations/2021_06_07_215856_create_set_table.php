@@ -12,13 +12,14 @@ class CreateSetTable extends Migration{
      */
     public function up(){
         Schema::create( 'set', function( Blueprint $table ){
+            $table->id( 'set_id' );
             $table->foreignId( 'championship_id' )->constrained( 'championship', 'championship_id' )->onUpdate( 'cascade' )->onDelete( 'cascade' );
-            $table->integer( 'set_id' );
+            $table->integer('set_no');
             //administration
             $table->softDeletes();
             $table->timestamps();
 
-            $table->primary(['championship_id', 'set_id']);
+            $table->unique(['championship_id', 'set_no']);
         } );
     }
 
@@ -29,7 +30,8 @@ class CreateSetTable extends Migration{
      */
     public function down(){
         Schema::create( 'set', function( Blueprint $table ){
-            $table->dropPrimary(['championship_id', 'set_id']);
+            $table->dropPrimary(['set_id']);
+            $table->dropUnique(['championship_id', 'set_id']);
             $table->dropForeign(['championship_id']);
         } );
 

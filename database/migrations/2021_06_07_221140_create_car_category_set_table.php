@@ -13,10 +13,10 @@ class CreateCarCategorySetTable extends Migration{
     public function up(){
         Schema::create( 'car_category_set', function( Blueprint $table ){
             $table->foreignId( 'car_category_id' )->constrained( 'car_category', 'car_category_id' )->onUpdate( 'cascade' )->onDelete( 'cascade' );
-            $table->foreignId( 'championship_id' )->constrained( 'championship', 'championship_id' )->onUpdate( 'cascade' )->onDelete( 'cascade' );
+            $table->foreignId( 'set_id' )->constrained( 'set', 'set_id' )->onUpdate( 'cascade' )->onDelete( 'cascade' );
             $table->timestamps();
 
-            $table->primary( [ 'car_category_id', 'championship_id' ] );
+            $table->primary( [ 'car_category_id', 'set_id' ] );
         } );
     }
 
@@ -27,9 +27,9 @@ class CreateCarCategorySetTable extends Migration{
      */
     public function down(){
         Schema::create( 'car_category_set', function( Blueprint $table ){
-            $table->dropPrimary( [ 'car_category_id', 'championship_id' ] );
+            $table->dropPrimary( [ 'car_category_id', 'set_id' ] );
             $table->dropForeign(['car_category_id']);
-            $table->dropForeign(['championship_id']);
+            $table->dropForeign(['set_id']);
         } );
 
         Schema::dropIfExists( 'car_category_set' );

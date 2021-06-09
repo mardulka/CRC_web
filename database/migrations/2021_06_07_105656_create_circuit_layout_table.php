@@ -12,6 +12,7 @@ class CreateCircuitLayoutTable extends Migration{
      */
     public function up(){
         Schema::create( 'circuit_layout', function( Blueprint $table ){
+            $table->id('circuit_layout_id');
             $table->foreignId( 'circuit_id' )->constrained( 'circuit', 'circuit_id' )->onUpdate( 'cascade' )->onDelete( 'cascade' );
             $table->string( 'name' );
             $table->year( 'year' );
@@ -19,7 +20,7 @@ class CreateCircuitLayoutTable extends Migration{
             $table->softDeletes();
             $table->timestamps();
 
-            $table->primary( [ 'circuit_id', 'name', 'year' ] );
+            $table->unique(['circuit_id', 'name', 'year']);
         } );
     }
 
@@ -30,8 +31,9 @@ class CreateCircuitLayoutTable extends Migration{
      */
     public function down(){
         Schema::create( 'circuit_layout', function( Blueprint $table ){
-            $table->dropPrimary([ 'circuit_id', 'name', 'year' ]);
+            $table->dropPrimary([ 'circuit_layout_id']);
             $table->dropForeign(['circuit_id']);
+            $table->dropUnique(['circuit_id', 'name', 'year']);
 
         });
 
