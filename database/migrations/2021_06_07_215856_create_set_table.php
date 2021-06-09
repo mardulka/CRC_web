@@ -14,7 +14,7 @@ class CreateSetTable extends Migration{
         Schema::create( 'set', function( Blueprint $table ){
             $table->id( 'set_id' );
             $table->foreignId( 'championship_id' )->constrained( 'championship', 'championship_id' )->onUpdate( 'cascade' )->onDelete( 'cascade' );
-            $table->integer('set_no');
+            $table->unsignedinteger('set_no');
             //administration
             $table->softDeletes();
             $table->timestamps();

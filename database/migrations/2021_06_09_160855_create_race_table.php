@@ -13,7 +13,7 @@ class CreateRaceTable extends Migration{
     public function up(){
         Schema::create( 'race', function( Blueprint $table ){
             $table->id('race_id');
-            $table->integer('race_no');
+            $table->unsignedInteger('race_no');
             $table->foreignId( 'set_id' )->constrained('set', 'set_id')->onUpdate('cascade')->onDelete('cascade');
             $table->foreignId('circuit_layout_id')->constrained('circuit_layout', 'circuit_layout_id')->onUpdate('cascade')->onDelete('cascade');
             //data
