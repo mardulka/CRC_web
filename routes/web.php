@@ -13,10 +13,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+ * Basic routes for nav items
+*/
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
+Route::get('news', function () {
+    return view('sites.news');
+})->name('news');
+
+Route::get('series', function () {
+    return view('sites.series');
+})->name('series');
+
+Route::get('stats', function () {
+    return view('sites.stats');
+})->name('stats');
+
+Route::get('rules', function () {
+    return view('sites.rules');
+})->name('rules');
+
+
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+ * Backup routes
+ */
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');

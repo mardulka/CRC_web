@@ -17,22 +17,22 @@
                     </x-nav.nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav.nav-link>
+                    <x-nav.nav-link :href="route('news')" :active="request()->routeIs('news')">
                         {{ 'Novinky' }}
                     </x-nav.nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav.nav-link>
+                    <x-nav.nav-link :href="route('series')" :active="request()->routeIs('series')">
                         {{ 'Serie' }}
                     </x-nav.nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav.nav-link>
+                    <x-nav.nav-link :href="route('stats')" :active="request()->routeIs('stats')">
                         {{ 'Statistiky' }}
                     </x-nav.nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav.nav-link>
+                    <x-nav.nav-link :href="route('rules')" :active="request()->routeIs('rules')">
                         {{ 'Pravidla' }}
                     </x-nav.nav-link>
                 </div>
