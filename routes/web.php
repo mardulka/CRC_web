@@ -37,6 +37,9 @@ Route::get('rules', function () {
     return view('sites.rules');
 })->name('rules');
 
+Route::get('contacts', function () {
+    return view('sites.contacts');
+})->name('contacts');
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 /**
