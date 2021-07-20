@@ -64,4 +64,14 @@ class Car extends Model{
     }
 
 
+    /**
+     * Method returning related car_category from OneToMany relation.
+     *
+     * @return BelongsTo
+     */
+    public function car_category() {
+        return $this->belongsTo( Car_category::class );
+    }
+
+
 }
