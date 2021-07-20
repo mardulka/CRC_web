@@ -64,4 +64,14 @@ class Country extends Model{
     }
 
 
+    /**
+     * Method returning all related circuit from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function circuits() {
+        return $this->hasMany( Circuit::class );
+    }
+
+
 }
