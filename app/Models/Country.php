@@ -5,16 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Continent extends Model{
+class Country extends Model{
     use HasFactory;
-
 
     /**
      * Table connected with this model
      *
      * @var string
      */
-    protected $table = 'continent';
+    protected $table = 'country';
 
 
     /**
@@ -22,7 +21,7 @@ class Continent extends Model{
      *
      * @var string
      */
-    protected $primaryKey = 'continent_id';
+    protected $primaryKey = 'country_id';
 
 
     /**
@@ -31,7 +30,7 @@ class Continent extends Model{
      * @var array
      */
     protected $guarded = [
-        'continent_id',
+        'country_id',
     ];
 
 
@@ -44,12 +43,22 @@ class Continent extends Model{
 
 
     /**
-     * Method returning all related countries from OneToMany relation.
+     * Method returning related continent from OneToMany relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function continent(){
+        return $this->belongsTo( Continent::class );
+    }
+
+
+    /**
+     * Method returning all related users from OneToMany relation.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function countries(){
-        return $this->hasMany( Country::class );
+    public function users(){
+        return $this->hasMany( User::class );
     }
 
 

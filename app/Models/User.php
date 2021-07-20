@@ -80,4 +80,14 @@ class User extends Authenticatable{
     }
 
 
+    /**
+     * Method returning related country from OneToMany relation.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function country(){
+        return $this->belongsTo( Country::class );
+    }
+
+
 }
