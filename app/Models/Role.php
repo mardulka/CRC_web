@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -39,7 +40,7 @@ class Role extends Model{
     /**
      * Method returning users from ManyToMany relation with immediate table.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function users(){
         return $this->BelongsToMany( User::class, 'role_user', 'user_id', 'role_id' )->using( User_role::class )->withTimestamps();
