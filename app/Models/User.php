@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -73,7 +75,7 @@ class User extends Authenticatable{
     /**
      * Method returning roles from ManyToMany relation with immediate table.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function roles(){
         return $this->BelongsToMany( Role::class, 'role_user', 'role_id', 'user_id' )->using( User_role::class )->withTimestamps();
@@ -83,7 +85,7 @@ class User extends Authenticatable{
     /**
      * Method returning related country from OneToMany relation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function country(){
         return $this->belongsTo( Country::class );

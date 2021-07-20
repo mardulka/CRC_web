@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Continent extends Model{
     use HasFactory;
@@ -46,7 +47,7 @@ class Continent extends Model{
     /**
      * Method returning all related countries from OneToMany relation.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function countries(){
         return $this->hasMany( Country::class );
