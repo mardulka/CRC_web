@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Car_type extends Model{
+class Car extends Model{
     use HasFactory;
 
 
@@ -16,7 +15,7 @@ class Car_type extends Model{
      *
      * @var string
      */
-    protected $table = 'car_type';
+    protected $table = 'car';
 
 
     /**
@@ -24,7 +23,17 @@ class Car_type extends Model{
      *
      * @var string
      */
-    protected $primaryKey = 'car_type_id';
+    protected $primaryKey = 'car_id';
+
+
+    /**
+     * Default attributes values
+     *
+     * @var bool[]
+     */
+    protected $attributes = [
+        'active' => true,
+    ];
 
 
     /**
@@ -33,7 +42,7 @@ class Car_type extends Model{
      * @var array
      */
     protected $guarded = [
-        'car_type_id',
+        'car_id',
     ];
 
 
@@ -46,22 +55,12 @@ class Car_type extends Model{
 
 
     /**
-     * Method returning related manufacturer from OneToMany relation.
+     * Method returning related car_type from OneToMany relation.
      *
      * @return BelongsTo
      */
-    public function manufacturer() {
-        return $this->belongsTo( Manufacturer::class );
-    }
-
-
-    /**
-     * Method returning all related cars from OneToMany relation.
-     *
-     * @return HasMany
-     */
-    public function cars(){
-        return $this->hasMany( Car::class );
+    public function car_type() {
+        return $this->belongsTo( Car_type::class );
     }
 
 
