@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Car_category extends Model{
@@ -42,6 +43,16 @@ class Car_category extends Model{
      * @var bool
      */
     public $timestamps = false;
+
+
+    /**
+     * Method returning simulators from ManyToMany relation with immediate table.
+     *
+     * @return BelongsToMany
+     */
+    public function simulators(){
+        return $this->belongsToMany(Simulator::class, 'simulator_car_category');
+    }
 
 
     /**

@@ -74,4 +74,14 @@ class Car extends Model{
     }
 
 
+    /**
+     * Method returning simulators from ManyToMany relation with immediate table.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function simulators(){
+        return $this->belongsToMany(Simulator::class, 'simulator_car')->withPivot('simulator_car_identification');
+    }
+
+
 }

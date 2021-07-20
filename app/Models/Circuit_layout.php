@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Circuit_layout extends Model{
     use HasFactory;
@@ -52,5 +53,16 @@ class Circuit_layout extends Model{
     public function circuit() {
         return $this->belongsTo( Circuit::class );
     }
+
+
+    /**
+     * Method returning simulators from ManyToMany relation with immediate table.
+     *
+     * @return BelongsToMany
+     */
+    public function simulators(){
+        return $this->belongsToMany(Simulator::class, 'simulator_circuit_layout');
+    }
+
 
 }
