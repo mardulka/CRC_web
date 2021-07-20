@@ -32,7 +32,7 @@ class User_role extends Pivot{
     public $incrementing = true;
 
     /**
-     * The attributes that are mass assignable.
+     * The attributes that are not mass assignable.
      *
      * @var array
      */

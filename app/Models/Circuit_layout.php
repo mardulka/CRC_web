@@ -4,9 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Continent extends Model{
+class Circuit_layout extends Model{
     use HasFactory;
 
 
@@ -15,7 +15,7 @@ class Continent extends Model{
      *
      * @var string
      */
-    protected $table = 'continent';
+    protected $table = 'circuit_layout';
 
 
     /**
@@ -23,7 +23,7 @@ class Continent extends Model{
      *
      * @var string
      */
-    protected $primaryKey = 'continent_id';
+    protected $primaryKey = 'circuit_layout_id';
 
 
     /**
@@ -32,7 +32,7 @@ class Continent extends Model{
      * @var array
      */
     protected $guarded = [
-        'continent_id',
+        'circuit_layout_id',
     ];
 
 
@@ -45,13 +45,12 @@ class Continent extends Model{
 
 
     /**
-     * Method returning all related countries from OneToMany relation.
+     * Method returning related circuit from OneToMany relation.
      *
-     * @return HasMany
+     * @return BelongsTo
      */
-    public function countries(){
-        return $this->hasMany( Country::class );
+    public function circuit() {
+        return $this->belongsTo( Circuit::class );
     }
-
 
 }
