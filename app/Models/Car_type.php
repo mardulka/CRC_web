@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
-class Circuit extends Model{
+class Car_type extends Model{
     use HasFactory;
 
 
@@ -16,7 +15,7 @@ class Circuit extends Model{
      *
      * @var string
      */
-    protected $table = 'circuit';
+    protected $table = 'car_type';
 
 
     /**
@@ -24,7 +23,7 @@ class Circuit extends Model{
      *
      * @var string
      */
-    protected $primaryKey = 'circuit_id';
+    protected $primaryKey = 'car_type_id';
 
 
     /**
@@ -33,7 +32,7 @@ class Circuit extends Model{
      * @var array
      */
     protected $guarded = [
-        'circuit_id',
+        'car_type_id',
     ];
 
 
@@ -46,22 +45,12 @@ class Circuit extends Model{
 
 
     /**
-     * Method returning related country from OneToMany relation.
+     * Method returning related manufacturer from OneToMany relation.
      *
      * @return BelongsTo
      */
-    public function country() {
-        return $this->belongsTo( Country::class );
-    }
-
-
-    /**
-     * Method returning all related circuit layouts from OneToMany relation.
-     *
-     * @return HasMany
-     */
-    public function circuit_layouts() {
-        return $this->hasMany( Circuit_layout::class );
+    public function manufacturer() {
+        return $this->belongsTo( Manufacturer::class );
     }
 
 
