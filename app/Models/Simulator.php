@@ -95,4 +95,14 @@ class Simulator extends Model{
     }
 
 
+    /**
+     * Method returning all related championships from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function championships(){
+        return $this->hasMany( Championship::class );
+    }
+
+
 }

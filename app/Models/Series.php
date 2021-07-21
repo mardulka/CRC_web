@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Series extends Model{
@@ -45,5 +46,14 @@ class Series extends Model{
         'series_id',
     ];
 
+
+    /**
+     * Method returning all related championships from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function championships(){
+        return $this->hasMany( Championship::class );
+    }
 
 }
