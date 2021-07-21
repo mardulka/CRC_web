@@ -84,6 +84,17 @@ class User extends Authenticatable{
 
 
     /**
+     * Method returning crews from ManyToMany relation with immediate table.
+     *
+     * @return BelongsToMany
+     */
+    public function crews(){
+        return $this->BelongsToMany( Crew::class, 'user_crew')->withTimestamps();
+    }
+
+
+
+    /**
      * Method returning related country from OneToMany relation.
      *
      * @return BelongsTo
