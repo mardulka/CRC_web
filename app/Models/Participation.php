@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Participation extends Model{
@@ -95,6 +96,16 @@ class Participation extends Model{
      */
     public function rank() {
         return $this->belongsTo( Rank::class );
+    }
+
+
+    /**
+     * Method returning all related applications from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function applications(){
+        return $this->hasMany( Application::class );
     }
 
 

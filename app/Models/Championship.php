@@ -108,4 +108,14 @@ class Championship extends Model{
     }
 
 
+    /**
+     * Method returning all related sets from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function sets(){
+        return $this->hasMany( Set::class );
+    }
+
+
 }

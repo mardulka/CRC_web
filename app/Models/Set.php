@@ -3,13 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Eloquent\Model;
 
-class Livery extends Model{
+class Set extends Model{
     use HasFactory, softDeletes;
+
 
 
     /**
@@ -17,7 +19,7 @@ class Livery extends Model{
      *
      * @var string
      */
-    protected $table = 'livery';
+    protected $table = 'set';
 
 
     /**
@@ -25,7 +27,7 @@ class Livery extends Model{
      *
      * @var string
      */
-    protected $primaryKey = 'livery_id';
+    protected $primaryKey = 'set_id';
 
 
     /**
@@ -34,37 +36,26 @@ class Livery extends Model{
      * @var array
      */
     protected $guarded = [
-        'livery_id',
+        'set_id',
     ];
 
-
     /**
-     * Method returning related car from OneToMany relation.
+     * Method returning related championship from OneToMany relation.
      *
      * @return BelongsTo
      */
-    public function car() {
-        return $this->belongsTo( Car::class );
+    public function championship() {
+        return $this->belongsTo( Championship::class );
     }
 
 
     /**
-     * Method returning related simulator from OneToMany relation.
+     * Method returning related car categories from ManyToMany relation.
      *
-     * @return BelongsTo
+     * @return BelongsToMany
      */
-    public function simulator() {
-        return $this->belongsTo( Simulator::class );
-    }
-
-
-    /**
-     * Method returning related user from OneToMany relation.
-     *
-     * @return BelongsTo
-     */
-    public function user() {
-        return $this->belongsTo( User::class )->withDefault();
+    public function car_categories() {
+        return $this->belongsToMany( Car_category::class,  'car_category_set')->withTimestamps();
     }
 
 
@@ -76,6 +67,5 @@ class Livery extends Model{
     public function applications(){
         return $this->hasMany( Application::class );
     }
-
 
 }
