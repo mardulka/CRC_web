@@ -57,4 +57,14 @@ class Team extends Model{
     }
 
 
+    /**
+     * Method returning all related participation from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function participation(){
+        return $this->hasMany( Participation::class );
+    }
+
+
 }

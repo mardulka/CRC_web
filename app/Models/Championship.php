@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Championship extends Model{
@@ -96,6 +97,15 @@ class Championship extends Model{
         return $this->BelongsToMany( User::class, 'organizing')->withTimestamps();
     }
 
+
+    /**
+     * Method returning all related participation from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function participation(){
+        return $this->hasMany( Participation::class );
+    }
 
 
 }
