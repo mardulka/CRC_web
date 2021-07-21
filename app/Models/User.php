@@ -102,4 +102,15 @@ class User extends Authenticatable{
         return $this->hasMany(User_rank::class);
     }
 
+
+    /**
+     * Method returning all liveries from One ToMany relation.
+     *
+     * @return HasMany
+     */
+    public function liveries(){
+        return $this->hasMany(Livery::class);
+    }
+
+
 }

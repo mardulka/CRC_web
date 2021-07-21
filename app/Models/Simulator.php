@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Simulator extends Model{
     use HasFactory;
@@ -81,6 +82,16 @@ class Simulator extends Model{
      */
     public function circuit_layouts(){
         return $this->belongsToMany(Circuit_layout::class, 'simulator_circuit_layout');
+    }
+
+
+    /**
+     * Method returning all liveries from One ToMany relation.
+     *
+     * @return HasMany
+     */
+    public function liveries(){
+        return $this->hasMany(Livery::class);
     }
 
 

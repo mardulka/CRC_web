@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Car extends Model{
     use HasFactory;
@@ -81,6 +82,16 @@ class Car extends Model{
      */
     public function simulators(){
         return $this->belongsToMany(Simulator::class, 'simulator_car')->withPivot('simulator_car_identification');
+    }
+
+
+    /**
+     * Method returning all liveries from One ToMany relation.
+     *
+     * @return HasMany
+     */
+    public function liveries(){
+        return $this->hasMany(Livery::class);
     }
 
 
