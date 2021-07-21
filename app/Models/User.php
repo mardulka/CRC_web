@@ -113,4 +113,14 @@ class User extends Authenticatable{
     }
 
 
+    /**
+     * Method returning all memberships from One ToMany relation.
+     *
+     * @return HasMany
+     */
+    public function memberships(){
+        return $this->hasMany(Membership::class);
+    }
+
+
 }
