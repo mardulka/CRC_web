@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Circuit_layout extends Model{
     use HasFactory;
@@ -62,6 +63,16 @@ class Circuit_layout extends Model{
      */
     public function simulators(){
         return $this->belongsToMany(Simulator::class, 'simulator_circuit_layout');
+    }
+
+
+    /**
+     * Method returning all related races from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function races(){
+        return $this->hasMany( Race::class );
     }
 
 

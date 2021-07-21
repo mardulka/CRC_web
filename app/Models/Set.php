@@ -13,7 +13,6 @@ class Set extends Model{
     use HasFactory, softDeletes;
 
 
-
     /**
      * Table connected with this model
      *
@@ -38,6 +37,7 @@ class Set extends Model{
     protected $guarded = [
         'set_id',
     ];
+
 
     /**
      * Method returning related championship from OneToMany relation.
@@ -67,5 +67,16 @@ class Set extends Model{
     public function applications(){
         return $this->hasMany( Application::class );
     }
+
+
+    /**
+     * Method returning all related races from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function races(){
+        return $this->hasMany( Race::class );
+    }
+
 
 }
