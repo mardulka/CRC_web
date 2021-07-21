@@ -4,10 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Point_table extends Model{
+class Season extends Model{
     use HasFactory, softDeletes;
 
 
@@ -16,7 +15,7 @@ class Point_table extends Model{
      *
      * @var string
      */
-    protected $table = 'point_table';
+    protected $table = 'season';
 
 
     /**
@@ -24,7 +23,7 @@ class Point_table extends Model{
      *
      * @var string
      */
-    protected $primaryKey = 'point_table_id';
+    protected $primaryKey = 'season_id';
 
 
     /**
@@ -33,8 +32,7 @@ class Point_table extends Model{
      * @var bool[]
      */
     protected $attributes = [
-        'active' => true,
-        'locked' => false,
+        'active' => false,
     ];
 
 
@@ -44,18 +42,8 @@ class Point_table extends Model{
      * @var array
      */
     protected $guarded = [
-        'point_table_id',
+        'season_id',
     ];
-
-
-    /**
-     * Method returning all valuations from One ToMany relation.
-     *
-     * @return HasMany
-     */
-    public function valuations(){
-        return $this->hasMany(Valuation::class);
-    }
 
 
 }
