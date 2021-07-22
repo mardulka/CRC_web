@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Qualification extends Model{
@@ -44,6 +45,16 @@ class Qualification extends Model{
      */
     public function race() {
         return $this->belongsTo( Race::class );
+    }
+
+
+    /**
+     * Method returning all related qualification results from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function qualificationResults(){
+        return $this->hasMany( Qualification_result::class );
     }
 
 

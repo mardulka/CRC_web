@@ -42,8 +42,29 @@ class Penalization extends Model{
      *
      * @return BelongsToMany
      */
-    public function raceResult() {
+    public function raceResults() {
         return $this->belongsToMany( Race_result::class,  'race_result_penalization')->withTimestamps();
     }
+
+
+    /**
+     * Method returning related qualification results from ManyToMany relation.
+     *
+     * @return BelongsToMany
+     */
+    public function qualificationResults() {
+        return $this->belongsToMany( Qualification_result::class,  'qualification_result_penalization')->withTimestamps();
+    }
+
+
+    /**
+     * Method returning related practice results from ManyToMany relation.
+     *
+     * @return BelongsToMany
+     */
+    public function practiceResults() {
+        return $this->belongsToMany( Practice_result::class,  'practice_result_penalization')->withTimestamps();
+    }
+
 
 }

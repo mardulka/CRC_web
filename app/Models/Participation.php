@@ -119,4 +119,24 @@ class Participation extends Model{
     }
 
 
+    /**
+     * Method returning all related qualification results from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function qualificationResults(){
+        return $this->hasMany( Qualification_result::class );
+    }
+
+
+    /**
+     * Method returning all related practice results from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function practiceResults(){
+        return $this->hasMany( Practice_result::class );
+    }
+
+
 }
