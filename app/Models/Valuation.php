@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -60,6 +61,14 @@ class Valuation extends Model{
     }
 
 
+    /**
+     * Method returning all related race results from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function raceResults(){
+        return $this->hasMany( Race_result::class );
+    }
 
 
 }

@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Penalty_flag extends Model{
     use HasFactory;
@@ -41,6 +42,16 @@ class Penalty_flag extends Model{
      * @var bool
      */
     public $timestamps = false;
+
+
+    /**
+     * Method returning all related race results from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function raceResults(){
+        return $this->hasMany( Race_result::class );
+    }
 
 
 }

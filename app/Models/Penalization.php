@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Penalization extends Model{
@@ -35,5 +36,14 @@ class Penalization extends Model{
         'penalization_id',
     ];
 
+
+    /**
+     * Method returning related race results from ManyToMany relation.
+     *
+     * @return BelongsToMany
+     */
+    public function raceResult() {
+        return $this->belongsToMany( Race_result::class,  'race_result_penalization')->withTimestamps();
+    }
 
 }

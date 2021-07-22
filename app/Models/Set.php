@@ -54,7 +54,7 @@ class Set extends Model{
      *
      * @return BelongsToMany
      */
-    public function car_categories() {
+    public function carCategories() {
         return $this->belongsToMany( Car_category::class,  'car_category_set')->withTimestamps();
     }
 
