@@ -53,7 +53,7 @@
                                 <div>{{ 'Uživatel nepřihlášen'}}</div>
                             @endguest
                             @auth()
-                                <div>{{ Auth::user()->name }}</div>
+                                <div>{{ Auth::user()->first_name }} {{ Auth::user()->last_name }}</div>
                             @endauth
                             <div class="ml-1">
                                 <svg class="fill-current h-4 w-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -110,6 +110,7 @@
         </div>
     </div>
 
+
     <!-- Responsive Navigation Menu -->
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
@@ -129,7 +130,7 @@
         </div>
         <div class="pt-2 pb-3 space-y-1">
             <x-nav.responsive-nav-link>
-                {{ 'Statstiky' }}
+                {{ 'Statistiky' }}
             </x-nav.responsive-nav-link>
         </div>
         <div class="pt-2 pb-3 space-y-1">
