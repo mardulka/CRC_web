@@ -25,9 +25,9 @@ Route::get('news', function () {
     return view('sites.news');
 })->name('news');
 
-Route::get('series', function () {
-    return view('sites.series');
-})->name('series');
+Route::get('championships', function () {
+    return view('sites.championships');
+})->name('championships');
 
 Route::get('stats', function () {
     return view('sites.stats');
