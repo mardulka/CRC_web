@@ -42,7 +42,7 @@
                     </x-nav.nav-link>
                 </div>
             </div>
-            {{--
+
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -96,7 +96,7 @@
                     </x-slot>
                 </x-nav.dropdown>
             </div>
---}}
+
 
             <!-- Hamburger -->
             <div class="-mr-2 flex items-center sm:hidden">
@@ -143,7 +143,7 @@
             </x-nav.responsive-nav-link>
         </div>
 
-        {{--
+
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
@@ -187,7 +187,7 @@
                 @endauth
             </div>
         </div>
-        --}}
+
 
     </div>
 </nav>
