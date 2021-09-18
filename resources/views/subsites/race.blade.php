@@ -42,7 +42,19 @@
         <x-card.crate>
             <x-slot name="name">Výsledky</x-slot>
             <x-table.race-result-header>
-
+                @foreach($r_results as $result)
+                    <x-table.race-result-row>
+                        <x-slot name="position">{{ $result->position }}</x-slot>
+                        <x-slot name="name">{{ $result->first_name}} {{ $result->last_name }}</x-slot>
+                        <x-slot name="team">{{ $result->team }}</x-slot>
+                        <x-slot name="laps">{{ $result->laps }}</x-slot>
+                        <x-slot name="best_lap">{{ $result->best_lap }}</x-slot>
+                        <x-slot name="consistency">{{ ($result->consistency)*100 }}</x-slot>
+                        <x-slot name="pitstops_no">{{ $result->pits }}</x-slot>
+                        <x-slot name="points">{{ $result->points }}</x-slot>
+                        <x-slot name="status">{{ $result->flag_name }}</x-slot>
+                    </x-table.race-result-row>
+                @endforeach
             </x-table.race-result-header>
         </x-card.crate>
     </x-element.content-box>
