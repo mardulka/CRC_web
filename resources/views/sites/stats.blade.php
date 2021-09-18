@@ -1,7 +1,9 @@
 <x-app-layout>
 
-    <x-element.site-headline>
-        Statistiky
-    </x-element.site-headline>
+    <x-element.content-box>
+        <x-element.site-headline>
+            Statistiky
+        </x-element.site-headline>
 
+    </x-element.content-box>
 </x-app-layout>
