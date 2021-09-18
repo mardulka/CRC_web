@@ -17,13 +17,19 @@
             {{ $practice->name }}
         </x-element.site-headline>
 
-        <div class="text-2xl p-4 bg-yellow-300">
-            Tady bude tabulka atributů.
-        </div>
+        <x-card.crate>
+            <x-slot name="name">Atributy a nastavení</x-slot>
+            <div class="text-2xl p-4 bg-yellow-300">
+                Tady bude tabulka atributů.
+            </div>
+        </x-card.crate>
 
-        <div class="text-2xl p-4 bg-green-300">
-            Tady budou výsledky.
-        </div>
+        <x-card.crate>
+            <x-slot name="name">Výsledky</x-slot>
+                <div class="text-2xl p-4 bg-green-300">
+                    Tady budou výsledky.
+                </div>
+        </x-card.crate>
 
     </x-element.content-box>
 </x-app-layout>

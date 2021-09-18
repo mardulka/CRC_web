@@ -13,13 +13,13 @@
             {{ $race->name }}
         </x-element.site-headline>
 
-        <div class="text-2xl p-4 bg-yellow-300">
-            Tady bude tabulka atributů.
-        </div>
 
-        <div class="text-2xl p-4 bg-green-300">
-            Tady budou výsledky.
-        </div>
+        <x-card.crate>
+            <x-slot name="name">Atributy a nastavení</x-slot>
+            <div class="text-2xl p-4 bg-yellow-300">
+                Tady bude tabulka atributů.
+            </div>
+        </x-card.crate>
 
         <x-card.crate>
             <x-slot name="name">Tréninky a kvalifikace</x-slot>
@@ -39,5 +39,11 @@
             @endforeach
         </x-card.crate>
 
+        <x-card.crate>
+            <x-slot name="name">Výsledky</x-slot>
+            <x-table.race-result-header>
+
+            </x-table.race-result-header>
+        </x-card.crate>
     </x-element.content-box>
 </x-app-layout>

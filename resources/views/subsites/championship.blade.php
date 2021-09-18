@@ -12,14 +12,17 @@
             {{ $championship->description }}
         </x-element.site-headline>
 
-        <div class="text-2xl p-4 bg-yellow-300">
-            Tady bude tabulka atributů.
-        </div>
+        <x-card.crate>
+            <x-slot name="name">Atributy a nastavení</x-slot>
+            <div class="text-2xl p-4 bg-yellow-300">
+                Tady bude tabulka atributů.
+            </div>
+        </x-card.crate>
 
 
         @foreach($sets as $set)
             <x-card.crate>
-                <x-slot name="name">Set {{ $set->set_no }}</x-slot>
+                <x-slot name="name">Set závodů {{ $set->set_no }}</x-slot>
 
                 @foreach($races as $race)
                     @if($race->set_id == $set->set_id)
