@@ -37,6 +37,12 @@
             </x-card.crate>
         @endforeach
 
+        <x-card.crate>
+            <x-slot name="name">Výsledky</x-slot>
+            <div class="text-2xl p-4 bg-green-300">
+                Tady budou výsledky.
+            </div>
+        </x-card.crate>
 
     </x-element.content-box>
 </x-app-layout>
