@@ -1,11 +1,18 @@
 <x-app-layout>
     <x-element.content-box>
 
+        <x-element.basic-navigation>
+            <x-element.back-button>
+                <x-slot name="link">{{ $url = route('championships') }}</x-slot>
+                Zpět na přehled
+            </x-element.back-button>
+        </x-element.basic-navigation>
+
         <x-element.site-headline>
             {{ $championship->description }}
         </x-element.site-headline>
 
-        <div class="text-2xl">
+        <div class="text-2xl p-4 bg-yellow-300">
             Tady bude tabulka atributů.
         </div>
 

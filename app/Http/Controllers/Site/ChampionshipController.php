@@ -32,7 +32,9 @@ class ChampionshipController extends Controller{
     public function show( $id ){
         $championship = DB::table( 'championship' )->where( 'championship_id', '=', $id )->first();
         $sets = DB::table( 'set' )->where( 'championship_id', '=', $id )->get();
-        $races = DB::table( 'race' )->join( 'set', 'race.set_id', '=', 'set.set_id' )->where( 'championship_id', '=', $id )->get();
+        $races = DB::table( 'race' )->join( 'set', 'race.set_id', '=', 'set.set_id' )
+                   ->where( 'championship_id', '=', $id )
+                   ->orderBy( 'race_no' )->get();
 
         return view( 'subsites.championship' )->with( 'championship', $championship )->with( 'sets', $sets )->with( 'races', $races );
     }

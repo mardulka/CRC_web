@@ -1,5 +1,4 @@
 <x-app-layout>
-
     <x-element.content-box>
 
         <x-element.site-headline>
@@ -22,6 +21,6 @@
 
             </x-card.crate>
         @endforeach
-    </x-element.content-box>
 
+    </x-element.content-box>
 </x-app-layout>
