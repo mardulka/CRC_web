@@ -15,8 +15,7 @@
                         <x-card.card>
                             <x-slot name="name">{{ $championship->description }}</x-slot>
                             <x-slot name="info">{{ $championship->open ? 'Registrace' : 'Uzavřen' }}</x-slot>
-                            <x-slot name="link">#</x-slot>
-                            Šampionát
+                            <x-slot name="link">{{ $url = route('championship', ['id' => $championship->championship_id]) }}</x-slot>
                         </x-card.card>
                     @endif
                 @endforeach
