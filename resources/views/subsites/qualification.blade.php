@@ -27,7 +27,16 @@
         <x-card.crate>
             <x-slot name="name">Výsledky</x-slot>
             <x-table.qualify-result-header>
-
+                @foreach($q_results as $result)
+                    <x-table.qualify-result-row>
+                        <x-slot name="position">{{ $loop->iteration }}</x-slot>
+                        <x-slot name="name">{{ $result->first_name}} {{ $result->last_name }}</x-slot>
+                        <x-slot name="team">{{ $result->team }}</x-slot>
+                        <x-slot name="laps">{{ $result->laps }}</x-slot>
+                        <x-slot name="best_lap">{{ $result->best_lap }}</x-slot>
+                        <x-slot name="status">{{ $result->flag_name }}</x-slot>
+                    </x-table.qualify-result-row>
+                @endforeach
             </x-table.qualify-result-header>
         </x-card.crate>
 
