@@ -36,7 +36,11 @@ class QualificationController extends Controller{
         $set = DB::table( 'set' )->where( 'set.set_id', '=', $race->set_id )->first();
         $championship = DB::table( 'championship' )->where( 'championship_id', '=', $set->championship_id )->first();
 
-        return view( 'subsites.qualification' )->with( 'qualification', $qualification )->with( 'q_results', $q_results )->with( 'race', $race )
-                                               ->with( 'set', $set )->with( 'championship', $championship );
+        return view( 'subsites.qualification' )
+            ->with( 'qualification', $qualification )
+            ->with( 'q_results', $q_results )
+            ->with( 'race', $race )
+            ->with( 'set', $set )
+            ->with( 'championship', $championship );
     }
 }

@@ -36,7 +36,7 @@
                 <x-table.attr-headrow>
                     <x-table.attr-headcell>Datum</x-table.attr-headcell>
                     <x-table.attr-headcell>Čas</x-table.attr-headcell>
-                    <x-table.attr-headcell>Herní čas</x-table.attr-headcell>
+                    <x-table.attr-headcell>Herní start</x-table.attr-headcell>
                     <x-table.attr-headcell>Délka</x-table.attr-headcell>
                     <x-table.attr-headcell>Povinných pitstopů</x-table.attr-headcell>
                 </x-table.attr-headrow>
