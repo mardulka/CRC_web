@@ -16,9 +16,54 @@
 
         <x-card.crate>
             <x-slot name="name">Atributy a nastavení</x-slot>
-            <div class="text-2xl p-4 bg-yellow-300">
-                Tady bude tabulka atributů.
-            </div>
+            <x-table.attr-table>
+                <x-table.attr-headrow>
+                    <x-table.attr-headcell>Jméno závodu</x-table.attr-headcell>
+                    <x-table.attr-headcell>Set</x-table.attr-headcell>
+                    <x-table.attr-headcell>Šampionát</x-table.attr-headcell>
+                    <x-table.attr-headcell>Kategorie</x-table.attr-headcell>
+                    <x-table.attr-headcell>Simulátor</x-table.attr-headcell>
+                </x-table.attr-headrow>
+                <x-table.attr-row>
+                    <x-table.attr-cell>{{$race->name}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$set->set_no}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$championship->description}}</x-table.attr-cell>
+                    @foreach($car_categories as $car_category)
+                        <x-table.attr-cell>{{$car_category->abbr}}</x-table.attr-cell>
+                    @endforeach
+                    <x-table.attr-cell>{{$simulator->name}}</x-table.attr-cell>
+                </x-table.attr-row>
+                <x-table.attr-headrow>
+                    <x-table.attr-headcell>Datum</x-table.attr-headcell>
+                    <x-table.attr-headcell>Čas</x-table.attr-headcell>
+                    <x-table.attr-headcell>Herní čas</x-table.attr-headcell>
+                    <x-table.attr-headcell>Délka</x-table.attr-headcell>
+                    <x-table.attr-headcell>Povinných pitstopů</x-table.attr-headcell>
+                </x-table.attr-headrow>
+                <x-table.attr-row>
+                    <x-table.attr-cell>{{date('d.m.Y' ,strtotime($race->date))}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$race->time}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{date('H:i:s | d.m.Y' ,strtotime($race->ingame_start))}}</x-table.attr-cell>
+                    <x-table.attr-cell>
+                        @if($race->dur_time)
+                            {{date('G' ,strtotime($race->dur_time))}}h
+                            {{date('i' ,strtotime($race->dur_time))}}min
+                            {{date('s' ,strtotime($race->dur_time))}}s
+                        @else
+                            {{$race->dur_laps}} kol
+                        @endif
+                    </x-table.attr-cell>
+                    <x-table.attr-cell>{{$race->mand_pits}}</x-table.attr-cell>
+                </x-table.attr-row>
+            </x-table.attr-table>
+            <x-table.attr-table>
+                <x-table.attr-headrow>
+                    <x-table.attr-headcell>Předpověď počasí</x-table.attr-headcell>
+                </x-table.attr-headrow>
+                <x-table.attr-row>
+                    <x-table.attr-cell>{{$race->weather}}</x-table.attr-cell>
+                </x-table.attr-row>
+            </x-table.attr-table>
         </x-card.crate>
 
         <x-card.crate>
@@ -26,14 +71,14 @@
             @foreach($practices as $practice)
                     <x-card.card>
                         <x-slot name="name">{{ $practice->name }}</x-slot>
-                        <x-slot name="info">{{ $practice->date}}</x-slot>
+                        <x-slot name="info">{{ date('d.m.Y' ,strtotime($practice->date)) }}</x-slot>
                         <x-slot name="link">{{ $url = route('practice', ['id' => $practice->practice_id]) }}</x-slot>
                     </x-card.card>
             @endforeach
             @foreach($qualifications as $qualification)
                 <x-card.card>
                     <x-slot name="name">{{ $qualification->name }}</x-slot>
-                    <x-slot name="info">{{ $qualification->date}}</x-slot>
+                    <x-slot name="info">{{ date('d.m.Y' ,strtotime($qualification->date)) }}</x-slot>
                     <x-slot name="link">{{ $url = route('qualification', ['id' => $qualification->qualification_id]) }}</x-slot>
                 </x-card.card>
             @endforeach

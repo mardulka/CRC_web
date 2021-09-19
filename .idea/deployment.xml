@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="XAMPP PHP" deleteMissingItems="true" createEmptyFolders="true" exclude=".svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc; .env" remoteFilesAllowedToDisappearOnAutoupload="false">
+  <component name="PublishConfigData" autoUpload="Always" serverName="XAMPP PHP" deleteMissingItems="true" createEmptyFolders="true" uploadOnCheckin="621628fe-dfc4-4487-bcbb-10cbc29b1c01" exclude=".svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc; .env" remoteFilesAllowedToDisappearOnAutoupload="false">
     <serverData>
       <paths name="WEDOS">
         <serverdata>
@@ -17,6 +17,7 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myUploadOnCheckinName" value="WEDOS" />
     <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
