@@ -14,9 +14,36 @@
 
         <x-card.crate>
             <x-slot name="name">Atributy a nastavení</x-slot>
-            <div class="text-2xl p-4 bg-yellow-300">
-                Tady bude tabulka atributů.
-            </div>
+            <x-table.attr-table>
+                <x-table.attr-headrow>
+                    <x-table.attr-headcell>Jméno šampionátu</x-table.attr-headcell>
+                    <x-table.attr-headcell>Sezóna</x-table.attr-headcell>
+                    <x-table.attr-headcell>Série</x-table.attr-headcell>
+                    <x-table.attr-headcell>Simulátor</x-table.attr-headcell>
+                </x-table.attr-headrow>
+                <x-table.attr-row>
+                    <x-table.attr-cell>{{$championship->description}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$season->name}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$series->name}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$simulator->name}}</x-table.attr-cell>
+                </x-table.attr-row>
+                <x-table.attr-headrow>
+                    <x-table.attr-headcell>Organizátoři</x-table.attr-headcell>
+                    <x-table.attr-headcell>Počet setů</x-table.attr-headcell>
+                    <x-table.attr-headcell>Počet závodů</x-table.attr-headcell>
+                    <x-table.attr-headcell>Přihlášeno jezdců</x-table.attr-headcell>
+                </x-table.attr-headrow>
+                <x-table.attr-row>
+                    <x-table.attr-cell>
+                        @foreach($organizers as $organizer)
+                            {{$organizer->first_name}} {{$organizer->last_name}} <br/>
+                        @endforeach
+                    </x-table.attr-cell>
+                    <x-table.attr-cell>{{$sets->count()}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$races->count()}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$drivers->count()}}</x-table.attr-cell>
+                </x-table.attr-row>
+            </x-table.attr-table>
         </x-card.crate>
 
 

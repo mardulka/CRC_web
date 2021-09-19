@@ -35,6 +35,17 @@ class ChampionshipController extends Controller{
         $races = DB::table( 'race' )->join( 'set', 'race.set_id', '=', 'set.set_id' )
                    ->where( 'championship_id', '=', $id )
                    ->orderBy( 'race_no' )->get();
+        $season = DB::table( 'season' )->where( 'season_id', '=', $championship->season_id )->first();
+        $series = DB::table( 'series' )->where( 'series_id', '=', $championship->series_id )->first();
+        $simulator = DB::table( 'simulator' )->where( 'simulator_id', '=', $championship->simulator_id )->first();
+        $organizers = DB::table( 'championship' )->where( 'championship.championship_id', '=', $id )
+                        ->join( 'organizing', 'championship.championship_id', '=', 'organizing.championship_id' )
+                        ->join( 'user', 'user.user_id', '=', 'organizing.user_id' )->get();
+        $drivers = DB::table( 'participation' )->where( 'participation.championship_id', '=', $id )
+                     ->leftJoin( 'user', 'user.user_id', '=', 'participation.user_id' )
+                     ->leftJoin( 'crew', 'crew.crew_id', '=', 'participation.crew_id' )
+                     ->leftJoin( 'team', 'team.team_id', '=', 'participation.team_id' )
+                     ->get();
         $ch_results = DB::table( 'race_result' )
                         ->leftJoin( 'valuation', 'valuation.valuation_id', '=', 'race_result.valuation_id' )
                         ->leftJoin( 'race', 'race.race_id', '=', 'race_result.race_id' )
@@ -50,7 +61,16 @@ class ChampionshipController extends Controller{
                         ->orderBy( 'r_points', 'desc' )
                         ->get();
 
-        return view( 'subsites.championship' )->with( 'championship', $championship )->with( 'sets', $sets )->with( 'races', $races )->with( 'ch_results', $ch_results );
+        return view( 'subsites.championship' )
+            ->with( 'championship', $championship )
+            ->with( 'sets', $sets )
+            ->with( 'races', $races )
+            ->with( 'season', $season )
+            ->with( 'series', $series )
+            ->with( 'simulator', $simulator )
+            ->with( 'organizers', $organizers )
+            ->with( 'drivers', $drivers )
+            ->with( 'ch_results', $ch_results );
     }
 
 
