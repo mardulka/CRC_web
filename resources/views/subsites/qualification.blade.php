@@ -26,18 +26,26 @@
 
         <x-card.crate>
             <x-slot name="name">Výsledky</x-slot>
-            <x-table.qualify-result-header>
+            <x-table.result-table>
+                <x-table.result-headrow>
+                    <x-table.result-headcell>Pozice</x-table.result-headcell>
+                    <x-table.result-headcell>Jezdec</x-table.result-headcell>
+                    <x-table.result-headcell>Tým</x-table.result-headcell>
+                    <x-table.result-headcell>Počet kol</x-table.result-headcell>
+                    <x-table.result-headcell>Nejlepší kolo</x-table.result-headcell>
+                    <x-table.result-headcell>Status</x-table.result-headcell>
+                </x-table.result-headrow>
                 @foreach($q_results as $result)
-                    <x-table.qualify-result-row>
-                        <x-slot name="position">{{ $loop->iteration }}</x-slot>
-                        <x-slot name="name">{{ $result->first_name}} {{ $result->last_name }}</x-slot>
-                        <x-slot name="team">{{ $result->team }}</x-slot>
-                        <x-slot name="laps">{{ $result->laps }}</x-slot>
-                        <x-slot name="best_lap">{{ $result->best_lap }}</x-slot>
-                        <x-slot name="status">{{ $result->flag_name }}</x-slot>
-                    </x-table.qualify-result-row>
+                    <x-table.result-row>
+                        <x-table.result-cell>{{ $loop->iteration }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->first_name}} {{ $result->last_name }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->team }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->laps }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->best_lap }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->flag_name }}</x-table.result-cell>
+                    </x-table.result-row>
                 @endforeach
-            </x-table.qualify-result-header>
+            </x-table.result-table>
         </x-card.crate>
 
     </x-element.content-box>
