@@ -35,8 +35,22 @@ class ChampionshipController extends Controller{
         $races = DB::table( 'race' )->join( 'set', 'race.set_id', '=', 'set.set_id' )
                    ->where( 'championship_id', '=', $id )
                    ->orderBy( 'race_no' )->get();
+        $ch_results = DB::table( 'race_result' )
+                        ->leftJoin( 'valuation', 'valuation.valuation_id', '=', 'race_result.valuation_id' )
+                        ->leftJoin( 'race', 'race.race_id', '=', 'race_result.race_id' )
+                        ->leftJoin( 'set', 'set.set_id', '=', 'race.set_id' )
+                        ->leftJoin( 'championship', 'championship.championship_id', '=', 'set.championship_id' )
+                        ->leftJoin( 'participation', 'participation.participation_id', '=', 'race_result.participation_id' )
+                        ->leftJoin( 'user', 'user.user_id', '=', 'participation.user_id' )
+                        ->leftJoin( 'crew', 'crew.crew_id', '=', 'participation.crew_id' )
+                        ->leftJoin( 'team', 'team.team_id', '=', 'participation.team_id' )
+                        ->where( 'championship.championship_id', '=', $id )
+                        ->selectRaw( 'participation.participation_id as participation_id, user.first_name as first_name, user.last_name as last_name, team.name as team,SUM(valuation.points) as r_points' )
+                        ->groupBy( 'participation.participation_id', 'user.first_name', 'user.last_name', 'team.name' )
+                        ->orderBy( 'r_points', 'desc' )
+                        ->get();
 
-        return view( 'subsites.championship' )->with( 'championship', $championship )->with( 'sets', $sets )->with( 'races', $races );
+        return view( 'subsites.championship' )->with( 'championship', $championship )->with( 'sets', $sets )->with( 'races', $races )->with( 'ch_results', $ch_results );
     }
 
 

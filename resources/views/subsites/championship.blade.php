@@ -39,9 +39,22 @@
 
         <x-card.crate>
             <x-slot name="name">Výsledky</x-slot>
-            <div class="text-2xl p-4 bg-green-300">
-                Tady budou výsledky.
-            </div>
+            <x-table.result-table>
+                <x-table.result-headrow>
+                    <x-table.result-headcell>Pozice</x-table.result-headcell>
+                    <x-table.result-headcell>Jezdec</x-table.result-headcell>
+                    <x-table.result-headcell>Tým</x-table.result-headcell>
+                    <x-table.result-headcell>Body</x-table.result-headcell>
+                </x-table.result-headrow>
+                @foreach($ch_results as $result)
+                    <x-table.result-row>
+                        <x-table.result-cell>{{ $loop->iteration }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->first_name}} {{ $result->last_name }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->team }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->r_points }}</x-table.result-cell>
+                    </x-table.result-row>
+                @endforeach
+            </x-table.result-table>
         </x-card.crate>
 
     </x-element.content-box>
