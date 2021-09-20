@@ -78,7 +78,7 @@
                         <x-table.result-cell>{{ $loop->iteration }}</x-table.result-cell>
                         <x-table.result-cell>{{ $result->first_name}} {{ $result->last_name }}</x-table.result-cell>
                         <x-table.result-cell>{{ $result->team }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->r_points }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->points }}</x-table.result-cell>
                     </x-table.result-row>
                 @endforeach
             </x-table.result-table>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
+use App\Custom\Results\ChampionshipResults;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -46,20 +47,25 @@ class ChampionshipController extends Controller{
                      ->leftJoin( 'crew', 'crew.crew_id', '=', 'participation.crew_id' )
                      ->leftJoin( 'team', 'team.team_id', '=', 'participation.team_id' )
                      ->get();
-        $ch_results = DB::table( 'race_result' )
-                        ->leftJoin( 'valuation', 'valuation.valuation_id', '=', 'race_result.valuation_id' )
-                        ->leftJoin( 'race', 'race.race_id', '=', 'race_result.race_id' )
-                        ->leftJoin( 'set', 'set.set_id', '=', 'race.set_id' )
-                        ->leftJoin( 'championship', 'championship.championship_id', '=', 'set.championship_id' )
-                        ->leftJoin( 'participation', 'participation.participation_id', '=', 'race_result.participation_id' )
-                        ->leftJoin( 'user', 'user.user_id', '=', 'participation.user_id' )
-                        ->leftJoin( 'crew', 'crew.crew_id', '=', 'participation.crew_id' )
-                        ->leftJoin( 'team', 'team.team_id', '=', 'participation.team_id' )
-                        ->where( 'championship.championship_id', '=', $id )
-                        ->selectRaw( 'participation.participation_id as participation_id, user.first_name as first_name, user.last_name as last_name, team.name as team,SUM(valuation.points) as r_points' )
-                        ->groupBy( 'participation.participation_id', 'user.first_name', 'user.last_name', 'team.name' )
-                        ->orderBy( 'r_points', 'desc' )
-                        ->get();
+
+//        $ch_results = DB::table( 'race_result' )
+//                        ->leftJoin( 'valuation', 'valuation.valuation_id', '=', 'race_result.valuation_id' )
+//                        ->leftJoin( 'race', 'race.race_id', '=', 'race_result.race_id' )
+//                        ->leftJoin( 'set', 'set.set_id', '=', 'race.set_id' )
+//                        ->leftJoin( 'championship', 'championship.championship_id', '=', 'set.championship_id' )
+//                        ->leftJoin( 'participation', 'participation.participation_id', '=', 'race_result.participation_id' )
+//                        ->leftJoin( 'user', 'user.user_id', '=', 'participation.user_id' )
+//                        ->leftJoin( 'crew', 'crew.crew_id', '=', 'participation.crew_id' )
+//                        ->leftJoin( 'team', 'team.team_id', '=', 'participation.team_id' )
+//                        ->where( 'championship.championship_id', '=', $id )
+//                        ->selectRaw( 'participation.participation_id as participation_id, user.first_name as first_name, user.last_name as last_name, team.name as team,SUM(valuation.points) as points' )
+//                        ->groupBy( 'participation.participation_id', 'user.first_name', 'user.last_name', 'team.name' )
+//                        ->orderBy( 'points', 'desc' )
+//                        ->get();
+
+        $ch_results = new ChampionshipResults($id);
+        $ch_results->load_results()->combine();
+
 
         return view( 'subsites.championship' )
             ->with( 'championship', $championship )
@@ -70,7 +76,8 @@ class ChampionshipController extends Controller{
             ->with( 'simulator', $simulator )
             ->with( 'organizers', $organizers )
             ->with( 'drivers', $drivers )
-            ->with( 'ch_results', $ch_results );
+//            ->with( 'ch_results', $ch_results);
+            ->with( 'ch_results', $ch_results->champ_results );
     }
 
 

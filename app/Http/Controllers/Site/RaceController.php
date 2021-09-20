@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
-use App\custom\results\race_results;
+use App\custom\Results\raceResults;
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -25,7 +25,7 @@ class RaceController extends Controller{
         $practices = DB::table( 'practice' )->where( 'race_id', '=', $id )->get();
 
         //load and calculate results
-        $r_results = new race_results($id);
+        $r_results = new RaceResults( $id);
         $r_results->read_results()->apply_penalty_flag();
 
         $set = DB::table( 'set' )->where( 'set.set_id', '=', $race->set_id )->first();
