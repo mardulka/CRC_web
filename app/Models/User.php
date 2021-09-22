@@ -79,7 +79,7 @@ class User extends Authenticatable{
      * @return BelongsToMany
      */
     public function roles(){
-        return $this->BelongsToMany( Role::class, 'role_user')->using( User_role::class )->withTimestamps();
+        return $this->BelongsToMany( Role::class, 'role_user', 'user_id', 'role_id', 'user_id', 'role_id')->withTimestamps();
     }
 
 
@@ -89,7 +89,7 @@ class User extends Authenticatable{
      * @return BelongsToMany
      */
     public function crews(){
-        return $this->BelongsToMany( Crew::class, 'user_crew')->withTimestamps();
+        return $this->BelongsToMany( Crew::class, 'user_crew', 'user_id', 'crew_id', 'user_id', 'crew_id')->withTimestamps();
     }
 
 
@@ -98,8 +98,8 @@ class User extends Authenticatable{
      *
      * @return BelongsToMany
      */
-    public function organizers(){
-        return $this->BelongsToMany( Championship::class, 'organizing')->withTimestamps();
+    public function organized(){
+        return $this->BelongsToMany( Championship::class, 'organizing', 'user_id', 'championship_id', 'user_id', 'championship_id')->withTimestamps();
     }
 
 
@@ -118,8 +118,8 @@ class User extends Authenticatable{
      *
      * @return HasMany
      */
-    public function user_ranks(){
-        return $this->hasMany(User_rank::class, 'user_id', 'user_id');
+    public function userRanks(){
+        return $this->hasMany(User_rank::class, 'user_id', 'user_id')->using();
     }
 
 

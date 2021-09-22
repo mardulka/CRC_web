@@ -37,9 +37,7 @@ class ChampionshipController extends Controller{
      */
     public function show( $id ){
         $championship = Championship::findOrFail( $id );
-        $organizers = DB::table( 'championship' )->where( 'championship.championship_id', '=', $id )
-                        ->join( 'organizing', 'championship.championship_id', '=', 'organizing.championship_id' )
-                        ->join( 'user', 'user.user_id', '=', 'organizing.user_id' )->get();
+        $organizers = $championship->organizers()->get();
         $drivers = DB::table( 'participation' )->where( 'participation.championship_id', '=', $id )
                      ->leftJoin( 'user', 'user.user_id', '=', 'participation.user_id' )
                      ->leftJoin( 'crew', 'crew.crew_id', '=', 'participation.crew_id' )
@@ -54,7 +52,6 @@ class ChampionshipController extends Controller{
             ->with( 'championship', $championship )
             ->with( 'organizers', $organizers )
             ->with( 'drivers', $drivers )
-            //            ->with( 'ch_results', $ch_results);
             ->with( 'ch_results', $ch_results->champ_results );
     }
 

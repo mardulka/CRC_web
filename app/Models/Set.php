@@ -44,8 +44,8 @@ class Set extends Model{
      *
      * @return BelongsTo
      */
-    public function championship() {
-        return $this->belongsTo( Championship::class, 'championship_id', 'championship_id');
+    public function championship(){
+        return $this->belongsTo( Championship::class, 'championship_id', 'championship_id' );
     }
 
 
@@ -54,8 +54,9 @@ class Set extends Model{
      *
      * @return BelongsToMany
      */
-    public function carCategories() {
-        return $this->belongsToMany( Car_category::class,  'car_category_set')->withTimestamps();
+    public function carCategories(){
+        return $this->belongsToMany( Car_category::class, 'car_category_set', 'set_id', 'car_category_id', 'set_id', 'car_category_id' )
+                    ->withTimestamps();
     }
 
 
@@ -65,7 +66,7 @@ class Set extends Model{
      * @return HasMany
      */
     public function applications(){
-        return $this->hasMany( Application::class, 'set_id', 'set_id');
+        return $this->hasMany( Application::class, 'set_id', 'set_id' );
     }
 
 
@@ -75,7 +76,7 @@ class Set extends Model{
      * @return HasMany
      */
     public function races(){
-        return $this->hasMany( Race::class, 'set_id', 'set_id');
+        return $this->hasMany( Race::class, 'set_id', 'set_id' );
     }
 
 

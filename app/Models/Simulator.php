@@ -62,7 +62,8 @@ class Simulator extends Model{
      * @return BelongsToMany
      */
     public function cars(){
-        return $this->belongsToMany(Car::class, 'simulator_car')->withPivot('simulator_car_identification');
+        return $this->belongsToMany(Car::class, 'simulator_car', 'simulator_id', 'car_id', 'simulator_id', 'car_id')
+                    ->withPivot('simulator_car_identification')->withTimestamps();
     }
 
 
@@ -72,7 +73,7 @@ class Simulator extends Model{
      * @return BelongsToMany
      */
     public function car_categories(){
-        return $this->belongsToMany(Car_category::class, 'simulator_car_category');
+        return $this->belongsToMany(Car_category::class, 'simulator_car_category', 'simulator_id', 'car_category_id', 'simulator_id', 'car_category_id');
     }
 
 
@@ -82,7 +83,8 @@ class Simulator extends Model{
      * @return BelongsToMany
      */
     public function circuit_layouts(){
-        return $this->belongsToMany(Circuit_layout::class, 'simulator_circuit_layout');
+        return $this->belongsToMany(Circuit_layout::class, 'simulator_circuit_layout', 'simulator_id', 'circuit_layout_id', 'simulator_id', 'circuit_layout_id')
+            ->withTimestamps();
     }
 
 

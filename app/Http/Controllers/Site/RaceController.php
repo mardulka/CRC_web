@@ -25,10 +25,7 @@ class RaceController extends Controller{
         $set = $race->set()->first();
         $championship = $set->championship()->first();
         $simulator = $championship->simulator()->first();
-        $car_categories = DB::table( 'car_category' )
-                          ->leftJoin( 'car_category_set', 'car_category.car_category_id', '=', 'car_category_set.car_category_id' )
-                          ->leftJoin( 'set', 'set.set_id', '=', 'car_category_set.set_id' )
-                          ->where( 'set.set_id', '=', $set->set_id )->get();
+        $car_categories = $set->carCategories()->get();
 
         //load and calculate results
         $r_results = new RaceResults( $id );

@@ -84,7 +84,8 @@ class Race_result extends Model{
      * @return BelongsToMany
      */
     public function penalization() {
-        return $this->belongsToMany( Penalization::class,  'race_result_penalization')->withTimestamps();
+        return $this->belongsToMany( Penalization::class,  'race_result_penalization', 'race_result_id', 'penalization_id', 'race_result_id', 'penalization_id')
+                    ->withTimestamps();
     }
 
 

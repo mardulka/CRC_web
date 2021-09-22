@@ -63,7 +63,8 @@ class Circuit_layout extends Model{
      * @return BelongsToMany
      */
     public function simulators(){
-        return $this->belongsToMany(Simulator::class, 'simulator_circuit_layout');
+        return $this->belongsToMany(Simulator::class, 'simulator_circuit_layout', 'circuit_layout_id', 'simulator_id', 'circuit_layout_id', 'simulator_id')
+            ->withTimestamps();
     }
 
 

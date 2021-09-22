@@ -95,7 +95,7 @@ class Championship extends Model{
      * @return BelongsToMany
      */
     public function organizers(){
-        return $this->BelongsToMany( User::class, 'organizing' )->withTimestamps();
+        return $this->BelongsToMany( User::class, 'organizing', 'championship_id', 'user_id', 'championship_id', 'user_id' )->withTimestamps();
     }
 
 

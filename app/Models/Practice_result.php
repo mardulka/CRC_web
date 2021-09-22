@@ -75,7 +75,8 @@ class Practice_result extends Model{
      * @return BelongsToMany
      */
     public function penalization() {
-        return $this->belongsToMany( Penalization::class,  'practice_result_penalization')->withTimestamps();
+        return $this->belongsToMany( Penalization::class,  'practice_result_penalization', 'practice_result_id', 'penalization_id', 'practice_result_id', 'penalization_id')
+                    ->withTimestamps();
     }
 
 

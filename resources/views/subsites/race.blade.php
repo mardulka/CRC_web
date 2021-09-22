@@ -4,7 +4,7 @@
         <x-element.basic-navigation>
             <x-element.back-button>
                 <x-slot name="link">{{ $url = route('championship', ['id' => $championship->championship_id]) }}</x-slot>
-                {{$race->set()->first()->championship()->first()->description}}
+                {{$championship->description}}
             </x-element.back-button>
         </x-element.basic-navigation>
 
@@ -75,7 +75,7 @@
                         <x-slot name="link">{{ $url = route('practice', ['id' => $practice->practice_id]) }}</x-slot>
                     </x-card.card>
             @endforeach
-            @foreach($race->qualifications()->get() as $qualification)
+            @foreach($race->qualifications() as $qualification)
                 <x-card.card>
                     <x-slot name="name">{{ $qualification->name }}</x-slot>
                     <x-slot name="info">{{ date('d.m.Y' ,strtotime($qualification->date)) }}</x-slot>

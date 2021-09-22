@@ -83,7 +83,8 @@ class Car extends Model{
      * @return BelongsToMany
      */
     public function simulators(){
-        return $this->belongsToMany(Simulator::class, 'simulator_car')->withPivot('simulator_car_identification');
+        return $this->belongsToMany(Simulator::class, 'simulator_car', 'car_id', 'simulator_id', 'car_id', 'simulator_id')
+                    ->withPivot('simulator_car_identification')->withTimestamps();
     }
 
 

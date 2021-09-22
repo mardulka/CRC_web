@@ -52,7 +52,7 @@ class Car_category extends Model{
      * @return BelongsToMany
      */
     public function simulators(){
-        return $this->belongsToMany(Simulator::class, 'simulator_car_category');
+        return $this->belongsToMany(Simulator::class, 'simulator_car_category','car_category_id', 'simulator_id', 'car_category_id', 'simulator_id');
     }
 
 
@@ -62,7 +62,8 @@ class Car_category extends Model{
      * @return BelongsToMany
      */
     public function sets() {
-        return $this->belongsToMany( Set::class,  'car_category_set')->withTimestamps();
+        return $this->belongsToMany( Set::class,  'car_category_set', 'car_category_id', 'set_id', 'car_category_id', 'set_id')
+                    ->withTimestamps();
     }
 
 

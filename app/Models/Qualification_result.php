@@ -75,7 +75,8 @@ class Qualification_result extends Model{
      * @return BelongsToMany
      */
     public function penalization() {
-        return $this->belongsToMany( Penalization::class,  'qualification_result_penalization')->withTimestamps();
+        return $this->belongsToMany( Penalization::class,  'qualification_result_penalization', 'qualify_result_id', 'penalization_id', 'qualify_result_id', 'penalization_id')
+                    ->withTimestamps();
     }
 
 
