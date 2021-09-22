@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Qualification;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -19,7 +20,7 @@ class QualificationController extends Controller{
      * @return Application|Factory|View
      */
     public function show( $id ){
-        $qualification = DB::table( 'qualification' )->where( 'qualification_id', '=', $id )->first();
+        $qualification = Qualification::findOrFail($id);
         $q_results = DB::table( 'qualify_result' )->where( 'qualification_id', '=', $id )
                        ->leftJoin( 'penalty_flag', 'qualify_result.penalty_flag_id', '=', 'penalty_flag.penalty_flag_id' )
                        ->leftJoin( 'participation', 'qualify_result.participation_id', '=', 'participation.participation_id' )
@@ -32,9 +33,9 @@ class QualificationController extends Controller{
                        ->orderBy( 'best_lap' )
                        ->orderBy( 'man_position' )
                        ->get();
-        $race = DB::table( 'race' )->where( 'race.race_id', '=', $qualification->race_id )->first();
-        $set = DB::table( 'set' )->where( 'set.set_id', '=', $race->set_id )->first();
-        $championship = DB::table( 'championship' )->where( 'championship_id', '=', $set->championship_id )->first();
+        $race = $qualification->race()->first();
+        $set = $race->set()->first();
+        $championship = $set->championship()->first();
 
         return view( 'subsites.qualification' )
             ->with( 'qualification', $qualification )

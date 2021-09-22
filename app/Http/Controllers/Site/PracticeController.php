@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Models\Practice;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -19,13 +20,17 @@ class PracticeController extends Controller{
      * @return Application|Factory|View
      */
     public function show( $id ){
-        $practice = DB::table( 'practice' )->where( 'practice_id', '=', $id )->first();
-        $p_results = DB::table( 'practice_result' )->where( 'practice_id', '=', $id )->get();
-        $race = DB::table( 'race' )->where( 'race.race_id', '=', $practice->race_id )->first();
-        $set = DB::table( 'set' )->where( 'set.set_id', '=', $race->set_id )->first();
-        $championship = DB::table( 'championship' )->where( 'championship_id', '=', $set->championship_id )->first();
+        $practice = Practice::findOrFail( $id );
+        $p_results = $practice->practiceResults()->get();
+        $race = $practice->race()->first();
+        $set = $race->set()->first();
+        $championship = $set->championship()->first();
 
-        return view( 'subsites.practice' )->with( 'practice', $practice )->with( 'p_results', $p_results )->with( 'race', $race )
-                                          ->with( 'set', $set )->with( 'championship', $championship );
+        return view( 'subsites.practice' )
+            ->with( 'practice', $practice )
+            ->with( 'p_results', $p_results )
+            ->with( 'race', $race )
+            ->with( 'set', $set )
+            ->with( 'championship', $championship );
     }
 }

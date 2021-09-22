@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Championship extends Model{
@@ -75,7 +76,7 @@ class Championship extends Model{
      * @return BelongsTo
      */
     public function simulator(){
-        return $this->belongsTo( Simulator::class , 'simulator_id', 'simulator_id');
+        return $this->belongsTo( Simulator::class, 'simulator_id', 'simulator_id' );
     }
 
 
@@ -85,7 +86,7 @@ class Championship extends Model{
      * @return BelongsTo
      */
     public function point_table(){
-        return $this->belongsTo( Point_table::class, 'point_table_id', 'point_table_id');
+        return $this->belongsTo( Point_table::class, 'point_table_id', 'point_table_id' );
     }
 
     /**
@@ -104,7 +105,7 @@ class Championship extends Model{
      * @return HasMany
      */
     public function participation(){
-        return $this->hasMany( Participation::class, 'participation_id', 'participation_id');
+        return $this->hasMany( Participation::class, 'participation_id', 'participation_id' );
     }
 
 
@@ -114,8 +115,17 @@ class Championship extends Model{
      * @return HasMany
      */
     public function sets(){
-        return $this->hasMany( Set::class, 'championship_id', 'championship_id');
+        return $this->hasMany( Set::class, 'championship_id', 'championship_id' );
     }
 
+
+    /**
+     * Method returning all races belong to championship through sets.
+     *
+     * @return HasManyThrough
+     */
+    public function races(){
+        return $this->hasManyThrough( Race::class, Set::class, 'championship_id', 'set_id', 'championship_id', 'set_id', );
+    }
 
 }

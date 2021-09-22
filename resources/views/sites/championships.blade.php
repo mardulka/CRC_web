@@ -9,14 +9,12 @@
             <x-card.crate>
                 <x-slot name="name">{{ $season->name }}</x-slot>
 
-                @foreach($championships as $championship)
-                    @if($season->season_id == $championship->season_id)
+                @foreach($season->championships()->get() as $championship)
                         <x-card.card>
                             <x-slot name="name">{{ $championship->description }}</x-slot>
                             <x-slot name="info">{{ $championship->open ? 'Registrace' : 'Uzavřen' }}</x-slot>
                             <x-slot name="link">{{ $url = route('championship', ['id' => $championship->championship_id]) }}</x-slot>
                         </x-card.card>
-                    @endif
                 @endforeach
 
             </x-card.crate>

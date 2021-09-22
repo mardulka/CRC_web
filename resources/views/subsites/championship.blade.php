@@ -23,9 +23,9 @@
                 </x-table.attr-headrow>
                 <x-table.attr-row>
                     <x-table.attr-cell>{{$championship->description}}</x-table.attr-cell>
-                    <x-table.attr-cell>{{$season->name}}</x-table.attr-cell>
-                    <x-table.attr-cell>{{$series->name}}</x-table.attr-cell>
-                    <x-table.attr-cell>{{$simulator->name}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$championship->season()->first()->name}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$championship->series()->first()->name}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$championship->simulator()->first()->name}}</x-table.attr-cell>
                 </x-table.attr-row>
                 <x-table.attr-headrow>
                     <x-table.attr-headcell>Organizátoři</x-table.attr-headcell>
@@ -39,26 +39,24 @@
                             {{$organizer->first_name}} {{$organizer->last_name}} <br/>
                         @endforeach
                     </x-table.attr-cell>
-                    <x-table.attr-cell>{{$sets->count()}}</x-table.attr-cell>
-                    <x-table.attr-cell>{{$races->count()}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$championship->sets()->get()->count()}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$championship->races()->get()->count()}}</x-table.attr-cell>
                     <x-table.attr-cell>{{$drivers->count()}}</x-table.attr-cell>
                 </x-table.attr-row>
             </x-table.attr-table>
         </x-card.crate>
 
 
-        @foreach($sets as $set)
+        @foreach($championship->sets()->get() as $set)
             <x-card.crate>
                 <x-slot name="name">Set závodů {{ $set->set_no }}</x-slot>
 
-                @foreach($races as $race)
-                    @if($race->set_id == $set->set_id)
+                @foreach($set->races()->get() as $race)
                         <x-card.card>
                             <x-slot name="name">{{ $race->name }}</x-slot>
                             <x-slot name="info">{{date('d.m.Y' ,strtotime($race->date))}}</x-slot>
                             <x-slot name="link">{{ $url = route('race', ['id' => $race->race_id]) }}</x-slot>
                         </x-card.card>
-                    @endif
                 @endforeach
 
             </x-card.crate>

@@ -4,7 +4,7 @@
         <x-element.basic-navigation>
             <x-element.back-button>
                 <x-slot name="link">{{ $url = route('championship', ['id' => $championship->championship_id]) }}</x-slot>
-                {{$championship->description}}
+                {{$race->set()->first()->championship()->first()->description}}
             </x-element.back-button>
         </x-element.basic-navigation>
 
@@ -26,7 +26,7 @@
                 </x-table.attr-headrow>
                 <x-table.attr-row>
                     <x-table.attr-cell>{{$race->name}}</x-table.attr-cell>
-                    <x-table.attr-cell>{{$set->set_no}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$race->set()->first()->set_no}}</x-table.attr-cell>
                     <x-table.attr-cell>{{$championship->description}}</x-table.attr-cell>
                     @foreach($car_categories as $car_category)
                         <x-table.attr-cell>{{$car_category->abbr}}</x-table.attr-cell>
@@ -68,14 +68,14 @@
 
         <x-card.crate>
             <x-slot name="name">Tréninky a kvalifikace</x-slot>
-            @foreach($practices as $practice)
+            @foreach($race->practices()->get() as $practice)
                     <x-card.card>
                         <x-slot name="name">{{ $practice->name }}</x-slot>
                         <x-slot name="info">{{ date('d.m.Y' ,strtotime($practice->date)) }}</x-slot>
                         <x-slot name="link">{{ $url = route('practice', ['id' => $practice->practice_id]) }}</x-slot>
                     </x-card.card>
             @endforeach
-            @foreach($qualifications as $qualification)
+            @foreach($race->qualifications()->get() as $qualification)
                 <x-card.card>
                     <x-slot name="name">{{ $qualification->name }}</x-slot>
                     <x-slot name="info">{{ date('d.m.Y' ,strtotime($qualification->date)) }}</x-slot>
