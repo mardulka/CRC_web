@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Series extends Model{
-    use HasFactory, softDeletes;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -53,7 +53,7 @@ class Series extends Model{
      * @return HasMany
      */
     public function championships(){
-        return $this->hasMany( Championship::class );
+        return $this->hasMany( Championship::class, 'series_id', 'series_id');
     }
 
 }

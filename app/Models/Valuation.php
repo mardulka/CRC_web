@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Valuation extends Model{
-    use HasFactory, softDeletes;
+    use HasFactory, SoftDeletes;
 
 
 
@@ -57,7 +57,7 @@ class Valuation extends Model{
      * @return BelongsTo
      */
     public function pointTable(){
-        return $this->belongsTo(Point_table::class);
+        return $this->belongsTo(Point_table::class, 'point_table_id', 'point_table_id');
     }
 
 
@@ -67,7 +67,7 @@ class Valuation extends Model{
      * @return HasMany
      */
     public function raceResults(){
-        return $this->hasMany( Race_result::class );
+        return $this->hasMany( Race_result::class, 'valuation_id', 'valuation_id');
     }
 
 

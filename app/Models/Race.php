@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Race extends Model{
-    use HasFactory, softDeletes;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -56,7 +56,7 @@ class Race extends Model{
      * @return BelongsTo
      */
     public function set() {
-        return $this->belongsTo( Set::class );
+        return $this->belongsTo( Set::class, 'set_id', 'set_id');
     }
 
 
@@ -66,7 +66,7 @@ class Race extends Model{
      * @return BelongsTo
      */
     public function circuitLayout() {
-        return $this->belongsTo( Circuit_layout::class );
+        return $this->belongsTo( Circuit_layout::class, 'circuit_layout_id', 'circuit_layout_id');
     }
 
 
@@ -76,7 +76,7 @@ class Race extends Model{
      * @return HasMany
      */
     public function qualifications(){
-        return $this->hasMany( Qualification::class );
+        return $this->hasMany( Qualification::class, 'race_id', 'race_id');
     }
 
 
@@ -86,7 +86,7 @@ class Race extends Model{
      * @return HasMany
      */
     public function practices(){
-        return $this->hasMany( Practice::class );
+        return $this->hasMany( Practice::class, 'race_id', 'race_id');
     }
 
 
@@ -96,7 +96,7 @@ class Race extends Model{
      * @return HasMany
      */
     public function raceResults(){
-        return $this->hasMany( Race_result::class );
+        return $this->hasMany( Race_result::class, 'race_id', 'race_id');
     }
 
 

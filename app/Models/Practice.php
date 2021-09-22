@@ -44,7 +44,7 @@ class Practice extends Model{
      * @return BelongsTo
      */
     public function race() {
-        return $this->belongsTo( Race::class );
+        return $this->belongsTo( Race::class, 'race_id', 'race_id');
     }
 
 
@@ -54,7 +54,7 @@ class Practice extends Model{
      * @return HasMany
      */
     public function practiceResults(){
-        return $this->hasMany( Practice_result::class );
+        return $this->hasMany( Practice_result::class, 'practice_id', 'practice_id');
     }
 
 }

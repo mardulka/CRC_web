@@ -12,7 +12,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable{
-    use HasFactory, Notifiable, softDeletes;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * Table connected with this model
@@ -109,7 +109,7 @@ class User extends Authenticatable{
      * @return BelongsTo
      */
     public function country(){
-        return $this->belongsTo( Country::class );
+        return $this->belongsTo( Country::class, 'country_id', 'country_id');
     }
 
 
@@ -119,7 +119,7 @@ class User extends Authenticatable{
      * @return HasMany
      */
     public function user_ranks(){
-        return $this->hasMany(User_rank::class);
+        return $this->hasMany(User_rank::class, 'user_id', 'user_id');
     }
 
 
@@ -129,7 +129,7 @@ class User extends Authenticatable{
      * @return HasMany
      */
     public function liveries(){
-        return $this->hasMany(Livery::class);
+        return $this->hasMany(Livery::class, 'user_id', 'user_id');
     }
 
 
@@ -139,7 +139,7 @@ class User extends Authenticatable{
      * @return HasMany
      */
     public function memberships(){
-        return $this->hasMany(Membership::class);
+        return $this->hasMany(Membership::class, 'user_id','user_id');
     }
 
 
@@ -149,7 +149,7 @@ class User extends Authenticatable{
      * @return HasMany
      */
     public function participation(){
-        return $this->hasMany( Participation::class );
+        return $this->hasMany( Participation::class, 'user_id', 'user_id');
     }
 
 

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Point_table extends Model{
-    use HasFactory, softDeletes;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -54,7 +54,16 @@ class Point_table extends Model{
      * @return HasMany
      */
     public function valuations(){
-        return $this->hasMany(Valuation::class);
+        return $this->hasMany(Valuation::class, 'point_table_id', 'point_table_id');
+    }
+
+    /**
+     * Method returning all championships from One ToMany relation.
+     *
+     * @return HasMany
+     */
+    public function championships(){
+        return $this->hasMany(Championship::class, 'point_table_id', 'point_table_id');
     }
 
 

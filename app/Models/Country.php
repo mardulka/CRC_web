@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Country extends Model{
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * Table connected with this model
@@ -50,7 +51,7 @@ class Country extends Model{
      * @return BelongsTo
      */
     public function continent() {
-        return $this->belongsTo( Continent::class );
+        return $this->belongsTo( Continent::class, 'continent_id', 'continent_id' );
     }
 
 
@@ -60,7 +61,7 @@ class Country extends Model{
      * @return HasMany
      */
     public function users() {
-        return $this->hasMany( User::class );
+        return $this->hasMany( User::class, 'country_id', 'country_id');
     }
 
 
@@ -70,7 +71,7 @@ class Country extends Model{
      * @return HasMany
      */
     public function circuits() {
-        return $this->hasMany( Circuit::class );
+        return $this->hasMany( Circuit::class, 'country_id', 'country_id' );
     }
 
 
@@ -80,7 +81,7 @@ class Country extends Model{
      * @return HasMany
      */
     public function manufacturers() {
-        return $this->hasMany( Manufacturer::class );
+        return $this->hasMany( Manufacturer::class, 'country_id', 'country_id' );
     }
 
 

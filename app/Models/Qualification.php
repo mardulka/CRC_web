@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Qualification extends Model{
-    use HasFactory, softDeletes;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -44,7 +44,7 @@ class Qualification extends Model{
      * @return BelongsTo
      */
     public function race() {
-        return $this->belongsTo( Race::class );
+        return $this->belongsTo( Race::class, 'race_id', 'race_id');
     }
 
 
@@ -54,7 +54,7 @@ class Qualification extends Model{
      * @return HasMany
      */
     public function qualificationResults(){
-        return $this->hasMany( Qualification_result::class );
+        return $this->hasMany( Qualification_result::class, 'qualification_id', 'qualification_id');
     }
 
 

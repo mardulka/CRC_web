@@ -33,6 +33,7 @@ class Continent extends Model{
      */
     protected $guarded = [
         'continent_id',
+        'name'
     ];
 
 
@@ -50,7 +51,7 @@ class Continent extends Model{
      * @return HasMany
      */
     public function countries(){
-        return $this->hasMany( Country::class );
+        return $this->hasMany( Country::class , 'continent_id', 'continent_id');
     }
 
 

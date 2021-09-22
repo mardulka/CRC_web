@@ -43,7 +43,7 @@ class Application extends Model{
      * @return BelongsTo
      */
     public function participation() {
-        return $this->belongsTo( Participation::class );
+        return $this->belongsTo( Participation::class , 'participation_id', 'participation_id');
     }
 
 
@@ -53,9 +53,18 @@ class Application extends Model{
      * @return BelongsTo
      */
     public function set() {
-        return $this->belongsTo( Set::class );
+        return $this->belongsTo( Set::class , 'set_id', 'set_id');
     }
 
+
+    /**
+     * Method returning related rank from OneToMany relation.
+     *
+     * @return BelongsTo
+     */
+    public function rank() {
+        return $this->belongsTo( Rank::class, 'rank_id', 'rank_id' );
+    }
 
     /**
      * Method returning related livery from OneToMany relation.
@@ -63,7 +72,7 @@ class Application extends Model{
      * @return BelongsTo
      */
     public function livery() {
-        return $this->belongsTo( Livery::class );
+        return $this->belongsTo( Livery::class, 'livery_id', 'livery_id' );
     }
 
 

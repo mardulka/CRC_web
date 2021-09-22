@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Simulator extends Model{
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -52,7 +53,7 @@ class Simulator extends Model{
      *
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps =true;
 
 
     /**
@@ -91,7 +92,7 @@ class Simulator extends Model{
      * @return HasMany
      */
     public function liveries(){
-        return $this->hasMany(Livery::class);
+        return $this->hasMany(Livery::class, 'simulator_id', 'simulator_id');
     }
 
 
@@ -101,7 +102,7 @@ class Simulator extends Model{
      * @return HasMany
      */
     public function championships(){
-        return $this->hasMany( Championship::class );
+        return $this->hasMany( Championship::class, 'simulator_id', 'simulator_id');
     }
 
 

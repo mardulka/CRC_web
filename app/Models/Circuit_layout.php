@@ -7,9 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Circuit_layout extends Model{
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -43,7 +44,7 @@ class Circuit_layout extends Model{
      *
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps = true;
 
 
     /**
@@ -52,7 +53,7 @@ class Circuit_layout extends Model{
      * @return BelongsTo
      */
     public function circuit() {
-        return $this->belongsTo( Circuit::class );
+        return $this->belongsTo( Circuit::class, 'circuit_id', 'circuit_id' );
     }
 
 
@@ -72,7 +73,7 @@ class Circuit_layout extends Model{
      * @return HasMany
      */
     public function races(){
-        return $this->hasMany( Race::class );
+        return $this->hasMany( Race::class, 'circuit_layout_id', 'circuit_layout_id' );
     }
 
 

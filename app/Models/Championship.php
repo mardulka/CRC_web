@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Championship extends Model{
-    use HasFactory, softDeletes;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -35,7 +35,7 @@ class Championship extends Model{
      * @var bool[]
      */
     protected $attributes = [
-        'publishable' => false,
+        'public' => false,
     ];
 
 
@@ -54,8 +54,8 @@ class Championship extends Model{
      *
      * @return BelongsTo
      */
-    public function season() {
-        return $this->belongsTo( Season::class );
+    public function season(){
+        return $this->belongsTo( Season::class, 'season_id', 'season_id' );
     }
 
 
@@ -64,8 +64,8 @@ class Championship extends Model{
      *
      * @return BelongsTo
      */
-    public function series() {
-        return $this->belongsTo( Series::class );
+    public function series(){
+        return $this->belongsTo( Series::class, 'series_id', 'series_id' );
     }
 
 
@@ -74,8 +74,8 @@ class Championship extends Model{
      *
      * @return BelongsTo
      */
-    public function simulator() {
-        return $this->belongsTo( Simulator::class );
+    public function simulator(){
+        return $this->belongsTo( Simulator::class , 'simulator_id', 'simulator_id');
     }
 
 
@@ -84,8 +84,8 @@ class Championship extends Model{
      *
      * @return BelongsTo
      */
-    public function point_table() {
-        return $this->belongsTo( Point_table::class );
+    public function point_table(){
+        return $this->belongsTo( Point_table::class, 'point_table_id', 'point_table_id');
     }
 
     /**
@@ -94,7 +94,7 @@ class Championship extends Model{
      * @return BelongsToMany
      */
     public function organizers(){
-        return $this->BelongsToMany( User::class, 'organizing')->withTimestamps();
+        return $this->BelongsToMany( User::class, 'organizing' )->withTimestamps();
     }
 
 
@@ -104,7 +104,7 @@ class Championship extends Model{
      * @return HasMany
      */
     public function participation(){
-        return $this->hasMany( Participation::class );
+        return $this->hasMany( Participation::class, 'participation_id', 'participation_id');
     }
 
 
@@ -114,7 +114,7 @@ class Championship extends Model{
      * @return HasMany
      */
     public function sets(){
-        return $this->hasMany( Set::class );
+        return $this->hasMany( Set::class, 'championship_id', 'championship_id');
     }
 
 

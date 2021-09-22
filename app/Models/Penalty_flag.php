@@ -5,9 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Penalty_flag extends Model{
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -41,7 +42,7 @@ class Penalty_flag extends Model{
      *
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps = true;
 
 
     /**
@@ -50,7 +51,7 @@ class Penalty_flag extends Model{
      * @return HasMany
      */
     public function raceResults(){
-        return $this->hasMany( Race_result::class );
+        return $this->hasMany( Race_result::class, 'penalty_flag_id', 'penalty_flag_id');
     }
 
 
@@ -60,7 +61,7 @@ class Penalty_flag extends Model{
      * @return HasMany
      */
     public function qualificationResults(){
-        return $this->hasMany( Qualification_result::class );
+        return $this->hasMany( Qualification_result::class, 'penalty_flag_id', 'penalty_flag_id');
     }
 
 
@@ -70,7 +71,7 @@ class Penalty_flag extends Model{
      * @return HasMany
      */
     public function practiceResults(){
-        return $this->hasMany( Practice_result::class );
+        return $this->hasMany( Practice_result::class, 'penalty_flag_id', 'penalty_flag_id');
     }
 
 

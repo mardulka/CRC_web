@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Car_type extends Model{
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -42,7 +43,7 @@ class Car_type extends Model{
      *
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps = true;
 
 
     /**
@@ -51,7 +52,7 @@ class Car_type extends Model{
      * @return BelongsTo
      */
     public function manufacturer() {
-        return $this->belongsTo( Manufacturer::class );
+        return $this->belongsTo( Manufacturer::class, 'manufacturer_id', 'manufacturer_id' );
     }
 
 
@@ -61,7 +62,7 @@ class Car_type extends Model{
      * @return HasMany
      */
     public function cars(){
-        return $this->hasMany( Car::class );
+        return $this->hasMany( Car::class, 'car_type_id', 'car_type_id' );
     }
 
 

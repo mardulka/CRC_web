@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Set extends Model{
-    use HasFactory, softDeletes;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -45,7 +45,7 @@ class Set extends Model{
      * @return BelongsTo
      */
     public function championship() {
-        return $this->belongsTo( Championship::class );
+        return $this->belongsTo( Championship::class, 'championship_id', 'championship_id');
     }
 
 
@@ -65,7 +65,7 @@ class Set extends Model{
      * @return HasMany
      */
     public function applications(){
-        return $this->hasMany( Application::class );
+        return $this->hasMany( Application::class, 'set_id', 'set_id');
     }
 
 
@@ -75,7 +75,7 @@ class Set extends Model{
      * @return HasMany
      */
     public function races(){
-        return $this->hasMany( Race::class );
+        return $this->hasMany( Race::class, 'set_id', 'set_id');
     }
 
 

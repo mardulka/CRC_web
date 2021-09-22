@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
 class Livery extends Model{
-    use HasFactory, softDeletes;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -44,7 +44,7 @@ class Livery extends Model{
      * @return BelongsTo
      */
     public function car() {
-        return $this->belongsTo( Car::class );
+        return $this->belongsTo( Car::class, 'car_id', 'car_id');
     }
 
 
@@ -54,7 +54,7 @@ class Livery extends Model{
      * @return BelongsTo
      */
     public function simulator() {
-        return $this->belongsTo( Simulator::class );
+        return $this->belongsTo( Simulator::class, 'simulator_id', 'simulator_id');
     }
 
 
@@ -64,7 +64,7 @@ class Livery extends Model{
      * @return BelongsTo
      */
     public function user() {
-        return $this->belongsTo( User::class )->withDefault();
+        return $this->belongsTo( User::class, 'user_id', 'user_id')->withDefault();
     }
 
 
@@ -74,7 +74,7 @@ class Livery extends Model{
      * @return HasMany
      */
     public function applications(){
-        return $this->hasMany( Application::class );
+        return $this->hasMany( Application::class, 'livery_id', 'livery_id');
     }
 
 

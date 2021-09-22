@@ -6,9 +6,10 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Circuit extends Model{
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -51,7 +52,7 @@ class Circuit extends Model{
      * @return BelongsTo
      */
     public function country() {
-        return $this->belongsTo( Country::class );
+        return $this->belongsTo( Country::class, 'country_id', 'country_id' );
     }
 
 
@@ -61,7 +62,7 @@ class Circuit extends Model{
      * @return HasMany
      */
     public function circuit_layouts() {
-        return $this->hasMany( Circuit_layout::class );
+        return $this->hasMany( Circuit_layout::class, 'circuit_id', 'circuit_id' );
     }
 
 

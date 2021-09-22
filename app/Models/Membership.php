@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Membership extends Model{
-    use HasFactory, softDeletes;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -54,7 +54,7 @@ class Membership extends Model{
      * @return BelongsTo
      */
     public function user(){
-        return $this->belongsTo( User::class );
+        return $this->belongsTo( User::class, 'user_id' , 'user_id');
     }
 
 
@@ -64,7 +64,7 @@ class Membership extends Model{
      * @return BelongsTo
      */
     public function team(){
-        return $this->belongsTo( Team::class );
+        return $this->belongsTo( Team::class, 'team_id', 'team_id' );
     }
 
 

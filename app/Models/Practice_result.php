@@ -44,7 +44,7 @@ class Practice_result extends Model{
      * @return BelongsTo
      */
     public function practice() {
-        return $this->belongsTo( Practice::class );
+        return $this->belongsTo( Practice::class, 'practice_id', 'practice_id');
     }
 
 
@@ -54,7 +54,7 @@ class Practice_result extends Model{
      * @return BelongsTo
      */
     public function participation() {
-        return $this->belongsTo( Participation::class );
+        return $this->belongsTo( Participation::class, 'participation_id', 'participation_id');
     }
 
 
@@ -64,7 +64,7 @@ class Practice_result extends Model{
      * @return BelongsTo
      */
     public function penaltyFlag() {
-        return $this->belongsTo( Penalty_flag::class );
+        return $this->belongsTo( Penalty_flag::class, 'penalty_flag_id', 'penalty_flag_id');
     }
 
 

@@ -5,10 +5,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Car extends Model{
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
 
     /**
@@ -52,7 +54,7 @@ class Car extends Model{
      *
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps = true;
 
 
     /**
@@ -61,7 +63,7 @@ class Car extends Model{
      * @return BelongsTo
      */
     public function car_type() {
-        return $this->belongsTo( Car_type::class );
+        return $this->belongsTo( Car_type::class, 'car_type_id', 'car_type_id' );
     }
 
 
@@ -71,14 +73,14 @@ class Car extends Model{
      * @return BelongsTo
      */
     public function car_category() {
-        return $this->belongsTo( Car_category::class );
+        return $this->belongsTo( Car_category::class, 'car_category_id', 'car_category_id' );
     }
 
 
     /**
      * Method returning simulators from ManyToMany relation with immediate table.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return BelongsToMany
      */
     public function simulators(){
         return $this->belongsToMany(Simulator::class, 'simulator_car')->withPivot('simulator_car_identification');
@@ -91,7 +93,7 @@ class Car extends Model{
      * @return HasMany
      */
     public function liveries(){
-        return $this->hasMany(Livery::class);
+        return $this->hasMany(Livery::class, 'car_id', 'car_id');
     }
 
 

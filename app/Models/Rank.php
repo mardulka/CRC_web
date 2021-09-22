@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Rank extends Model{
-    use HasFactory, softDeletes;
+    use HasFactory, SoftDeletes;
 
     /**
      * Table connected with this model
@@ -51,7 +51,7 @@ class Rank extends Model{
      *
      * @var bool
      */
-    public $timestamps = false;
+    public $timestamps = true;
 
 
     /**
@@ -60,17 +60,17 @@ class Rank extends Model{
      * @return HasMany
      */
     public function user_ranks(){
-        return $this->hasMany(User_rank::class);
+        return $this->hasMany(User_rank::class, 'rank_id', 'rank_id');
     }
 
 
     /**
-     * Method returning all related participation from OneToMany relation.
+     * Method returning all related applications from OneToMany relation.
      *
      * @return HasMany
      */
-    public function participation(){
-        return $this->hasMany( Participation::class );
+    public function applications(){
+        return $this->hasMany( Application::class, 'rank_id', 'rank_id');
     }
 
 

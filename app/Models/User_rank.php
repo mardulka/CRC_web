@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User_rank extends Model{
-    use HasFactory, softDeletes;
+    use HasFactory, SoftDeletes;
 
     /**
      * Table connected with this model
@@ -42,7 +42,7 @@ class User_rank extends Model{
      * @return BelongsTo
      */
     public function users(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
 
@@ -52,7 +52,7 @@ class User_rank extends Model{
      * @return BelongsTo
      */
     public function ranks(){
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'rank_id', 'rank_id');
     }
 
 
