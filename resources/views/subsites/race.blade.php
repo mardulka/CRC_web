@@ -75,7 +75,7 @@
                         <x-slot name="link">{{ $url = route('practice', ['id' => $practice->practice_id]) }}</x-slot>
                     </x-card.card>
             @endforeach
-            @foreach($race->qualifications() as $qualification)
+            @foreach($race->qualifications()->get() as $qualification)
                 <x-card.card>
                     <x-slot name="name">{{ $qualification->name }}</x-slot>
                     <x-slot name="info">{{ date('d.m.Y' ,strtotime($qualification->date)) }}</x-slot>

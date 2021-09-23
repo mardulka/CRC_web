@@ -69,11 +69,11 @@
                 @foreach($q_results as $result)
                     <x-table.result-row>
                         <x-table.result-cell>{{ $loop->iteration }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->first_name}} {{ $result->last_name }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->team }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->laps }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->participation()->first()->user()->first()->first_name}} {{ $result->participation()->first()->user()->first()->last_name }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->participation()->first()->team()->first()->name }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->laps_completed }}</x-table.result-cell>
                         <x-table.result-cell>{{ $result->best_lap }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->flag_name }}</x-table.result-cell>
+                        <x-table.result-cell>@if($penalty_flag=$result->penaltyFlag()->first()){{ $penalty_flag->name}}@endif</x-table.result-cell>
                     </x-table.result-row>
                 @endforeach
             </x-table.result-table>

@@ -60,8 +60,8 @@ class Penalty_flag extends Model{
      *
      * @return HasMany
      */
-    public function qualificationResults(){
-        return $this->hasMany( Qualification_result::class, 'penalty_flag_id', 'penalty_flag_id');
+    public function qualifyResults(){
+        return $this->hasMany( Qualify_result::class, 'penalty_flag_id', 'penalty_flag_id');
     }
 
 

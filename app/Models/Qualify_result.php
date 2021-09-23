@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Qualification_result extends Model{
+class Qualify_result extends Model{
     use HasFactory, softDeletes;
 
 
@@ -17,7 +17,7 @@ class Qualification_result extends Model{
      *
      * @var string
      */
-    protected $table = 'qualification_result';
+    protected $table = 'qualify_result';
 
 
     /**
@@ -25,7 +25,7 @@ class Qualification_result extends Model{
      *
      * @var string
      */
-    protected $primaryKey = 'qualification_result_id';
+    protected $primaryKey = 'qualify_result_id';
 
 
     /**
@@ -34,7 +34,7 @@ class Qualification_result extends Model{
      * @var array
      */
     protected $guarded = [
-        'qualification_result_id',
+        'qualify_result_id',
     ];
 
 
