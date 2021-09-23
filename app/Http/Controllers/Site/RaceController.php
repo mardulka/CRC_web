@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Site;
 
-use App\custom\Results\raceResults;
+use App\Custom\Results\RaceResults;
 use App\Http\Controllers\Controller;
 use App\Models\Race;
 use Illuminate\Contracts\Foundation\Application;
