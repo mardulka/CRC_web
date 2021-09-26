@@ -2,13 +2,11 @@
     <x-element.content-box>
 
         <x-element.basic-navigation>
-            <x-element.back-button>
-                <x-slot name="link">{{ $url = route('championship', ['id' => $championship->championship_id]) }}</x-slot>
+            <x-element.back-button link="{{route('championship', ['id' => $championship->championship_id])}}">
                 {{$championship->description}}
             </x-element.back-button>
             >
-            <x-element.back-button>
-                <x-slot name="link">{{ $url = route('race', ['id' => $race->race_id]) }}</x-slot>
+            <x-element.back-button link="{{route('race', ['id' => $race->race_id])}}">
                 {{ $race->name }}
             </x-element.back-button>
         </x-element.basic-navigation>
@@ -28,9 +26,17 @@
                 </x-table.attr-headrow>
                 <x-table.attr-row>
                     <x-table.attr-cell>{{$qualification->name}}</x-table.attr-cell>
-                    <x-table.attr-cell>{{$race->name}}</x-table.attr-cell>
+                    <x-table.attr-cell>
+                        <x-link.basic link="{{route('race', ['id' => $race->race_id])}}">
+                            {{$race->name}}
+                        </x-link.basic>
+                    </x-table.attr-cell>
                     <x-table.attr-cell>{{$set->set_no}}</x-table.attr-cell>
-                    <x-table.attr-cell>{{$championship->description}}</x-table.attr-cell>
+                    <x-table.attr-cell>
+                        <x-link.basic link="{{route('championship', ['id' => $championship->championship_id])}}">
+                            {{$championship->description}}
+                        </x-link.basic>
+                    </x-table.attr-cell>
                 </x-table.attr-row>
                 <x-table.attr-headrow>
                     <x-table.attr-headcell>Datum</x-table.attr-headcell>

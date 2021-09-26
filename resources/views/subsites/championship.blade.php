@@ -36,7 +36,10 @@
                 <x-table.attr-row>
                     <x-table.attr-cell>
                         @foreach($organizers as $organizer)
-                            {{$organizer->first_name}} {{$organizer->last_name}} <br/>
+                            <x-link.basic link="{{route('user', ['id' => $organizer->user_id])}}">
+                                {{$organizer->first_name}} {{$organizer->last_name}} <br/>
+                            </x-link.basic>
+
                         @endforeach
                     </x-table.attr-cell>
                     <x-table.attr-cell>{{$championship->sets()->get()->count()}}</x-table.attr-cell>

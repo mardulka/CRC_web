@@ -2,8 +2,7 @@
     <x-element.content-box>
 
         <x-element.basic-navigation>
-            <x-element.back-button>
-                <x-slot name="link">{{ $url = route('championship', ['id' => $championship->championship_id]) }}</x-slot>
+            <x-element.back-button link="{{route('championship', ['id' => $championship->championship_id])}}">
                 {{$championship->description}}
             </x-element.back-button>
         </x-element.basic-navigation>
@@ -27,7 +26,11 @@
                 <x-table.attr-row>
                     <x-table.attr-cell>{{$race->name}}</x-table.attr-cell>
                     <x-table.attr-cell>{{$race->set()->first()->set_no}}</x-table.attr-cell>
-                    <x-table.attr-cell>{{$championship->description}}</x-table.attr-cell>
+                    <x-table.attr-cell>
+                        <x-link.basic link="{{route('championship', ['id' => $championship->championship_id])}}">
+                            {{$championship->description}}
+                        </x-link.basic>
+                    </x-table.attr-cell>
                     @foreach($car_categories as $car_category)
                         <x-table.attr-cell>{{$car_category->abbr}}</x-table.attr-cell>
                     @endforeach
