@@ -41,7 +41,7 @@ class User_rank extends Model{
      *
      * @return BelongsTo
      */
-    public function users(){
+    public function user(){
         return $this->belongsTo(User::class, 'user_id', 'user_id');
     }
 
@@ -51,8 +51,8 @@ class User_rank extends Model{
      *
      * @return BelongsTo
      */
-    public function ranks(){
-        return $this->belongsTo(User::class, 'rank_id', 'rank_id');
+    public function rank(){
+        return $this->belongsTo(Rank::class, 'rank_id', 'rank_id');
     }
 
 

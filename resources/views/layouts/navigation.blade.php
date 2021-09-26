@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class="bg-black">
+<nav x-data="{ open: false }" class="bg-black sticky top-0 z-50">
     <!-- Primary Navigation Menu -->
     <div class=" mx-auto px-4 sm:px-6 lg:px-8 ">
         <div class="flex justify-between h-16">
@@ -48,7 +48,7 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-nav.dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="flex items-center text-sm font-medium text-white hover:text-yellow-300 hover:border-yellow-300 focus:outline-none focus:text-yellow-500 focus:border-gray-500 transition duration-150 ease-in-out">
+                        <button class="flex items-center text-md font-medium text-white hover:text-yellow-300 hover:border-yellow-300 focus:outline-none focus:text-yellow-500 focus:border-gray-500 transition duration-150 ease-in-out">
                             @guest()
                                 <div>{{ 'Uživatel nepřihlášen'}}</div>
                             @endguest

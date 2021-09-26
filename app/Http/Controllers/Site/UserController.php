@@ -11,11 +11,13 @@ class UserController extends Controller{
     public function show( $id ){
 
         $user = User::findorFail( $id );
-        //$memberships = $user->memberships()->get();
-        //$teams= $memberships->team()->get();
+        $memberships = $user->memberships()->get();
+        $user_rank = $user->userRanks()->WhereNull('until')->first();
 
         return view( 'subsites.user' )
-            ->with( 'user', $user );
+            ->with( 'user', $user )
+            ->with('memberships', $memberships)
+            ->with('user_rank', $user_rank);
     }
 
 }

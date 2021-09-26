@@ -4,6 +4,14 @@
             {{ $user->first_name }} {{ $user->last_name }}
         </x-element.site-headline>
 
+        <x-badge.badge-row>
+            @foreach($user->roles()->get() as $role)
+                <x-badge.role color="{{$role->color}}">
+                    {{$role->name}}
+                </x-badge.role>
+            @endforeach
+        </x-badge.badge-row>
+
         <x-card.crate>
             <x-slot name="name">Atributy</x-slot>
             <x-table.result-table>
@@ -12,30 +20,29 @@
                     <x-table.result-headcell>Příjmení</x-table.result-headcell>
                     <x-table.result-headcell>Přezdívka</x-table.result-headcell>
                     <x-table.result-headcell>Národnost</x-table.result-headcell>
-                    <x-table.result-headcell>Email</x-table.result-headcell>
-                    <x-table.result-headcell>Steam_ID</x-table.result-headcell>
+                    <x-table.result-headcell>Úroveň</x-table.result-headcell>
                     <x-table.result-headcell>Aktivní</x-table.result-headcell>
                 </x-table.result-headrow>
-                    <x-table.result-row>
-                        <x-table.result-cell>{{ $user->first_name }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $user->last_name}}</x-table.result-cell>
-                        <x-table.result-cell>{{ $user->nick_name }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $user->country()->first()->name }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $user->email }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $user->steam_id }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $user->active ? 'true' : 'false'}}</x-table.result-cell>
-                    </x-table.result-row>
+                <x-table.result-row>
+                    <x-table.result-cell>{{ $user->first_name }}</x-table.result-cell>
+                    <x-table.result-cell>{{ $user->last_name}}</x-table.result-cell>
+                    <x-table.result-cell>{{ $user->nick_name }}</x-table.result-cell>
+                    <x-table.result-cell>{{ $user->country()->first()->name }}</x-table.result-cell>
+                    <x-table.result-cell>{{$user_rank->rank()->first()->abbr}}</x-table.result-cell>
+                    <x-table.result-cell>{{ $user->active ? 'Ano' : 'Ne'}}</x-table.result-cell>
+                </x-table.result-row>
             </x-table.result-table>
         </x-card.crate>
 
         <x-card.crate>
             <x-slot name="name">Týmy</x-slot>
-
-        </x-card.crate>
-
-        <x-card.crate>
-            <x-slot name="name">Posádky</x-slot>
-
+            @foreach($memberships as $membership)
+                <x-card.card>
+                    <x-slot name="name">{{ $membership->team()->first()->name }}</x-slot>
+                    <x-slot name="info">Od: {{ $membership->from }}</x-slot>
+                    <x-slot name="link">#</x-slot>
+                </x-card.card>
+            @endforeach
         </x-card.crate>
 
         <x-card.crate>

@@ -79,7 +79,7 @@ class User extends Authenticatable{
      * @return BelongsToMany
      */
     public function roles(){
-        return $this->BelongsToMany( Role::class, 'role_user', 'user_id', 'role_id', 'user_id', 'role_id')->withTimestamps();
+        return $this->BelongsToMany( Role::class, 'user_role', 'user_id', 'role_id', 'user_id', 'role_id')->withTimestamps();
     }
 
 
@@ -119,7 +119,7 @@ class User extends Authenticatable{
      * @return HasMany
      */
     public function userRanks(){
-        return $this->hasMany(User_rank::class, 'user_id', 'user_id')->using();
+        return $this->hasMany(User_rank::class, 'user_id', 'user_id');
     }
 
 
