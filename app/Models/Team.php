@@ -62,7 +62,7 @@ class Team extends Model{
      *
      * @return HasMany
      */
-    public function participation(){
+    public function participations(){
         return $this->hasMany( Participation::class, 'team_id', 'team_id');
     }
 

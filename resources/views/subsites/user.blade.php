@@ -40,7 +40,7 @@
                 <x-card.card>
                     <x-slot name="name">{{ $membership->team()->first()->name }}</x-slot>
                     <x-slot name="info">Od: {{ $membership->from }}</x-slot>
-                    <x-slot name="link">#</x-slot>
+                    <x-slot name="link">{{ $url = route('team', ['id' => $membership->team()->first()->team_id ])  }}</x-slot>
                 </x-card.card>
             @endforeach
         </x-card.crate>
