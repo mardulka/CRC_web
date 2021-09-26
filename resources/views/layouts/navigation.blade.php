@@ -22,7 +22,7 @@
                     </x-nav.nav-link>
                 </div>
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav.nav-link :href="route('championships')" :active="request()->routeIs('series')">
+                    <x-nav.nav-link :href="route('championships')" :active="request()->routeIs('championships')">
                         {{ 'Šampionáty' }}
                     </x-nav.nav-link>
                 </div>
@@ -48,7 +48,7 @@
             <div class="hidden sm:flex sm:items-center sm:ml-6">
                 <x-nav.dropdown align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="flex items-center text-sm font-medium text-white hover:text-gray-500 hover:border-gray-500 focus:outline-none focus:text-gray-500 focus:border-gray-500 transition duration-150 ease-in-out">
+                        <button class="flex items-center text-sm font-medium text-white hover:text-yellow-300 hover:border-yellow-300 focus:outline-none focus:text-yellow-500 focus:border-gray-500 transition duration-150 ease-in-out">
                             @guest()
                                 <div>{{ 'Uživatel nepřihlášen'}}</div>
                             @endguest
@@ -83,14 +83,9 @@
                             </form>
                         @endguest
                         @auth()
-                            <form method="GET" action="{{ route('user', ['id' => Auth::user()->user_id]) }}">
-                                @csrf
-                                <x-nav.responsive-nav-link :href="route('user', ['id' => Auth::user()->user_id])"
-                                                           onclick="event.preventDefault();
-                                    this.closest('form').submit();">
-                                    {{ 'Profil' }}
-                                </x-nav.responsive-nav-link>
-                            </form>
+                            <x-nav.responsive-nav-link :href="route('user', ['id' => Auth::user()->user_id])">
+                                {{ 'Profil' }}
+                            </x-nav.responsive-nav-link>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <x-nav.responsive-nav-link :href="route('logout')"
@@ -181,14 +176,9 @@
                     </form>
                 @endguest
                 @auth()
-                    <form method="GET" action="{{ route('user', ['id' => Auth::user()->user_id]) }}">
-                        @csrf
-                        <x-nav.responsive-nav-link :href="route('user', ['id' => Auth::user()->user_id])"
-                                                   onclick="event.preventDefault();
-                                this.closest('form').submit();">
-                            {{ 'Profil' }}
-                        </x-nav.responsive-nav-link>
-                    </form>
+                    <x-nav.responsive-nav-link :href="route('user', ['id' => Auth::user()->user_id])">
+                        {{ 'Profil' }}
+                    </x-nav.responsive-nav-link>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <x-nav.responsive-nav-link :href="route('logout')"

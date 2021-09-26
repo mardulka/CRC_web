@@ -1,5 +1,5 @@
 <div class="block">
-    <div class="bg-gradient-to-r from-red-300 to-white rounded-md">
+    <div class="bg-gradient-to-r from-yellow-500 to-white rounded-md">
         <div class="p-1.5">
             {{ $name }}
         </div>
