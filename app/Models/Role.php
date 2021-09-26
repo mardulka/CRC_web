@@ -43,7 +43,7 @@ class Role extends Model{
      * @return BelongsToMany
      */
     public function users(){
-        return $this->BelongsToMany( User::class, 'role_user', 'role_id', 'user_id', 'role_id', 'user_id')->withTimestamps();
+        return $this->BelongsToMany( User::class, 'user_role', 'role_id', 'user_id', 'role_id', 'user_id')->withTimestamps();
     }
 
 

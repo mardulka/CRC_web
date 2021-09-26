@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Site\ChampionshipController;
+use App\Http\Controllers\Site\ContactController;
+use App\Http\Controllers\Site\HomeController;
 use App\Http\Controllers\Site\PracticeController;
 use App\Http\Controllers\Site\QualificationController;
 use App\Http\Controllers\Site\RaceController;
@@ -23,16 +25,15 @@ use Illuminate\Support\Facades\Route;
 /**
  * Basic routes for nav items
  */
-Route::get( '/', function(){
-    return view( 'home' );
-} )->name( 'home' );
+Route::get( '/', [ HomeController::class, 'show' ] )
+     ->name( 'home' );
 
 Route::get( 'news', function(){
     return view( 'sites.news' );
 } )->name( 'news' );
 
-Route::get( 'championships', [ChampionshipController::class, 'show_list'] )
-    ->name( 'championships' );
+Route::get( 'championships', [ ChampionshipController::class, 'show_list' ] )
+     ->name( 'championships' );
 
 Route::get( 'stats', function(){
     return view( 'sites.stats' );
@@ -42,9 +43,8 @@ Route::get( 'rules', function(){
     return view( 'sites.rules' );
 } )->name( 'rules' );
 
-Route::get( 'contacts', function(){
-    return view( 'sites.contacts' );
-} )->name( 'contacts' );
+Route::get( 'contacts', [ ContactController::class, 'show' ] )
+     ->name( 'contacts' );
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
@@ -52,13 +52,13 @@ Route::get( 'contacts', function(){
  * Special sites routes
  */
 
-Route::get('championship/{id}', [ChampionshipController::class, 'show'])->name('championship');
-Route::get('race/{id}', [RaceController::class, 'show'])->name('race');
-Route::get('qualification/{id}', [QualificationController::class, 'show'])->name('qualification');
-Route::get('practice/{id}', [PracticeController::class, 'show'])->name('practice');
+Route::get( 'championship/{id}', [ ChampionshipController::class, 'show' ] )->name( 'championship' );
+Route::get( 'race/{id}', [ RaceController::class, 'show' ] )->name( 'race' );
+Route::get( 'qualification/{id}', [ QualificationController::class, 'show' ] )->name( 'qualification' );
+Route::get( 'practice/{id}', [ PracticeController::class, 'show' ] )->name( 'practice' );
 
-Route::get('user/{id}', [UserController::class, 'show'])->name('user');
-Route::get('team/{id}', [TeamController::class, 'show'])->name('team');
+Route::get( 'user/{id}', [ UserController::class, 'show' ] )->name( 'user' );
+Route::get( 'team/{id}', [ TeamController::class, 'show' ] )->name( 'team' );
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

@@ -6,7 +6,7 @@
             </a>
         </picture>
         <div class="p-4">
-            <h3 class="text-xl font-bold">
+            <h3 class="text-base font-bold">
                 <a class="stretched-link" href="{{ $link ?? '#' }}" title="">
                     {{ $name }}
                 </a>
