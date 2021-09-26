@@ -75,7 +75,6 @@
                             </form>
                             <form method="GET" action="{{ route('register') }}">
                                 @csrf
-
                                 <x-nav.responsive-nav-link :href="route('register')"
                                                        onclick="event.preventDefault();
                                         this.closest('form').submit();">
@@ -84,6 +83,14 @@
                             </form>
                         @endguest
                         @auth()
+                            <form method="GET" action="{{ route('user', ['id' => Auth::user()->user_id]) }}">
+                                @csrf
+                                <x-nav.responsive-nav-link :href="route('user', ['id' => Auth::user()->user_id])"
+                                                           onclick="event.preventDefault();
+                                    this.closest('form').submit();">
+                                    {{ 'Profil' }}
+                                </x-nav.responsive-nav-link>
+                            </form>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <x-nav.responsive-nav-link :href="route('logout')"
@@ -158,7 +165,6 @@
                 @guest()
                     <form method="GET" action="{{ route('login') }}">
                         @csrf
-
                         <x-nav.responsive-nav-link :href="route('login')"
                                                onclick="event.preventDefault();
                                         this.closest('form').submit();">
@@ -167,7 +173,6 @@
                     </form>
                     <form method="GET" action="{{ route('register') }}">
                         @csrf
-
                         <x-nav.responsive-nav-link :href="route('register')"
                                                    onclick="event.preventDefault();
                                         this.closest('form').submit();">
@@ -176,9 +181,16 @@
                     </form>
                 @endguest
                 @auth()
+                    <form method="GET" action="{{ route('user', ['id' => Auth::user()->user_id]) }}">
+                        @csrf
+                        <x-nav.responsive-nav-link :href="route('user', ['id' => Auth::user()->user_id])"
+                                                   onclick="event.preventDefault();
+                                this.closest('form').submit();">
+                            {{ 'Profil' }}
+                        </x-nav.responsive-nav-link>
+                    </form>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
-
                         <x-nav.responsive-nav-link :href="route('logout')"
                                                onclick="event.preventDefault();
                                         this.closest('form').submit();">

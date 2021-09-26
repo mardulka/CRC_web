@@ -129,7 +129,7 @@ class User extends Authenticatable{
      * @return HasMany
      */
     public function liveries(){
-        return $this->hasMany(Livery::class, 'user_id', 'user_id');
+        return $this->hasMany(Livery::class, 'owner_id', 'user_id');
     }
 
 
@@ -148,7 +148,7 @@ class User extends Authenticatable{
      *
      * @return HasMany
      */
-    public function participation(){
+    public function participations(){
         return $this->hasMany( Participation::class, 'user_id', 'user_id');
     }
 

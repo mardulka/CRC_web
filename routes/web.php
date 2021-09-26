@@ -4,6 +4,7 @@ use App\Http\Controllers\Site\ChampionshipController;
 use App\Http\Controllers\Site\PracticeController;
 use App\Http\Controllers\Site\QualificationController;
 use App\Http\Controllers\Site\RaceController;
+use App\Http\Controllers\Site\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,6 +55,9 @@ Route::get('championship/{id}', [ChampionshipController::class, 'show'])->name('
 Route::get('race/{id}', [RaceController::class, 'show'])->name('race');
 Route::get('qualification/{id}', [QualificationController::class, 'show'])->name('qualification');
 Route::get('practice/{id}', [PracticeController::class, 'show'])->name('practice');
+
+Route::get('user/{id}', [UserController::class, 'show'])->name('user');
+
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 /**

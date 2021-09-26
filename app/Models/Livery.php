@@ -64,7 +64,7 @@ class Livery extends Model{
      * @return BelongsTo
      */
     public function user() {
-        return $this->belongsTo( User::class, 'user_id', 'user_id')->withDefault();
+        return $this->belongsTo( User::class, 'owner_id', 'user_id')->withDefault();
     }
 
 
