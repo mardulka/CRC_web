@@ -25,7 +25,11 @@
                     <x-table.attr-cell>{{$championship->description}}</x-table.attr-cell>
                     <x-table.attr-cell>{{$championship->season()->first()->name}}</x-table.attr-cell>
                     <x-table.attr-cell>{{$championship->series()->first()->name}}</x-table.attr-cell>
-                    <x-table.attr-cell>{{$championship->simulator()->first()->name}}</x-table.attr-cell>
+                    <x-table.attr-cell>
+                        <x-link.basic link="{{route('simulator', ['id' => $championship->simulator()->first()->simulator_id])}}">
+                            {{$championship->simulator()->first()->name}}
+                        </x-link.basic>
+                    </x-table.attr-cell>
                 </x-table.attr-row>
                 <x-table.attr-headrow>
                     <x-table.attr-headcell>Organizátoři</x-table.attr-headcell>
@@ -39,7 +43,6 @@
                             <x-link.basic link="{{route('user', ['id' => $organizer->user_id])}}">
                                 {{$organizer->first_name}} {{$organizer->last_name}} <br/>
                             </x-link.basic>
-
                         @endforeach
                     </x-table.attr-cell>
                     <x-table.attr-cell>{{$championship->sets()->get()->count()}}</x-table.attr-cell>
@@ -55,11 +58,11 @@
                 <x-slot name="name">Set závodů {{ $set->set_no }}</x-slot>
 
                 @foreach($set->races()->get() as $race)
-                        <x-card.card>
-                            <x-slot name="name">{{ $race->name }}</x-slot>
-                            <x-slot name="info">{{date('d.m.Y' ,strtotime($race->date))}}</x-slot>
-                            <x-slot name="link">{{ $url = route('race', ['id' => $race->race_id]) }}</x-slot>
-                        </x-card.card>
+                    <x-card.card>
+                        <x-slot name="name">{{ $race->name }}</x-slot>
+                        <x-slot name="info">{{date('d.m.Y' ,strtotime($race->date))}}</x-slot>
+                        <x-slot name="link">{{ $url = route('race', ['id' => $race->race_id]) }}</x-slot>
+                    </x-card.card>
                 @endforeach
 
             </x-card.crate>

@@ -34,7 +34,11 @@
                     @foreach($car_categories as $car_category)
                         <x-table.attr-cell>{{$car_category->abbr}}</x-table.attr-cell>
                     @endforeach
-                    <x-table.attr-cell>{{$simulator->name}}</x-table.attr-cell>
+                    <x-table.attr-cell>
+                        <x-link.basic link="{{route('simulator', ['id' => $championship->simulator()->first()->simulator_id])}}">
+                            {{$championship->simulator()->first()->name}}
+                        </x-link.basic>
+                    </x-table.attr-cell>
                 </x-table.attr-row>
                 <x-table.attr-headrow>
                     <x-table.attr-headcell>Datum</x-table.attr-headcell>
