@@ -16,7 +16,11 @@
                 </x-table.attr-headrow>
                 <x-table.attr-row>
                     <x-table.attr-cell>{{$circuit->name}}</x-table.attr-cell>
-                    <x-table.attr-cell>{{$circuit->country()->first()->name}}</x-table.attr-cell>
+                    <x-table.attr-cell>
+                        <x-link.basic link="{{route('country', ['id' => $circuit->country()->first()->country_id])}}">
+                            {{$circuit->country()->first()->name}}
+                        </x-link.basic>
+                    </x-table.attr-cell>
                     <x-table.attr-cell>{{$circuit->fictional ? 'Ano' : 'Ne'}}</x-table.attr-cell>
                     <x-table.attr-cell>{{$circuit->circuit_layouts()->get()->unique('name')->count()}}</x-table.attr-cell>
                     <x-table.attr-cell></x-table.attr-cell>

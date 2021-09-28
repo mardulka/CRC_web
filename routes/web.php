@@ -9,8 +9,13 @@ use App\Http\Controllers\Site\RaceController;
 use App\Http\Controllers\Site\SimulatorController;
 use App\Http\Controllers\Site\TeamController;
 use App\Http\Controllers\Site\UserController;
+use App\Models\Car;
+use App\Models\Car_category;
+use App\Models\Car_type;
 use App\Models\Circuit;
 use App\Models\Circuit_layout;
+use App\Models\Country;
+use App\Models\Manufacturer;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -64,9 +69,38 @@ Route::get( 'user/{id}', [ UserController::class, 'show' ] )->name( 'user' );
 Route::get( 'team/{id}', [ TeamController::class, 'show' ] )->name( 'team' );
 Route::get( 'simulator/{id}', [ SimulatorController::class, 'show' ] )->name( 'simulator' );
 
-Route::get( 'circuit/{id}', function( $id ){ return view( 'subsites.circuit' )->with( 'circuit', Circuit::findorfail( $id ) ); } )->name('circuit');
-Route::get( 'circuit_layout/{id}', function( $id ){ return view( 'subsites.circuit_layout' )->with( 'circuit_layout', Circuit_layout::findorfail( $id ) ); } )->name('circuit_layout');
 
+//----------------------------------------------------------------------------------------------------------------------------------------------------
+/**
+ * Routes without controllers
+ */
+Route::get( 'circuit/{id}', function( $id ){
+    return view( 'subsites.circuit' )->with( 'circuit', Circuit::findorfail( $id ) );
+})->name('circuit');
+//------------------------------------------
+Route::get( 'circuit_layout/{id}', function( $id ){
+    return view( 'subsites.circuit_layout' )->with( 'circuit_layout', Circuit_layout::findorfail( $id ) );
+} )->name('circuit_layout');
+//------------------------------------------
+Route::get( 'car_category/{id}', function( $id ){
+    return view( 'subsites.car_category' )->with( 'car_category', Car_category::findorfail( $id ) );
+} )->name('car_category');
+//------------------------------------------
+Route::get( 'car/{id}', function( $id ){
+    return view( 'subsites.car' )->with( 'car', Car::findorfail( $id ) );
+} )->name('car');
+//------------------------------------------
+Route::get( 'car_type/{id}', function( $id ){
+    return view( 'subsites.car_type' )->with( 'car_type', Car_type::findorfail( $id ) );
+} )->name('car_type');
+//------------------------------------------
+Route::get( 'manufacturer/{id}', function( $id ){
+    return view( 'subsites.manufacturer' )->with( 'manufacturer', Manufacturer::findorfail( $id ) );
+} )->name('manufacturer');
+//------------------------------------------
+Route::get( 'country/{id}', function( $id ){
+    return view( 'subsites.country' )->with( 'country', Country::findorfail( $id ) );
+} )->name('country');
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------
 /**
