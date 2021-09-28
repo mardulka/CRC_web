@@ -65,6 +65,22 @@
             </x-table.attr-table>
             <x-table.attr-table>
                 <x-table.attr-headrow>
+                    <x-table.attr-headcell>Okruh a jeho varianta</x-table.attr-headcell>
+                </x-table.attr-headrow>
+                <x-table.attr-row>
+                    <x-table.attr-cell>
+                        <x-link.basic link="{{route('circuit', ['id' => $race->circuitLayout()->first()->circuit()->first()->circuit_id])}}">
+                            {{$race->circuitLayout()->first()->circuit()->first()->name}}
+                        </x-link.basic>
+                        >>
+                        <x-link.basic link="{{route('circuit_layout', ['id' => $race->circuitLayout()->first()->circuit_layout_id])}}">
+                            {{$race->circuitLayout()->first()->name}} {{$race->circuitLayout()->first()->year}}
+                        </x-link.basic>
+                    </x-table.attr-cell>
+                </x-table.attr-row>
+            </x-table.attr-table>
+            <x-table.attr-table>
+                <x-table.attr-headrow>
                     <x-table.attr-headcell>Předpověď počasí</x-table.attr-headcell>
                 </x-table.attr-headrow>
                 <x-table.attr-row>

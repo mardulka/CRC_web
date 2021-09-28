@@ -9,6 +9,8 @@ use App\Http\Controllers\Site\RaceController;
 use App\Http\Controllers\Site\SimulatorController;
 use App\Http\Controllers\Site\TeamController;
 use App\Http\Controllers\Site\UserController;
+use App\Models\Circuit;
+use App\Models\Circuit_layout;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,7 +62,10 @@ Route::get( 'practice/{id}', [ PracticeController::class, 'show' ] )->name( 'pra
 
 Route::get( 'user/{id}', [ UserController::class, 'show' ] )->name( 'user' );
 Route::get( 'team/{id}', [ TeamController::class, 'show' ] )->name( 'team' );
-Route::get('simulator/{id}', [SimulatorController::class, 'show'])->name('simulator');
+Route::get( 'simulator/{id}', [ SimulatorController::class, 'show' ] )->name( 'simulator' );
+
+Route::get( 'circuit/{id}', function( $id ){ return view( 'subsites.circuit' )->with( 'circuit', Circuit::findorfail( $id ) ); } )->name('circuit');
+Route::get( 'circuit_layout/{id}', function( $id ){ return view( 'subsites.circuit_layout' )->with( 'circuit_layout', Circuit_layout::findorfail( $id ) ); } )->name('circuit_layout');
 
 
 //----------------------------------------------------------------------------------------------------------------------------------------------------

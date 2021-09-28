@@ -18,7 +18,8 @@ class SimulatorController extends Controller{
                                         'circuit_layout.year as layout_year',
                                         'circuit.name as circuit_name',
                                         'country.name as country_name',
-                                        'circuit.fictional as circuit_fictional')
+                                        'circuit.fictional as circuit_fictional',
+                                        'circuit.circuit_id as circuit_id')
                               ->orderBy( 'circuit.name' )
                               ->orderBy( 'circuit_layout.name' )
                               ->orderByDesc( 'circuit_layout.year' )

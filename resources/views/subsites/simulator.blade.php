@@ -47,7 +47,11 @@
                 </x-table.attr-headrow>
                 @foreach($circuits as $circuit)
                     <x-table.attr-row>
-                        <x-table.attr-cell>{{$circuit->circuit_name}}</x-table.attr-cell>
+                        <x-table.attr-cell>
+                            <x-link.basic link="{{route('circuit', ['id' => $circuit->circuit_id])}}">
+                                {{$circuit->circuit_name}}
+                            </x-link.basic>
+                        </x-table.attr-cell>
                         <x-table.attr-cell>{{$circuit->country_name}}</x-table.attr-cell>
                         <x-table.attr-cell>{{$circuit->layout_name}}</x-table.attr-cell>
                         <x-table.attr-cell>{{$circuit->layout_year}}</x-table.attr-cell>
