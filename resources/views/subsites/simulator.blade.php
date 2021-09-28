@@ -63,11 +63,11 @@
 
         <x-card.crate>
             <x-slot name="name">Vozy</x-slot>
-            @foreach($cars as $car)
+            @foreach($simulator->cars()->orderBy('name')->get() as $car)
                 <x-card.card>
-                    <x-slot name="name">{{ $car->car_name }}</x-slot>
-                    <x-slot name="info">{{ $car->manufacturer_name }}</x-slot>
-                    <x-slot name="link"></x-slot>
+                    <x-slot name="name">{{ $car->name }}</x-slot>
+                    <x-slot name="info">{{ $car->car_type()->first()->manufacturer()->first()->abbr }}</x-slot>
+                    <x-slot name="link">{{ $url = route('car', ['id' => $car->car_id]) }}</x-slot>
                 </x-card.card>
             @endforeach
         </x-card.crate>
