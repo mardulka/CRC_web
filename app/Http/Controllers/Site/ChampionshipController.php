@@ -38,21 +38,19 @@ class ChampionshipController extends Controller{
     public function show( $id ){
         $championship = Championship::findOrFail( $id );
         $organizers = $championship->organizers()->get();
-        $drivers = DB::table( 'participation' )->where( 'participation.championship_id', '=', $id )
-                     ->leftJoin( 'user', 'user.user_id', '=', 'participation.user_id' )
-                     ->leftJoin( 'crew', 'crew.crew_id', '=', 'participation.crew_id' )
-                     ->leftJoin( 'team', 'team.team_id', '=', 'participation.team_id' )
-                     ->get();
+        $participation = $championship->participation()->get();
+        $participation->transform( function( $item, $key ){
+            $item->sum_points = $item->raceResults()->get()->sum( 'points' );
+            return $item;
+        });
+        $participation= $participation->sortByDesc('sum_points');
 
-        $ch_results = new ChampionshipResults( $id );
-        $ch_results->load_results()->combine();
 
 
         return view( 'subsites.championship' )
             ->with( 'championship', $championship )
             ->with( 'organizers', $organizers )
-            ->with( 'drivers', $drivers )
-            ->with( 'ch_results', $ch_results->champ_results );
+            ->with( 'participation', $participation );
     }
 
 

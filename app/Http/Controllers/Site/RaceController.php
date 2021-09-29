@@ -25,13 +25,9 @@ class RaceController extends Controller{
         $simulator = $championship->simulator()->first();
         $car_categories = $set->carCategories()->get();
 
-        //load and calculate results
-        $r_results = new RaceResults( $id );
-        $r_results->read_results()->apply_penalty_flag();
 
         return view( 'subsites.race' )
             ->with( 'race', $race )
-            ->with( 'r_results', $r_results->race_results )
             ->with( 'championship', $championship )
             ->with( 'simulator', $simulator )
             ->with( 'car_categories', $car_categories );

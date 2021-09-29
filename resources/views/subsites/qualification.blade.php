@@ -74,9 +74,17 @@
                 </x-table.result-headrow>
                 @foreach($q_results as $result)
                     <x-table.result-row>
-                        <x-table.result-cell>{{ $loop->iteration }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->participation()->first()->user()->first()->first_name}} {{ $result->participation()->first()->user()->first()->last_name }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->participation()->first()->team()->first()->name }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->res_position }}</x-table.result-cell>
+                        <x-table.result-cell>
+                            <x-link.basic link="{{route('user', ['id' => $result->participation()->first()->user_id])}}">
+                                {{ $result->participation()->first()->driver_first_name}} {{ $result->participation()->first()->driver_last_name }}
+                            </x-link.basic>
+                        </x-table.result-cell>
+                        <x-table.result-cell>
+                            <x-link.basic link="{{route('team', ['id' => $result->participation()->first()->team_id])}}">
+                                {{ $result->participation()->first()->team_name }}
+                            </x-link.basic>
+                        </x-table.result-cell>
                         <x-table.result-cell>{{ $result->laps_completed }}</x-table.result-cell>
                         <x-table.result-cell>{{ $result->best_lap }}</x-table.result-cell>
                         <x-table.result-cell>@if($penalty_flag=$result->penaltyFlag()->first()){{ $penalty_flag->name}}@endif</x-table.result-cell>

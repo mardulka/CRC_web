@@ -63,19 +63,10 @@ class Race_result extends Model{
      *
      * @return BelongsTo
      */
-    public function penaltyFlag() {
+    public function penalty_flag() {
         return $this->belongsTo( Penalty_flag::class, 'penalty_flag_id', 'penalty_flag_id');
     }
 
-
-    /**
-     * Method returning related valuation from OneToMany relation.
-     *
-     * @return BelongsTo
-     */
-    public function valuation() {
-        return $this->belongsTo( Valuation::class, 'valuation_id', 'valuation_id');
-    }
 
 
     /**

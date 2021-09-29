@@ -61,14 +61,5 @@ class Valuation extends Model{
     }
 
 
-    /**
-     * Method returning all related race results from OneToMany relation.
-     *
-     * @return HasMany
-     */
-    public function raceResults(){
-        return $this->hasMany( Race_result::class, 'valuation_id', 'valuation_id');
-    }
-
 
 }

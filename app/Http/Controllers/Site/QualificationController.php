@@ -21,7 +21,7 @@ class QualificationController extends Controller{
      */
     public function show( $id ){
         $qualification = Qualification::findOrFail($id);
-        $q_results = $qualification->qualifyResults()->orderBy('best_lap')->orderBy('man_position')->get();
+        $q_results = $qualification->qualifyResults()->orderBy('res_position')->get();
         $race = $qualification->race()->first();
         $set = $race->set()->first();
         $championship = $set->championship()->first();

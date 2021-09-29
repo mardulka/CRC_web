@@ -96,11 +96,11 @@
         <x-card.crate>
             <x-slot name="name">Tréninky a kvalifikace</x-slot>
             @foreach($race->practices()->get() as $practice)
-                    <x-card.card>
-                        <x-slot name="name">{{ $practice->name }}</x-slot>
-                        <x-slot name="info">{{ date('d.m.Y' ,strtotime($practice->date)) }}</x-slot>
-                        <x-slot name="link">{{ $url = route('practice', ['id' => $practice->practice_id]) }}</x-slot>
-                    </x-card.card>
+                <x-card.card>
+                    <x-slot name="name">{{ $practice->name }}</x-slot>
+                    <x-slot name="info">{{ date('d.m.Y' ,strtotime($practice->date)) }}</x-slot>
+                    <x-slot name="link">{{ $url = route('practice', ['id' => $practice->practice_id]) }}</x-slot>
+                </x-card.card>
             @endforeach
             @foreach($race->qualifications()->get() as $qualification)
                 <x-card.card>
@@ -125,17 +125,25 @@
                     <x-table.result-headcell>Body</x-table.result-headcell>
                     <x-table.result-headcell>Status</x-table.result-headcell>
                 </x-table.result-headrow>
-                @foreach($r_results as $result)
+                @foreach($race->raceResults()->orderBy('res_position')->get() as $result)
                     <x-table.result-row>
-                        <x-table.result-cell>{{ $result->position }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->first_name}} {{ $result->last_name }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->team }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->laps }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->best_lap }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->res_position }}</x-table.result-cell>
+                        <x-table.result-cell>
+                            <x-link.basic link="{{route('user', ['id' => $result->participation()->first()->user_id])}}">
+                                {{ $result->participation()->first()->driver_first_name}} {{ $result->participation()->first()->driver_last_name }}
+                            </x-link.basic>
+                        </x-table.result-cell>
+                        <x-table.result-cell>
+                            <x-link.basic link="{{route('team', ['id' => $result->participation()->first()->team_id])}}">
+                                {{ $result->participation()->first()->team_name }}
+                            </x-link.basic>
+                        </x-table.result-cell>
+                        <x-table.result-cell>{{ $result->laps_completed }}</x-table.result-cell>
+                        <x-table.result-cell>{{ date('H:i:s' ,strtotime($result->best_lap)) }}</x-table.result-cell>
                         <x-table.result-cell>{{ ($result->consistency)*100 }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->pits }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->pitstops_no }}</x-table.result-cell>
                         <x-table.result-cell>{{ $result->points }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->flag_name }}</x-table.result-cell>
+                        <x-table.result-cell>@if($result->penalty_flag()->first()){{ $result->penalty_flag()->first()->name }}@endif </x-table.result-cell>
                     </x-table.result-row>
                 @endforeach
             </x-table.result-table>

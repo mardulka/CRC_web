@@ -105,7 +105,7 @@ class Championship extends Model{
      * @return HasMany
      */
     public function participation(){
-        return $this->hasMany( Participation::class, 'participation_id', 'participation_id' );
+        return $this->hasMany( Participation::class, 'championship_id', 'championship_id' );
     }
 
 
