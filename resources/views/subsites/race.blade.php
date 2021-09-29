@@ -139,7 +139,7 @@
                             </x-link.basic>
                         </x-table.result-cell>
                         <x-table.result-cell>{{ $result->laps_completed }}</x-table.result-cell>
-                        <x-table.result-cell>{{ date('H:i:s' ,strtotime($result->best_lap)) }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->best_lap }}</x-table.result-cell>
                         <x-table.result-cell>{{ ($result->consistency)*100 }}</x-table.result-cell>
                         <x-table.result-cell>{{ $result->pitstops_no }}</x-table.result-cell>
                         <x-table.result-cell>{{ $result->points }}</x-table.result-cell>
