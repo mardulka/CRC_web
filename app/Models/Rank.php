@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -73,5 +74,14 @@ class Rank extends Model{
         return $this->hasMany( Application::class, 'rank_id', 'rank_id');
     }
 
+    /**
+     * Method returning ranks from ManyToMany relation with immediate table.
+     *
+     * @return BelongsToMany
+     */
+    public function ranks(){
+        return $this->belongsToMany(Championship::class, 'championship_rank', 'rank_id', 'championship_id', 'rank_id', 'championship_id')
+                    ->withPivot('rank_order')->withTimestamps();
+    }
 
 }

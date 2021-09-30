@@ -89,6 +89,18 @@ class Championship extends Model{
         return $this->belongsTo( Point_table::class, 'point_table_id', 'point_table_id' );
     }
 
+
+    /**
+     * Method returning ranks from ManyToMany relation with immediate table.
+     *
+     * @return BelongsToMany
+     */
+    public function ranks(){
+        return $this->belongsToMany(Rank::class, 'championship_rank', 'championship_id', 'rank_id', 'championship_id', 'rank_id')
+                    ->withPivot('rank_order')->withTimestamps();
+    }
+
+
     /**
      * Method returning crews from ManyToMany relation with immediate table.
      *
@@ -127,5 +139,6 @@ class Championship extends Model{
     public function races(){
         return $this->hasManyThrough( Race::class, Set::class, 'championship_id', 'set_id', 'championship_id', 'set_id', );
     }
+
 
 }
