@@ -5,6 +5,7 @@ namespace App\Custom\Results;
 use App\Models\Championship;
 use App\Models\Race;
 use Illuminate\Support\Collection;
+use mysql_xdevapi\Exception;
 
 /**
  * Calculates results for given race_id
@@ -46,7 +47,7 @@ class RaceResultCalc{
      *
      * @var Collection
      */
-    private static Collection $valuation;
+    private static Collection $valuations;
 
     /**
      * Collection of rank in championship from DB
@@ -80,12 +81,15 @@ class RaceResultCalc{
         }
 
 
-        //TODO here will be calling PenReorder Class/Object
+        //TODO here will be calling PenReorder Class/Object to fill res_position attribute
 
+
+
+        self::$results->sortBy('res_position');
 
         //fill or change field "points"
         self::$results->transform( function( $item, $key ){
-            self::$valuation->find( $item->position - 1 ) ? $pt = self::$valuation->find( $item->position - 1 ) : $pt = 0;
+            self::$valuations->find( $item->init_position ) ? $pt = self::$valuations->find( $item->init_position)->points : $pt = 0;
             $item->points = $pt;
             return $item;
         } );
@@ -94,16 +98,21 @@ class RaceResultCalc{
         //fill or change field class_position and class_points
         foreach(self::$ranks as $rank){
             self::$pos = 1;
-            self::$results->transform( callback : function( $item, $key ) use ( $rank ){
-                if($item->participation()->first()->application()->first()->rank_id == $rank->rank_id){
-                    self::$valuation->find( self::$pos - 1 ) ? $pt = self::$valuation->find( $item->position - 1 ) : $pt = 0;
-                    $item->class_position = self::$pos;
+            self::$results->transform( function( $item, $key ) use ( $rank ){
+
+                $set = $item->race()->first()->set()->first();
+                $r_rank = $item->participation()->first()->applications()->where('set_id', '=', $set->set_id)->first();
+
+                if($r_rank->rank_id === $rank->rank_id){
+                    self::$valuations->find( self::$pos ) ? $pt = self::$valuations->find( self::$pos )->points : $pt = 0;
+                    $item->res_class_position = self::$pos;
                     $item->class_points = $pt;
                     self::$pos += 1;
                 }
                 return $item;
-            } );
+            });
         }
+
 
 
         //for those who has penalty flag gets no points, if they are on position allows to get some
@@ -118,6 +127,11 @@ class RaceResultCalc{
 
         // TODO If there are additional points, it will be laced here
 
+
+        //saving
+        if(!self::DbSave()){
+            return false;
+        }
 
         return true;
     }
@@ -143,15 +157,30 @@ class RaceResultCalc{
             return false;
 
         //load valuation
-        if(!self::$valuation = self::$championship->point_table()->first()->valuation()->first())
+        if(!self::$valuations = self::$championship->point_table()->first()->valuations()->get())
             return false;
 
         //load ranks and sort by rank order
         if(!self::$ranks = self::$championship->ranks()->get()->sortBy( 'rank_order' ))
             return false;
 
+
         return true;
     }
 
+
+    /**
+     * Saving Data back to database
+     *
+     * @return bool
+     */
+    private static function DbSave() : bool{
+
+        foreach(self::$results as $result){
+            $result->save();
+        }
+
+        return true;
+    }
 
 }
