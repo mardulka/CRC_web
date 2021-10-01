@@ -105,6 +105,7 @@ class RaceResultCalc{
 
                 if($r_rank->rank_id === $rank->rank_id){
                     self::$valuations->find( self::$pos ) ? $pt = self::$valuations->find( self::$pos )->points : $pt = 0;
+                    $item->class_order = $rank->pivot->rank_order;
                     $item->res_class_position = self::$pos;
                     $item->class_points = $pt;
                     self::$pos += 1;

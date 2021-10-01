@@ -41,6 +41,8 @@ class ChampionshipController extends Controller{
         $participation = $championship->participation()->get();
         $participation->transform( function( $item, $key ){
             $item->sum_points = $item->raceResults()->get()->sum( 'points' );
+            $item->class_order = $item->raceResults()->where('class_order', '>', 0)->first() ? $item->raceResults()->where('class_order', '>', 0)->first()->class_order : 0;
+            $item->sum_class_points = $item->raceResults()->where('class_order', '>', 0)->get()->sum( 'class_points' );
             return $item;
         });
         $participation= $participation->sortByDesc('sum_points');
