@@ -82,7 +82,14 @@ class RaceResultCalc{
 
 
         //TODO here will be calling PenReorder Class/Object to fill res_position attribute
+        self::$results = PenReorder::RacePenalties(self::$results);
 
+        // place res_positions acording to results order
+        $iteration = 1;
+        foreach(self::$results as $result){
+            $result->res_position = $iteration;
+            ++$iteration;
+        }
 
 
         self::$results->sortBy('res_position');
@@ -126,7 +133,7 @@ class RaceResultCalc{
         } );
 
 
-        // TODO If there are additional points, it will be laced here
+        // TODO If there are additional points, it will be laced here (best lap, won Q) - based on championship atribut if aplicable
 
 
         //saving
