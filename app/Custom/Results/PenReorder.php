@@ -55,7 +55,6 @@ class PenReorder{
     private static function move( Collection $arr, int $key, int $number ){
         for($k = 0; $k < $number; ++$k, ++$key){
             if(!isset( $arr[ $key + 1 ] )){
-                echo "break for " . ( $key + 1 ) . "\n";
                 break;
             }
             $arr[ $key ]->rem_pos_penalty -= 1;
