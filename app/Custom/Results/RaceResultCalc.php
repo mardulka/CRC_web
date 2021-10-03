@@ -84,7 +84,7 @@ class RaceResultCalc{
         //TODO here will be calling PenReorder Class/Object to fill res_position attribute
         self::$results = PenReorder::RacePenalties(self::$results);
 
-        // place res_positions acording to results order
+        // place res_positions according to results order
         $iteration = 1;
         foreach(self::$results as $result){
             $result->res_position = $iteration;
