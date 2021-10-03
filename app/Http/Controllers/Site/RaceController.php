@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Site;
 
-use App\Custom\Results\RaceResults;
 use App\Http\Controllers\Controller;
 use App\Models\Race;
 use Illuminate\Contracts\Foundation\Application;
@@ -24,6 +23,7 @@ class RaceController extends Controller{
         $championship = $set->championship()->first();
         $simulator = $championship->simulator()->first();
         $car_categories = $set->carCategories()->get();
+
 
 
         return view( 'subsites.race' )

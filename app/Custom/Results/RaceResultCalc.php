@@ -81,7 +81,7 @@ class RaceResultCalc{
         }
 
 
-        //TODO here will be calling PenReorder Class/Object to fill res_position attribute
+        //calling PenReorder Class/Object to fill res_position attribute
         self::$results = PenReorder::RacePenalties(self::$results);
 
         // place res_positions according to results order
@@ -135,11 +135,11 @@ class RaceResultCalc{
 
         // If there are additional points, it will be laced here (best lap, won Q) - based on championship attribute if applicable
         if(self::$championship->points_best_lap > 0){
-            self::$results->sortBy('best_lap')->first()->points += self::$championship->points_best_lap;
+            self::$results->sortBy('best_lap')->where('best_lap', '>', '00:00:00.000')->first()->points += self::$championship->points_best_lap;
         }
         if(self::$championship->points_q_won > 0){
             $qw = self::$race->qualifications()->orderByDesc('qualification_no')->first()->qualifyResults()->orderBy('res_position')->first()->participation()->first()->participation_id;
-            self::$results->where('participation_id', '=', $qw)->points += self::$championship->points_q_won;
+            self::$results->where('participation_id', '=', $qw)->first()->points += self::$championship->points_q_won;
         }
 
 

@@ -46,6 +46,53 @@
         </x-card.crate>
 
         <x-card.crate>
+            <x-slot name="name">Závody</x-slot>
+
+            <x-table.result-table>
+                <x-table.result-headrow>
+                    <x-table.result-headcell>Pozice</x-table.result-headcell>
+                    <x-table.result-headcell>Body</x-table.result-headcell>
+                    <x-table.result-headcell>Třída</x-table.result-headcell>
+                    <x-table.result-headcell>Pozice v třídě</x-table.result-headcell>
+                    <x-table.result-headcell>Body v třídě</x-table.result-headcell>
+                    <x-table.result-headcell>Tým</x-table.result-headcell>
+                    <x-table.result-headcell>Šampionát</x-table.result-headcell>
+                    <x-table.result-headcell>Závod</x-table.result-headcell>
+                    <x-table.result-headcell>Kategorie vozu</x-table.result-headcell>
+                    <x-table.result-headcell>Status</x-table.result-headcell>
+                    <x-table.result-headcell>Penalizace</x-table.result-headcell>
+                </x-table.result-headrow>
+                @foreach($race_results as $result)
+                    <x-table.result-row>
+                        <x-table.result-cell>{{ $result->res_position }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->points }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->race()->first()->set()->first()->championship->first()->ranks()->where('rank_order', '=', $result->class_order)->first()->abbr}}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->res_class_position }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->class_points }}</x-table.result-cell>
+                        <x-table.result-cell>
+                            <x-link.basic link="{{route('team', ['id' => $result->participation()->first()->team_id])}}">
+                                {{ $result->participation()->first()->team_name }}
+                            </x-link.basic>
+                        </x-table.result-cell>
+                        <x-table.result-cell>
+                            <x-link.basic link="{{route('championship', ['id' => $result->race()->first()->set()->first()->championship()->first()->championship_id])}}">
+                                {{ $result->race()->first()->set()->first()->championship()->first()->description }}
+                            </x-link.basic>
+                        </x-table.result-cell>
+                        <x-table.result-cell>
+                            <x-link.basic link="{{route('race', ['id' => $result->race()->first()->race_id])}}">
+                                {{ $result->race()->first()->name }}
+                            </x-link.basic>
+                        </x-table.result-cell>
+                        <x-table.result-cell>{{ $result->participation()->first()->applications()->where('set_id', '=', $result->race()->first()->set_id)->first()->livery()->first()->car()->first()->car_category()->first()->abbr }}</x-table.result-cell>
+                        <x-table.result-cell>@if($result->penalty_flag()->first()){{ $result->penalty_flag()->first()->name }}@endif </x-table.result-cell>
+                        <x-table.result-cell>{{ $result->penalization()->get()->sum('position_penalty') > 0 ? "+".$result->penalization()->get()->sum('position_penalty'): "" }}</x-table.result-cell>
+                    </x-table.result-row>
+                @endforeach
+            </x-table.result-table>
+        </x-card.crate>
+
+        <x-card.crate>
             <x-slot name="name">Šampionáty - účast</x-slot>
             @foreach($user->participations()->get() as $partip)
                 <x-card.card>
