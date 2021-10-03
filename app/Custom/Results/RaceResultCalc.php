@@ -96,7 +96,7 @@ class RaceResultCalc{
 
         //fill or change field "points"
         self::$results->transform( function( $item, $key ){
-            self::$valuations->find( $item->init_position ) ? $pt = self::$valuations->find( $item->init_position)->points : $pt = 0;
+            $pt = self::$valuations->find( $item->res_position )->points ?? 0;
             $item->points = $pt;
             return $item;
         } );
@@ -111,7 +111,7 @@ class RaceResultCalc{
                 $r_rank = $item->participation()->first()->applications()->where('set_id', '=', $set->set_id)->first();
 
                 if($r_rank->rank_id === $rank->rank_id){
-                    self::$valuations->find( self::$pos ) ? $pt = self::$valuations->find( self::$pos )->points : $pt = 0;
+                    $pt = self::$valuations->find( self::$pos )->points ?? 0;
                     $item->class_order = $rank->pivot->rank_order;
                     $item->res_class_position = self::$pos;
                     $item->class_points = $pt;
@@ -133,7 +133,15 @@ class RaceResultCalc{
         } );
 
 
-        // TODO If there are additional points, it will be laced here (best lap, won Q) - based on championship atribut if aplicable
+        // If there are additional points, it will be laced here (best lap, won Q) - based on championship attribute if applicable
+        if(self::$championship->points_best_lap > 0){
+            self::$results->sortBy('best_lap')->first()->points += self::$championship->points_best_lap;
+        }
+        if(self::$championship->points_q_won > 0){
+            $qw = self::$race->qualifications()->orderByDesc('qualification_no')->first()->qualifyResults()->orderBy('res_position')->first()->participation()->first()->participation_id;
+            self::$results->where('participation_id', '=', $qw)->points += self::$championship->points_q_won;
+        }
+
 
 
         //saving

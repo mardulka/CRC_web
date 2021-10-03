@@ -124,6 +124,8 @@
                     <x-table.result-headcell>Zastávek</x-table.result-headcell>
                     <x-table.result-headcell>Body</x-table.result-headcell>
                     <x-table.result-headcell>Status</x-table.result-headcell>
+                    <x-table.result-headcell>Penalizace</x-table.result-headcell>
+                    <x-table.result-headcell>Původní pozice</x-table.result-headcell>
                 </x-table.result-headrow>
                 @foreach($race->raceResults()->orderBy('res_position')->get() as $result)
                     <x-table.result-row>
@@ -144,6 +146,8 @@
                         <x-table.result-cell>{{ $result->pitstops_no }}</x-table.result-cell>
                         <x-table.result-cell>{{ $result->points }}</x-table.result-cell>
                         <x-table.result-cell>@if($result->penalty_flag()->first()){{ $result->penalty_flag()->first()->name }}@endif </x-table.result-cell>
+                        <x-table.result-cell>{{ $result->penalization()->get()->sum('position_penalty') > 0 ? "+".$result->penalization()->get()->sum('position_penalty'): "" }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $result->init_position }}</x-table.result-cell>
                     </x-table.result-row>
                 @endforeach
             </x-table.result-table>

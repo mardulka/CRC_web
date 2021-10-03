@@ -20,10 +20,14 @@ class PenReorder{
         $results = $results->values();
 
         //swap items according to number of penalty position
-        for($j = 1; $j < count( $results ); ++$j){
-            if($results[ $j ]->rem_pos_penalty == 0)
+        for($j = count( $results ) - 1; $j > 0;){
+            if($results[ $j ]->rem_pos_penalty == 0 || !isset( $results[ $j + 1 ] )){
+                --$j;
                 continue;
+            }
+            $move_pos = $results[ $j ]->rem_pos_penalty;
             $results = self::move( $results, $j, $results[ $j ]->rem_pos_penalty );
+            $j = $j + $move_pos < count( $results ) - 1 ? $j + $move_pos : count( $results ) - 1;
         }
 
         return $results;
@@ -54,6 +58,7 @@ class PenReorder{
      */
     private static function move( Collection $arr, int $key, int $number ){
         for($k = 0; $k < $number; ++$k, ++$key){
+
             if(!isset( $arr[ $key + 1 ] )){
                 break;
             }
