@@ -90,7 +90,7 @@
                                 {{ $partip->team_name }}
                             </x-link.basic>
                         </x-table.result-cell>
-                        <x-table.result-cell>{{ $partip->sum_points }}</x-table.result-cell>
+                        <x-table.result-cell>{{ $partip->sum_points + $partip->bonus_points}}</x-table.result-cell>
                     </x-table.result-row>
                 @endforeach
             </x-table.result-table>
