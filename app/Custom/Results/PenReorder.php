@@ -19,28 +19,11 @@ class PenReorder{
         //reset keys to make it usable
         $results = $results->values();
 
-        // TODO - test output  - delete
-        echo "position | penal. \n";
-        foreach($results as $result){
-            echo $result->init_position . " | " . $result->rem_pos_penalty . "\n";
-        }
-
         //swap items according to number of penalty position
-        ////TODO if they are 2 with penalties on neighbour position, they rotate until one of them remains 0 penalty to application (tested on race_id 1)
         for($j = 1; $j < count( $results ); ++$j){
             if($results[ $j ]->rem_pos_penalty == 0)
                 continue;
-            while($results[ $j ]->rem_pos_penalty > 0 && $j + 1 < count( $results )){
-                $results[ $j ]->rem_pos_penalty -= 1;
-                // TODO - test output  - delete
-                echo "swap ".($j+1)." with ".($j+2)."\n";
-                $results = self::swap( $results, $j, $j + 1 );
-            }
-        }
-        // TODO - test output - delete
-        echo "position | penal. \n";
-        foreach($results as $result){
-            echo $result->init_position . " | " . $result->rem_pos_penalty . "\n";
+            $results = self::move( $results, $j, $results[ $j ]->rem_pos_penalty );
         }
 
         return $results;
@@ -59,6 +42,25 @@ class PenReorder{
         $temp = $arr[ $key_two ];
         $arr[ $key_two ] = $arr[ $key_one ];
         $arr[ $key_one ] = $temp;
+        return $arr;
+    }
+
+    /**
+     * @param Collection $arr    Array where the element should be moved
+     * @param int        $key    Key of the element
+     * @param int        $number Number of positions to be moved
+     *
+     * @return Collection Modified array
+     */
+    private static function move( Collection $arr, int $key, int $number ){
+        for($k = 0; $k < $number; ++$k, ++$key){
+            if(!isset( $arr[ $key + 1 ] )){
+                echo "break for " . ( $key + 1 ) . "\n";
+                break;
+            }
+            $arr[ $key ]->rem_pos_penalty -= 1;
+            $arr = self::swap( $arr, $key, $key + 1 );
+        }
         return $arr;
     }
 
