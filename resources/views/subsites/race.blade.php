@@ -113,83 +113,15 @@
 
         <x-card.crate>
             <x-slot name="name">Výsledky OVERALL</x-slot>
-            <x-table.result-table>
-                <x-table.result-headrow>
-                    <x-table.result-headcell>Pozice</x-table.result-headcell>
-                    <x-table.result-headcell>Jezdec</x-table.result-headcell>
-                    <x-table.result-headcell>Tým</x-table.result-headcell>
-                    <x-table.result-headcell>Počet kol</x-table.result-headcell>
-                    <x-table.result-headcell>Nejlepší kolo</x-table.result-headcell>
-                    <x-table.result-headcell>Konzistence</x-table.result-headcell>
-                    <x-table.result-headcell>Zastávek</x-table.result-headcell>
-                    <x-table.result-headcell>Body</x-table.result-headcell>
-                    <x-table.result-headcell>Status</x-table.result-headcell>
-                    <x-table.result-headcell>Penalizace</x-table.result-headcell>
-                    <x-table.result-headcell>Původní pozice</x-table.result-headcell>
-                </x-table.result-headrow>
-                @foreach($race->raceResults()->orderBy('res_position')->get() as $result)
-                    <x-table.result-row>
-                        <x-table.result-cell>{{ $result->res_position }}</x-table.result-cell>
-                        <x-table.result-cell>
-                            <x-link.basic link="{{route('user', ['id' => $result->participation()->first()->user_id])}}">
-                                {{ $result->participation()->first()->driver_first_name}} {{ $result->participation()->first()->driver_last_name }}
-                            </x-link.basic>
-                        </x-table.result-cell>
-                        <x-table.result-cell>
-                            <x-link.basic link="{{route('team', ['id' => $result->participation()->first()->team_id])}}">
-                                {{ $result->participation()->first()->team_name }}
-                            </x-link.basic>
-                        </x-table.result-cell>
-                        <x-table.result-cell>{{ $result->laps_completed }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->best_lap }}</x-table.result-cell>
-                        <x-table.result-cell>{{ ($result->consistency)*100 }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->pitstops_no }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->points }}</x-table.result-cell>
-                        <x-table.result-cell>@if($result->penalty_flag()->first()){{ $result->penalty_flag()->first()->name }}@endif </x-table.result-cell>
-                        <x-table.result-cell>{{ $result->penalization()->get()->sum('position_penalty') > 0 ? "+".$result->penalization()->get()->sum('position_penalty'): "" }}</x-table.result-cell>
-                        <x-table.result-cell>{{ $result->init_position }}</x-table.result-cell>
-                    </x-table.result-row>
-                @endforeach
-            </x-table.result-table>
+            <x-results.race.drivers-overal :results="$race->raceResults()->orderBy('res_position')->get()">
+            </x-results.race.drivers-overal>
         </x-card.crate>
 
         @foreach($championship->ranks()->where('rank_order', '>', 0)->orderBy('rank_order')->get() as $res_rank)
             <x-card.crate>
                 <x-slot name="name">Výsledky {{$res_rank->abbr}}</x-slot>
-                <x-table.result-table>
-                    <x-table.result-headrow>
-                        <x-table.result-headcell>Pozice</x-table.result-headcell>
-                        <x-table.result-headcell>Jezdec</x-table.result-headcell>
-                        <x-table.result-headcell>Tým</x-table.result-headcell>
-                        <x-table.result-headcell>Počet kol</x-table.result-headcell>
-                        <x-table.result-headcell>Nejlepší kolo</x-table.result-headcell>
-                        <x-table.result-headcell>Konzistence</x-table.result-headcell>
-                        <x-table.result-headcell>Zastávek</x-table.result-headcell>
-                        <x-table.result-headcell>Body</x-table.result-headcell>
-                        <x-table.result-headcell>Status</x-table.result-headcell>
-                    </x-table.result-headrow>
-                    @foreach($race->raceResults()->where('class_order', '=', $res_rank->pivot->rank_order)->orderBy('res_class_position')->get() as $result)
-                        <x-table.result-row>
-                            <x-table.result-cell>{{ $result->res_class_position }}</x-table.result-cell>
-                            <x-table.result-cell>
-                                <x-link.basic link="{{route('user', ['id' => $result->participation()->first()->user_id])}}">
-                                    {{ $result->participation()->first()->driver_first_name}} {{ $result->participation()->first()->driver_last_name }}
-                                </x-link.basic>
-                            </x-table.result-cell>
-                            <x-table.result-cell>
-                                <x-link.basic link="{{route('team', ['id' => $result->participation()->first()->team_id])}}">
-                                    {{ $result->participation()->first()->team_name }}
-                                </x-link.basic>
-                            </x-table.result-cell>
-                            <x-table.result-cell>{{ $result->laps_completed }}</x-table.result-cell>
-                            <x-table.result-cell>{{ $result->best_lap }}</x-table.result-cell>
-                            <x-table.result-cell>{{ ($result->consistency)*100 }}</x-table.result-cell>
-                            <x-table.result-cell>{{ $result->pitstops_no }}</x-table.result-cell>
-                            <x-table.result-cell>{{ $result->class_points }}</x-table.result-cell>
-                            <x-table.result-cell>@if($result->penalty_flag()->first()){{ $result->penalty_flag()->first()->name }}@endif </x-table.result-cell>
-                        </x-table.result-row>
-                    @endforeach
-                </x-table.result-table>
+                <x-results.race.drivers-overal :results="$race->raceResults()->where('class_order', '=', $res_rank->pivot->rank_order)->orderBy('res_class_position')->get()">
+                </x-results.race.drivers-overal>
             </x-card.crate>
         @endforeach
 
