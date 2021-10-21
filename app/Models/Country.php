@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -50,7 +51,7 @@ class Country extends Model{
      *
      * @return BelongsTo
      */
-    public function continent() {
+    public function continent(){
         return $this->belongsTo( Continent::class, 'continent_id', 'continent_id' );
     }
 
@@ -60,8 +61,8 @@ class Country extends Model{
      *
      * @return HasMany
      */
-    public function users() {
-        return $this->hasMany( User::class, 'country_id', 'country_id');
+    public function users(){
+        return $this->hasMany( User::class, 'country_id', 'country_id' );
     }
 
 
@@ -70,7 +71,7 @@ class Country extends Model{
      *
      * @return HasMany
      */
-    public function circuits() {
+    public function circuits(){
         return $this->hasMany( Circuit::class, 'country_id', 'country_id' );
     }
 
@@ -80,8 +81,19 @@ class Country extends Model{
      *
      * @return HasMany
      */
-    public function manufacturers() {
+    public function manufacturers(){
         return $this->hasMany( Manufacturer::class, 'country_id', 'country_id' );
+    }
+
+
+    /**
+     * Method returning simulators from ManyToMany relation with immediate table.
+     *
+     * @return BelongsToMany
+     */
+    public function simulators(){
+        return $this->belongsToMany( Simulator::class, 'simulator_car', 'country_id', 'simulator_id', 'country_id', 'simulator_id' )
+                    ->withPivot( 'sim_country_id' )->withTimestamps();
     }
 
 

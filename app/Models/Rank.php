@@ -61,7 +61,7 @@ class Rank extends Model{
      * @return HasMany
      */
     public function user_ranks(){
-        return $this->hasMany(User_rank::class, 'rank_id', 'rank_id');
+        return $this->hasMany( User_rank::class, 'rank_id', 'rank_id' );
     }
 
 
@@ -71,8 +71,19 @@ class Rank extends Model{
      * @return HasMany
      */
     public function applications(){
-        return $this->hasMany( Application::class, 'rank_id', 'rank_id');
+        return $this->hasMany( Application::class, 'rank_id', 'rank_id' );
     }
+
+    /**
+     * Method returning simulators from ManyToMany relation with immediate table.
+     *
+     * @return BelongsToMany
+     */
+    public function simulators(){
+        return $this->belongsToMany( Simulator::class, 'simulator_rank', 'rank_id', 'simulator_id', 'rank_id', 'simulator_id' )
+                    ->withPivot( 'sim_rank_id' )->withTimestamps();
+    }
+
 
     /**
      * Method returning ranks from ManyToMany relation with immediate table.
@@ -80,8 +91,8 @@ class Rank extends Model{
      * @return BelongsToMany
      */
     public function ranks(){
-        return $this->belongsToMany(Championship::class, 'championship_rank', 'rank_id', 'championship_id', 'rank_id', 'championship_id')
-                    ->withPivot('rank_order')->withTimestamps();
+        return $this->belongsToMany( Championship::class, 'championship_rank', 'rank_id', 'championship_id', 'rank_id', 'championship_id' )
+                    ->withPivot( 'rank_order' )->withTimestamps();
     }
 
 }

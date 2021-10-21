@@ -53,7 +53,7 @@ class Simulator extends Model{
      *
      * @var bool
      */
-    public $timestamps =true;
+    public $timestamps = true;
 
 
     /**
@@ -62,8 +62,18 @@ class Simulator extends Model{
      * @return BelongsToMany
      */
     public function cars(){
-        return $this->belongsToMany(Car::class, 'simulator_car', 'simulator_id', 'car_id', 'simulator_id', 'car_id')
-                    ->withPivot('sim_car_id')->withTimestamps();
+        return $this->belongsToMany( Car::class, 'simulator_car', 'simulator_id', 'car_id', 'simulator_id', 'car_id' )
+                    ->withPivot( 'sim_car_id' )->withTimestamps();
+    }
+
+    /**
+     * Method returning countries from ManyToMany relation with immediate table.
+     *
+     * @return BelongsToMany
+     */
+    public function countries(){
+        return $this->belongsToMany( Country::class, 'simulator_car', 'simulator_id', 'country_id', 'simulator_id', 'country_id' )
+                    ->withPivot( 'sim_country_id' )->withTimestamps();
     }
 
 
@@ -73,7 +83,29 @@ class Simulator extends Model{
      * @return BelongsToMany
      */
     public function car_categories(){
-        return $this->belongsToMany(Car_category::class, 'simulator_car_category', 'simulator_id', 'car_category_id', 'simulator_id', 'car_category_id');
+        return $this->belongsToMany( Car_category::class, 'simulator_car_category', 'simulator_id', 'car_category_id', 'simulator_id', 'car_category_id' );
+    }
+
+
+    /**
+     * Method returning cup categories from ManyToMany relation with immediate table.
+     *
+     * @return BelongsToMany
+     */
+    public function cup_categories(){
+        return $this->belongsToMany( Cup_category::class, 'simulator_cup_category', 'simulator_id', 'cup_category_id', 'simulator_id', 'cup_category_id' )
+                    ->withPivot( 'sim_cup_categ_id' )->withTimestamps();
+    }
+
+
+    /**
+     * Method returning ranks from ManyToMany relation with immediate table.
+     *
+     * @return BelongsToMany
+     */
+    public function ranks(){
+        return $this->belongsToMany( Rank::class, 'simulator_car', 'simulator_id', 'rank_id', 'simulator_id', 'rank_id' )
+                    ->withPivot( 'sim_rank_id' )->withTimestamps();
     }
 
 
@@ -83,8 +115,8 @@ class Simulator extends Model{
      * @return BelongsToMany
      */
     public function circuit_layouts(){
-        return $this->belongsToMany(Circuit_layout::class, 'simulator_circuit_layout', 'simulator_id', 'circuit_layout_id', 'simulator_id', 'circuit_layout_id')
-            ->withTimestamps();
+        return $this->belongsToMany( Circuit_layout::class, 'simulator_circuit_layout', 'simulator_id', 'circuit_layout_id', 'simulator_id', 'circuit_layout_id' )
+                    ->withTimestamps();
     }
 
 
@@ -94,7 +126,7 @@ class Simulator extends Model{
      * @return HasMany
      */
     public function liveries(){
-        return $this->hasMany(Livery::class, 'simulator_id', 'simulator_id');
+        return $this->hasMany( Livery::class, 'simulator_id', 'simulator_id' );
     }
 
 
@@ -104,7 +136,7 @@ class Simulator extends Model{
      * @return HasMany
      */
     public function championships(){
-        return $this->hasMany( Championship::class, 'simulator_id', 'simulator_id');
+        return $this->hasMany( Championship::class, 'simulator_id', 'simulator_id' );
     }
 
 
