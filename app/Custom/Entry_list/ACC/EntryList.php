@@ -50,7 +50,7 @@ class EntryList{
      *
      * @var Championship
      */
-    private static Participation $participation;
+    private static Collection $participation;
 
 
     /**
@@ -86,21 +86,22 @@ class EntryList{
             $entry->defaultGridPosition = -1;
             $entry->ballastKg = 0;
             $entry->restrictor = 0;
-            $entry->customCar = $partip->application()->where( "set_id", self::$set->set_id )->get()->livery()->first()->name;
+            $entry->customCar = $partip->applications()->where( "set_id", self::$set->set_id )->first()->livery()->first()->name;
             $entry->overrideCarModelForCustomCar = 1;
             $entry->isServerAdmin = 0;
 
-            $driver->firstName = $partip->driver_first_name;
-            $driver->lastName = $partip->driver_last_name;
+            $driver->firstName = iconv('UTF-8', 'ASCII//TRANSLIT',$partip->driver_first_name);
+            $driver->lastName = iconv('UTF-8', 'ASCII//TRANSLIT',$partip->driver_last_name);
+            //$driver->lastName = mb_convert_encoding($partip->driver_last_name, "ASCII", "UTF-8");
             $driver->shortName = $partip->driver_short_name;
-            $driver->nationality = $partip->user()->first()->country()->first()->simulator()->withpivot()->sim_country_id;
-            $driver->driverCategory = $partip->application()->where( "set_id", self::$set->set_id )->get()->rank()->first()->simulator()->withpivot()->sim_rank_id;
+            $driver->nationality = $partip->user()->first()->country()->first()->simulators()->where('simulator.simulator_id', self::$championship->simulator_id)->first()->pivot->sim_country_id;
+            $driver->driverCategory = $partip->applications()->where( "set_id", self::$set->set_id )->first()->rank()->first()->simulators()->where('simulator.simulator_id', self::$championship->simulator_id)->first()->pivot->sim_rank_id;
             $driver->playerID = 'S'.$partip->user()->first()->steam_id;
-            array_push( $entry->drivers, $driver );
-            array_push( $list->entries, $entry );
+            array_push( $entry->drivers, clone($driver) );
+            array_push( $list->entries, clone($entry) );
         }
 
-        json_encode($list);
+        echo json_encode($list);
 
         // store JSON in DB
 

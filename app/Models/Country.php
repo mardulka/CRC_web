@@ -92,7 +92,7 @@ class Country extends Model{
      * @return BelongsToMany
      */
     public function simulators(){
-        return $this->belongsToMany( Simulator::class, 'simulator_car', 'country_id', 'simulator_id', 'country_id', 'simulator_id' )
+        return $this->belongsToMany( Simulator::class, 'simulator_country', 'country_id', 'simulator_id', 'country_id', 'simulator_id' )
                     ->withPivot( 'sim_country_id' )->withTimestamps();
     }
 
