@@ -162,5 +162,23 @@ class User extends Authenticatable{
         return $this->hasManyThrough( Race_result::class, Participation::class, 'user_id', 'participation_id', 'user_id', 'participation_id');
     }
 
+    /**
+     * Method returning all created reports by user.
+     *
+     * @return HasMany
+     */
+    public function created_reports(){
+        return $this->hasMany( Report::class, 'reported_by_id', 'user_id');
+    }
+
+    /**
+     * Method returning all reports against user.
+     *
+     * @return HasMany
+     */
+    public function reports_against(){
+        return $this->hasMany( Report::class, 'reported_driver_id', 'user_id');
+    }
+
 
 }

@@ -100,5 +100,13 @@ class Race extends Model{
         return $this->hasMany( Race_result::class, 'race_id', 'race_id');
     }
 
+    /**
+     * Method returning all related reports from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function reports(){
+        return $this->hasMany( Report::class, 'race_id', 'race_id');
+    }
 
 }
