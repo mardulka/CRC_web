@@ -35,7 +35,7 @@ class Participation extends Model{
      */
     protected $attributes = [
         'confirmed' => false,
-        'active' => true,
+        'active'    => true,
     ];
 
 
@@ -54,8 +54,8 @@ class Participation extends Model{
      *
      * @return BelongsTo
      */
-    public function championship() {
-        return $this->belongsTo( Championship::class, 'championship_id', 'championship_id');
+    public function championship(){
+        return $this->belongsTo( Championship::class, 'championship_id', 'championship_id' );
     }
 
 
@@ -64,8 +64,8 @@ class Participation extends Model{
      *
      * @return BelongsTo
      */
-    public function user() {
-        return $this->belongsTo( User::class, 'user_id', 'user_id');
+    public function user(){
+        return $this->belongsTo( User::class, 'user_id', 'user_id' );
     }
 
 
@@ -74,8 +74,8 @@ class Participation extends Model{
      *
      * @return BelongsTo
      */
-    public function crew() {
-        return $this->belongsTo( Crew::class, 'crew_id', 'crew_id');
+    public function crew(){
+        return $this->belongsTo( Crew::class, 'crew_id', 'crew_id' );
     }
 
 
@@ -84,8 +84,8 @@ class Participation extends Model{
      *
      * @return BelongsTo
      */
-    public function team() {
-        return $this->belongsTo( Team::class, 'team_id', 'team_id');
+    public function team(){
+        return $this->belongsTo( Team::class, 'team_id', 'team_id' );
     }
 
 
@@ -95,7 +95,7 @@ class Participation extends Model{
      * @return HasMany
      */
     public function applications(){
-        return $this->hasMany( Application::class, 'participation_id', 'participation_id');
+        return $this->hasMany( Application::class, 'participation_id', 'participation_id' );
     }
 
 
@@ -105,7 +105,7 @@ class Participation extends Model{
      * @return HasMany
      */
     public function raceResults(){
-        return $this->hasMany( Race_result::class, 'participation_id', 'participation_id');
+        return $this->hasMany( Race_result::class, 'participation_id', 'participation_id' );
     }
 
 
@@ -115,7 +115,7 @@ class Participation extends Model{
      * @return HasMany
      */
     public function qualificationResults(){
-        return $this->hasMany( Qualification_result::class, 'participation_id', 'participation_id');
+        return $this->hasMany( Qualification_result::class, 'participation_id', 'participation_id' );
     }
 
 
@@ -128,5 +128,23 @@ class Participation extends Model{
         return $this->hasMany( Practice_result::class, 'participation_id', 'participation_id' );
     }
 
+
+    /**
+     * Method returning all created reports by user.
+     *
+     * @return HasMany
+     */
+    public function created_reports(){
+        return $this->hasMany( Report::class, 'reported_by_id', 'participation_id' );
+    }
+
+    /**
+     * Method returning all reports against user.
+     *
+     * @return HasMany
+     */
+    public function reports_against(){
+        return $this->hasMany( Report::class, 'reported_driver_id', 'participation_id' );
+    }
 
 }

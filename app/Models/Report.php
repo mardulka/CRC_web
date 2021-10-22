@@ -52,7 +52,7 @@ class Report extends Model{
      * @return BelongsTo
      */
     public function reported_by(){
-        return $this->belongsTo( User::class, 'reported_by_id', 'user_id');
+        return $this->belongsTo( Participation::class, 'reported_by_id', 'participation_id');
     }
 
 
@@ -62,7 +62,7 @@ class Report extends Model{
      * @return BelongsTo
      */
     public function reported_driver(){
-        return $this->belongsTo( User::class, 'reported_driver_id', 'user_id');
+        return $this->belongsTo( Participation::class, 'reported_driver_id', 'participation_id');
     }
 
 

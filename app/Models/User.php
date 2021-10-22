@@ -80,7 +80,7 @@ class User extends Authenticatable{
      * @return BelongsToMany
      */
     public function roles(){
-        return $this->BelongsToMany( Role::class, 'user_role', 'user_id', 'role_id', 'user_id', 'role_id')->withTimestamps();
+        return $this->BelongsToMany( Role::class, 'user_role', 'user_id', 'role_id', 'user_id', 'role_id' )->withTimestamps();
     }
 
 
@@ -90,7 +90,7 @@ class User extends Authenticatable{
      * @return BelongsToMany
      */
     public function crews(){
-        return $this->BelongsToMany( Crew::class, 'user_crew', 'user_id', 'crew_id', 'user_id', 'crew_id')->withTimestamps();
+        return $this->BelongsToMany( Crew::class, 'user_crew', 'user_id', 'crew_id', 'user_id', 'crew_id' )->withTimestamps();
     }
 
 
@@ -100,7 +100,7 @@ class User extends Authenticatable{
      * @return BelongsToMany
      */
     public function organized(){
-        return $this->BelongsToMany( Championship::class, 'organizing', 'user_id', 'championship_id', 'user_id', 'championship_id')->withTimestamps();
+        return $this->BelongsToMany( Championship::class, 'organizing', 'user_id', 'championship_id', 'user_id', 'championship_id' )->withTimestamps();
     }
 
 
@@ -110,7 +110,7 @@ class User extends Authenticatable{
      * @return BelongsTo
      */
     public function country(){
-        return $this->belongsTo( Country::class, 'country_id', 'country_id');
+        return $this->belongsTo( Country::class, 'country_id', 'country_id' );
     }
 
 
@@ -120,7 +120,7 @@ class User extends Authenticatable{
      * @return HasMany
      */
     public function userRanks(){
-        return $this->hasMany(User_rank::class, 'user_id', 'user_id');
+        return $this->hasMany( User_rank::class, 'user_id', 'user_id' );
     }
 
 
@@ -130,7 +130,7 @@ class User extends Authenticatable{
      * @return HasMany
      */
     public function liveries(){
-        return $this->hasMany(Livery::class, 'owner_id', 'user_id');
+        return $this->hasMany( Livery::class, 'owner_id', 'user_id' );
     }
 
 
@@ -140,7 +140,7 @@ class User extends Authenticatable{
      * @return HasMany
      */
     public function memberships(){
-        return $this->hasMany(Membership::class, 'user_id','user_id');
+        return $this->hasMany( Membership::class, 'user_id', 'user_id' );
     }
 
 
@@ -150,7 +150,7 @@ class User extends Authenticatable{
      * @return HasMany
      */
     public function participations(){
-        return $this->hasMany( Participation::class, 'user_id', 'user_id');
+        return $this->hasMany( Participation::class, 'user_id', 'user_id' );
     }
 
     /**
@@ -159,25 +159,7 @@ class User extends Authenticatable{
      * @return HasManyThrough
      */
     public function race_results(){
-        return $this->hasManyThrough( Race_result::class, Participation::class, 'user_id', 'participation_id', 'user_id', 'participation_id');
-    }
-
-    /**
-     * Method returning all created reports by user.
-     *
-     * @return HasMany
-     */
-    public function created_reports(){
-        return $this->hasMany( Report::class, 'reported_by_id', 'user_id');
-    }
-
-    /**
-     * Method returning all reports against user.
-     *
-     * @return HasMany
-     */
-    public function reports_against(){
-        return $this->hasMany( Report::class, 'reported_driver_id', 'user_id');
+        return $this->hasManyThrough( Race_result::class, Participation::class, 'user_id', 'participation_id', 'user_id', 'participation_id' );
     }
 
 
