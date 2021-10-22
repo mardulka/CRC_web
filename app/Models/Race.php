@@ -101,4 +101,14 @@ class Race extends Model{
     }
 
 
+    /**
+     * Method returning all server configs from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function serverConfigs(){
+        return $this->hasMany( Server_config::class, 'race_id', 'race_id');
+    }
+
+
 }
