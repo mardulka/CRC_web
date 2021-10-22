@@ -90,7 +90,7 @@ class Rank extends Model{
      *
      * @return BelongsToMany
      */
-    public function ranks(){
+    public function championships(){
         return $this->belongsToMany( Championship::class, 'championship_rank', 'rank_id', 'championship_id', 'rank_id', 'championship_id' )
                     ->withPivot( 'rank_order' )->withTimestamps();
     }
