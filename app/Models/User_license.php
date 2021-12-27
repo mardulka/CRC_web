@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User_rank extends Model{
+class User_license extends Model{
     use HasFactory, SoftDeletes;
 
     /**
@@ -15,7 +15,7 @@ class User_rank extends Model{
      *
      * @var string
      */
-    protected $table = 'user_rank';
+    protected $table = 'user_license';
 
 
     /**
@@ -23,7 +23,7 @@ class User_rank extends Model{
      *
      * @var string
      */
-    protected $primaryKey = 'user_rank_id';
+    protected $primaryKey = 'user_license_id';
 
 
     /**
@@ -32,7 +32,7 @@ class User_rank extends Model{
      * @var array
      */
     protected $guarded = [
-        'user_rank_id',
+        'user_license_id',
     ];
 
 
@@ -51,8 +51,8 @@ class User_rank extends Model{
      *
      * @return BelongsTo
      */
-    public function rank(){
-        return $this->belongsTo(Rank::class, 'rank_id', 'rank_id');
+    public function license(){
+        return $this->belongsTo(License::class, 'license_id', 'license_id');
     }
 
 

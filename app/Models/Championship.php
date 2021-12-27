@@ -90,16 +90,6 @@ class Championship extends Model{
     }
 
 
-    /**
-     * Method returning ranks from ManyToMany relation with immediate table.
-     *
-     * @return BelongsToMany
-     */
-    public function ranks(){
-        return $this->belongsToMany(Rank::class, 'championship_rank', 'championship_id', 'rank_id', 'championship_id', 'rank_id')
-                    ->withPivot('rank_order')->withTimestamps();
-    }
-
 
     /**
      * Method returning crews from ManyToMany relation with immediate table.

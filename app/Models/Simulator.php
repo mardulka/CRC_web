@@ -98,16 +98,6 @@ class Simulator extends Model{
     }
 
 
-    /**
-     * Method returning ranks from ManyToMany relation with immediate table.
-     *
-     * @return BelongsToMany
-     */
-    public function ranks(){
-        return $this->belongsToMany( Rank::class, 'simulator_car', 'simulator_id', 'rank_id', 'simulator_id', 'rank_id' )
-                    ->withPivot( 'sim_rank_id' )->withTimestamps();
-    }
-
 
     /**
      * Method returning circuit layouts from ManyToMany relation with immediate table.
@@ -139,5 +129,15 @@ class Simulator extends Model{
         return $this->hasMany( Championship::class, 'simulator_id', 'simulator_id' );
     }
 
+
+    /**
+     * Method returning licenses from ManyToMany relation with immediate table.
+     *
+     * @return BelongsToMany
+     */
+    public function licenses(){
+        return $this->belongsToMany( License::class, 'simulator_license', 'simulator_id', 'license_id', 'simulator_id', 'license_id' )
+                    ->withPivot( 'sim_license_id' )->withTimestamps();
+    }
 
 }

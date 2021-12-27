@@ -61,11 +61,12 @@ class Car_category extends Model{
      *
      * @return BelongsToMany
      */
+/*
     public function sets() {
         return $this->belongsToMany( Set::class,  'car_category_set', 'car_category_id', 'set_id', 'car_category_id', 'set_id')
                     ->withTimestamps();
     }
-
+*/
 
     /**
      * Method returning all related cars from OneToMany relation.
@@ -74,6 +75,16 @@ class Car_category extends Model{
      */
     public function cars(){
         return $this->hasMany( Car::class, 'car_category_id', 'car_category_id');
+    }
+
+
+    /**
+     * Method returning all related race categories from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function raceCategories(){
+        return $this->hasMany( Race_category::class, 'car_category_id', 'car_category_id' );
     }
 
 

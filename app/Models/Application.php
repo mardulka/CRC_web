@@ -63,7 +63,7 @@ class Application extends Model{
      * @return BelongsTo
      */
     public function rank() {
-        return $this->belongsTo( Rank::class, 'rank_id', 'rank_id' );
+        return $this->belongsTo( Race_category::class, 'race_category_id', 'race_category_id' );
     }
 
     /**

@@ -65,4 +65,13 @@ class Cup_category extends Model{
                     ->withPivot( 'sim_cup_categ_id' )->withTimestamps();
     }
 
+    /**
+     * Method returning all related race categories from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function raceCategories(){
+        return $this->hasMany( Race_category::class, 'cup_category_id', 'cup_category_id' );
+    }
+
 }

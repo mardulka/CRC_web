@@ -119,8 +119,8 @@ class User extends Authenticatable{
      *
      * @return HasMany
      */
-    public function userRanks(){
-        return $this->hasMany( User_rank::class, 'user_id', 'user_id' );
+    public function userLicenses(){
+        return $this->hasMany( User_license::class, 'user_id', 'user_id' );
     }
 
 
