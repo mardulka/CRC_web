@@ -16,13 +16,13 @@
         <x-table.result-row>
             <x-table.result-cell>{{ $result->res_position }}</x-table.result-cell>
             <x-table.result-cell>
-                <x-link.basic link="{{route('user', ['id' => $result->participation()->first()->user_id])}}">
-                    {{ $result->participation()->first()->driver_first_name}} {{ $result->participation()->first()->driver_last_name }}
+                <x-link.basic link="{{route('user', ['id' => $result->user_id])}}">
+                    {{ $result->driver_first_name}} {{ $result->driver_last_name }}
                 </x-link.basic>
             </x-table.result-cell>
             <x-table.result-cell>
-                <x-link.basic link="{{route('team', ['id' => $result->participation()->first()->team_id])}}">
-                    {{ $result->participation()->first()->team_name }}
+                <x-link.basic link="{{route('team', ['id' => $result->team_id])}}">
+                    {{ $result->team_name }}
                 </x-link.basic>
             </x-table.result-cell>
             <x-table.result-cell>{{ $result->laps_completed }}</x-table.result-cell>
@@ -30,8 +30,8 @@
             <x-table.result-cell>{{ ($result->consistency)*100 }}</x-table.result-cell>
             <x-table.result-cell>{{ $result->pitstops_no }}</x-table.result-cell>
             <x-table.result-cell>{{ $result->points }}</x-table.result-cell>
-            <x-table.result-cell>@if($result->penalty_flag()->first()){{ $result->penalty_flag()->first()->name }}@endif </x-table.result-cell>
-            <x-table.result-cell>{{ $result->penalization()->get()->sum('position_penalty') > 0 ? "+".$result->penalization()->get()->sum('position_penalty'): "" }}</x-table.result-cell>
+            <x-table.result-cell>@if($result->penalty_flag_id){{ \App\Models\Penalty_flag::findorfail($result->penalty_flag_id)->first()->name }}@endif </x-table.result-cell>
+            <x-table.result-cell>{{ \App\Models\Race_result::find($result->race_result_id)->penalization()->get()->sum('position_penalty') > 0 ? '+'.\App\Models\Race_result::find($result->race_result_id)->penalization()->get()->sum('position_penalty') : "" }}</x-table.result-cell>
             <x-table.result-cell>{{ $result->init_position }}</x-table.result-cell>
         </x-table.result-row>
     @endforeach

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Custom\Results\ChampionshipResults;
 use App\Http\Controllers\Controller;
 use App\Models\Championship;
+use App\Models\Race_result;
 use App\Models\Season;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -37,6 +38,7 @@ class ChampionshipController extends Controller{
      */
     public function show( $id ){
         $championship = Championship::findOrFail( $id );
+        $race_categories = $championship->raceCategories()->get();
         $organizers = $championship->organizers()->get();
         $participation = $championship->participation()->get();
         $participation->transform( function( $item, $key ){
@@ -51,6 +53,7 @@ class ChampionshipController extends Controller{
 
         return view( 'subsites.championship' )
             ->with( 'championship', $championship )
+            ->with( 'race_categories', $race_categories )
             ->with( 'organizers', $organizers )
             ->with( 'participation', $participation );
     }

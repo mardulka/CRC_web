@@ -71,15 +71,18 @@
 
         <x-card.crate>
             <x-slot name="name">Výsledky OVERALL</x-slot>
-            <x-results.championship.drivers-overal :participation="$participation" >
+            <x-results.championship.drivers-overal :results="$over_results">
             </x-results.championship.drivers-overal>
         </x-card.crate>
 
 
-        @foreach($championship->ranks()->where('rank_order', '>', 0)->orderBy('rank_order')->get() as $res_rank)
+        @foreach($race_categories as $race_category)
+            @if($race_category->overall == 1)
+                @continue
+            @endif
             <x-card.crate>
-                <x-slot name="name">Výsledky {{$res_rank->abbr}}</x-slot>
-                <x-results.championship.drivers-class :participation="array($participation, $res_rank)">
+                <x-slot name="name">Výsledky {{$race_category->name}}</x-slot>
+                <x-results.championship.drivers-class :participation="array($participation, $race_category)">
                 </x-results.championship.drivers-class>
             </x-card.crate>
         @endforeach

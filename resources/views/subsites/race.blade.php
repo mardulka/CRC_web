@@ -31,10 +31,10 @@
                             {{$championship->description}}
                         </x-link.basic>
                     </x-table.attr-cell>
-                    @foreach($car_categories as $car_category)
+                    @foreach($classes as $class)
                         <x-table.attr-cell>
-                            <x-link.basic link="{{route('car_category', ['id' => $car_category->car_category_id])}}">
-                                {{$car_category->abbr}}
+                            <x-link.basic link="{{route('car_category', ['id' => $class->raceCategory()->first()->carCategory()->first()->car_category_id])}}">
+                                {{$class->abbr}}
                             </x-link.basic>
                         </x-table.attr-cell>
                     @endforeach
@@ -113,15 +113,18 @@
 
         <x-card.crate>
             <x-slot name="name">Výsledky OVERALL</x-slot>
-            <x-results.race.drivers-overal :results="$race->raceResults()->orderBy('res_position')->get()">
+            <x-results.race.drivers-overal :results="$race_res">
             </x-results.race.drivers-overal>
         </x-card.crate>
 
-        @foreach($championship->ranks()->where('rank_order', '>', 0)->orderBy('rank_order')->get() as $res_rank)
+        @foreach($classes as $class)
+            @if($class->overall == 1)
+                @continue
+            @endif
             <x-card.crate>
-                <x-slot name="name">Výsledky {{$res_rank->abbr}}</x-slot>
-                <x-results.race.drivers-overal :results="$race->raceResults()->where('class_order', '=', $res_rank->pivot->rank_order)->orderBy('res_class_position')->get()">
-                </x-results.race.drivers-overal>
+                <x-slot name="name">Výsledky pro {{$class->name}}</x-slot>
+                <x-results.race.drivers-class :results="$race_res->where('class_id', $class->class_id)->sortBy('res_class_position')">
+                </x-results.race.drivers-class>
             </x-card.crate>
         @endforeach
 

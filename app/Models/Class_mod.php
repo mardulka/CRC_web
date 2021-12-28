@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -43,8 +44,8 @@ class Class_mod extends Model{
      *
      * @return BelongsTo
      */
-    public function raceCategory() {
-        return $this->belongsTo( Race_category::class, 'race_category_id', 'race_category_id');
+    public function raceCategory(){
+        return $this->belongsTo( Race_category::class, 'race_category_id', 'race_category_id' );
     }
 
 
@@ -53,8 +54,8 @@ class Class_mod extends Model{
      *
      * @return BelongsTo
      */
-    public function set() {
-        return $this->belongsTo( Set::class, 'set_id', 'set_id');
+    public function set(){
+        return $this->belongsTo( Set::class, 'set_id', 'set_id' );
     }
 
     /**
@@ -64,6 +65,15 @@ class Class_mod extends Model{
      */
     public function applications(){
         return $this->hasMany( Application::class, 'class_id', 'class_id' );
+    }
+
+    /**
+     * Method returning all related participation from OneToMany relation.
+     *
+     * @return HasManyThrough
+     */
+    public function participation(){
+        return $this->hasManyThrough( Participation::class, Application::class, 'class_id', 'participation_id', 'class_id', 'participation_id' );
     }
 
 
