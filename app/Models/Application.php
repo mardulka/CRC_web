@@ -48,23 +48,14 @@ class Application extends Model{
 
 
     /**
-     * Method returning related set from OneToMany relation.
+     * Method returning related class from OneToMany relation.
      *
      * @return BelongsTo
      */
-    public function set() {
-        return $this->belongsTo( Set::class , 'set_id', 'set_id');
+    public function class() {
+        return $this->belongsTo( Class_mod::class , 'class_id', 'class_id');
     }
 
-
-    /**
-     * Method returning related rank from OneToMany relation.
-     *
-     * @return BelongsTo
-     */
-    public function rank() {
-        return $this->belongsTo( Race_category::class, 'race_category_id', 'race_category_id' );
-    }
 
     /**
      * Method returning related livery from OneToMany relation.

@@ -57,18 +57,6 @@ class Car_category extends Model{
 
 
     /**
-     * Method returning related sets from ManyToMany relation.
-     *
-     * @return BelongsToMany
-     */
-/*
-    public function sets() {
-        return $this->belongsToMany( Set::class,  'car_category_set', 'car_category_id', 'set_id', 'car_category_id', 'set_id')
-                    ->withTimestamps();
-    }
-*/
-
-    /**
      * Method returning all related cars from OneToMany relation.
      *
      * @return HasMany

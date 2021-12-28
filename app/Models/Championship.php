@@ -130,5 +130,13 @@ class Championship extends Model{
         return $this->hasManyThrough( Race::class, Set::class, 'championship_id', 'set_id', 'championship_id', 'set_id', );
     }
 
+    /**
+     * Method returning all related race_categories from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function raceCategories(){
+        return $this->hasMany( Race_category::class, 'championship_id', 'championship_id' );
+    }
 
 }

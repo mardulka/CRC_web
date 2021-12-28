@@ -50,24 +50,12 @@ class Set extends Model{
 
 
     /**
-     * Method returning related car categories from ManyToMany relation.
-     *
-     * @return BelongsToMany
-     */
-/*
-    public function carCategories(){
-        return $this->belongsToMany( Car_category::class, 'car_category_set', 'set_id', 'car_category_id', 'set_id', 'car_category_id' )
-                    ->withTimestamps();
-    }
-*/
-
-    /**
-     * Method returning all related applications from OneToMany relation.
+     * Method returning all related classes from OneToMany relation.
      *
      * @return HasMany
      */
-    public function applications(){
-        return $this->hasMany( Application::class, 'set_id', 'set_id' );
+    public function classes(){
+        return $this->hasMany( Class_mod::class, 'set_id', 'set_id' );
     }
 
 
@@ -80,15 +68,6 @@ class Set extends Model{
         return $this->hasMany( Race::class, 'set_id', 'set_id' );
     }
 
-
-    /**
-     * Method returning all related race_categories from OneToMany relation.
-     *
-     * @return HasMany
-     */
-    public function raceCategories(){
-        return $this->hasMany( Race_category::class, 'set_id', 'set_id' );
-    }
 
 
 }

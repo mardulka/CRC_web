@@ -57,12 +57,12 @@ class Race_category extends Model{
 
 
     /**
-     * Method returning all related applications from OneToMany relation.
+     * Method returning all related classes from OneToMany relation.
      *
      * @return HasMany
      */
-    public function applications(){
-        return $this->hasMany( Application::class, 'race_category_id', 'race_category_id' );
+    public function classes(){
+        return $this->hasMany( Class_mod::class, 'race_category_id', 'race_category_id' );
     }
 
 
@@ -85,12 +85,12 @@ class Race_category extends Model{
     }
 
     /**
-     * Method returning related set from OneToMany relation.
+     * Method returning related championship from OneToMany relation.
      *
      * @return BelongsTo
      */
-    public function set(){
-        return $this->belongsTo( Set::class, 'set_id', 'set_id' );
+    public function championship(){
+        return $this->belongsTo( Set::class, 'championship_id', 'championship_id' );
     }
 
 }
