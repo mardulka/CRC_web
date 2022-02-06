@@ -4,6 +4,7 @@ namespace App\Custom\Results;
 
 use App\Models\Championship;
 use App\Models\Race;
+use App\Models\Set;
 use Illuminate\Support\Collection;
 use mysql_xdevapi\Exception;
 
@@ -36,6 +37,13 @@ class RaceResult{
     private static Collection $results;
 
     /**
+     * Set from DB
+     *
+     * @var Set
+     */
+    private static Set $set;
+
+    /**
      * Championship from DB
      *
      * @var Championship
@@ -50,11 +58,11 @@ class RaceResult{
     private static Collection $valuations;
 
     /**
-     * Collection of rank in championship from DB
+     * Collection of classes in championship from DB
      *
      * @var Collection
      */
-    private static Collection $ranks;
+    private static Collection $classes;
 
     /**
      * Help value
@@ -103,14 +111,15 @@ class RaceResult{
     public static function calculate( $id ) : bool{
         self::$id = $id;
 
+
         //load data from DB
         if(!self::DbLoad()){
             return false;
         }
 
-
         //calling PenReorder Class/Object to fill res_position attribute
         self::$results = PenReorder::RacePenalties(self::$results);
+
 
         // place res_positions according to results order
         $iteration = 1;
@@ -118,9 +127,8 @@ class RaceResult{
             $result->res_position = $iteration;
             ++$iteration;
         }
-
-
         self::$results->sortBy('res_position');
+
 
         //fill or change field "points"
         self::$results->transform( function( $item, $key ){
@@ -129,29 +137,36 @@ class RaceResult{
             return $item;
         } );
 
-
-        //fill or change field class_position and class_points
-        foreach(self::$ranks as $rank){
-            self::$pos = 1;
-            self::$results->transform( function( $item, $key ) use ( $rank ){
-
-                $set = $item->race()->first()->set()->first();
-                $r_rank = $item->participation()->first()->applications()->where('set_id', '=', $set->set_id)->first();
-
-                if($r_rank->rank_id === $rank->rank_id){
-                    $pt = self::$valuations->find( self::$pos )->points ?? 0;
-                    $item->class_order = $rank->pivot->rank_order;
-                    $item->res_class_position = self::$pos;
-                    $item->class_points = $pt;
-                    self::$pos += 1;
-                }
-                return $item;
-            });
+        //saving
+        if(!self::DbSave()){
+            return false;
         }
 
+    //TODO: test if it is OK
 
+        //fill or change field class_position and class_points
+        foreach(self::$classes as $class){
+            self::$pos = 1;
+            $participations = $class->participation()->get()->attributestoarray('participation_id');
+            $class_results = self::$race->raceResults()->get()->intersect(RaceResult::all()->whereIn('race_result_id', $participations))->sortBy('res_position')->get();
+
+            //change class position and class points
+            $class_results->transform( function( $item, $key ){
+                $item->res_class_position = self::$pos;
+                $item->class_points = self::$valuations->find( self::$pos )->points ?? 0;
+                self::$pos += 1;
+
+                return $item;
+            });
+
+            //save results
+            $class_results->save();
+        }
+
+    //TODO: What about if first gets DQ?
 
         //for those who has penalty flag gets no points, if they are on position allows to get some
+        self::$results->refresh();
         self::$results->transform( function( $item, $key ){
             if($item->penalty_flag()->first()){
                 $item->points = 0;
@@ -172,10 +187,6 @@ class RaceResult{
 
 
 
-        //saving
-        if(!self::DbSave()){
-            return false;
-        }
 
         return true;
     }
@@ -196,8 +207,12 @@ class RaceResult{
         if(!self::$results = self::$race->raceResults()->get()->sortBy( 'init_position' ))
             return false;
 
+        //load set
+        if(!self::$set = self::$race->set()->first())
+            return false;
+
         //load championship
-        if(!self::$championship = self::$race->set()->first()->championship()->first())
+        if(!self::$championship = self::$set->championship()->first())
             return false;
 
         //load valuation
@@ -205,7 +220,7 @@ class RaceResult{
             return false;
 
         //load ranks and sort by rank order
-        if(!self::$ranks = self::$championship->ranks()->get()->sortBy( 'rank_order' ))
+        if(!self::$classes = self::$set->classes()->get()->sortBy( 'order' ))
             return false;
 
 
