@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Custom\Results\RaceResultCalc;
+use App\Custom\Results\RaceResult;
 use App\Models\Race;
 use App\Models\Race_result;
 use Illuminate\Console\Command;
@@ -40,10 +40,10 @@ class RaceResultCalculate extends Command{
 
         if($this->argument('id') == 'all'){
             foreach(Race::all() as $race){
-                RaceResultCalc::calculate($race->race_id);
+                RaceResult::calculate($race->race_id);
             }
         } else{
-            RaceResultCalc::calculate( $this->argument( 'id' ) );
+            RaceResult::calculate( $this->argument( 'id' ) );
         }
 
         return true;

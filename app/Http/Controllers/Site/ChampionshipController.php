@@ -40,7 +40,7 @@ class ChampionshipController extends Controller{
         $championship = Championship::findOrFail( $id );
         $race_categories = $championship->raceCategories()->get();
         $organizers = $championship->organizers()->get();
-        $participation = $championship->participation()->get();
+        $participation = $championship->participation()->orderBy('res_position')->orderBy('driver_last_name')->orderBy('driver_first_name')->get();
         $participation->transform( function( $item, $key ){
             $item->sum_points = $item->raceResults()->get()->sum( 'points' ) + $item->bonus_points;
             $item->class_order = $item->raceResults()->where( 'class_order', '>', 0 )->first() ? $item->raceResults()->where( 'class_order', '>', 0 )->first()->class_order : 0;

@@ -7,7 +7,7 @@
     </x-table.result-headrow>
     @foreach($results as $result)
         <x-table.result-row>
-            <x-table.result-cell>{{ $loop->iteration }}</x-table.result-cell>
+            <x-table.result-cell>{{ $result->res_position }}</x-table.result-cell>
             <x-table.result-cell>
                 <x-link.basic link="{{route('user', ['id' => $result->user_id])}}">
                     {{ $result->driver_first_name}} {{ $result->driver_last_name }}
@@ -18,7 +18,7 @@
                     {{ $result->team_name }}
                 </x-link.basic>
             </x-table.result-cell>
-            <x-table.result-cell>{{ $result->points}}</x-table.result-cell>
+            <x-table.result-cell>{{ $result->res_points}}</x-table.result-cell>
         </x-table.result-row>
     @endforeach
 </x-table.result-table>

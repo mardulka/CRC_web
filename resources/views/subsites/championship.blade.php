@@ -68,13 +68,13 @@
             </x-card.crate>
         @endforeach
 
-{{--
         <x-card.crate>
             <x-slot name="name">Výsledky OVERALL</x-slot>
-            <x-results.championship.drivers-overal :results="$overal_results">
+            <x-results.championship.drivers-overal :results="$participation">
             </x-results.championship.drivers-overal>
         </x-card.crate>
 
+{{--
 
         @foreach($race_categories as $race_category)
             @if($race_category->overall == 1)
@@ -86,6 +86,7 @@
                 </x-results.championship.drivers-class>
             </x-card.crate>
         @endforeach
+
 --}}
 
 

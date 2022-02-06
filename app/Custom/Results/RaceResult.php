@@ -11,7 +11,7 @@ use mysql_xdevapi\Exception;
  * Calculates results for given race_id
  *
  */
-class RaceResultCalc{
+class RaceResult{
 
     //--properties------------------------------------------------------------------------------------------------------------------------------------
     /**
@@ -64,6 +64,34 @@ class RaceResultCalc{
     private static int $pos;
 
     //--methods---------------------------------------------------------------------------------------------------------------------------------------
+
+    //TODO: Revise methods for calculating results. Add switch for marking results as updated.
+
+    /**
+     * Mark race that results of it need to be recalculated. Provide it in set and championship too.
+     *
+     * @param $id
+     *
+     * @return bool true if changed ok, false otherwise
+     */
+    public static function needRecalculate($id) : bool{
+        //load race from DB
+        if(!self::$race = Race::find( self::$id ))
+            return false;
+
+        //change attribute
+        self::$race->res_updated = false;
+
+        //save into DB
+        self::$race->save();
+
+        //call same for championship
+        ChampionshipResult::needRecalculate(self::$race->set_id);
+
+        return true;
+    }
+
+
 
     /**
      * Only public function for calling outside and start process
@@ -198,5 +226,6 @@ class RaceResultCalc{
 
         return true;
     }
+
 
 }
