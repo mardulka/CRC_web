@@ -43,12 +43,14 @@ class ChampionshipController extends Controller{
         $participation = $championship->participation()->get();
         $participation->transform( function( $item, $key ){
             $item->sum_points = $item->raceResults()->get()->sum( 'points' ) + $item->bonus_points;
-            $item->class_order = $item->raceResults()->where('class_order', '>', 0)->first() ? $item->raceResults()->where('class_order', '>', 0)->first()->class_order : 0;
-            $item->sum_class_points = $item->raceResults()->where('class_order', '>', 0)->get()->sum( 'class_points' );
+            $item->class_order = $item->raceResults()->where( 'class_order', '>', 0 )->first() ? $item->raceResults()->where( 'class_order', '>', 0 )->first()->class_order : 0;
+            $item->sum_class_points = $item->raceResults()->where( 'class_order', '>', 0 )->get()->sum( 'class_points' );
             return $item;
-        });
-        $participation= $participation->sortByDesc('sum_points');
+        } );
+        $participation = $participation->sortByDesc( 'sum_points' );
 
+
+        //TODO: Udělat dvě varianty sčítání: 1) Pořadí tříd ze setů (defaultní), 2) Race categories šampionátu (stejná kombinace cup+car category)
 
 
         return view( 'subsites.championship' )

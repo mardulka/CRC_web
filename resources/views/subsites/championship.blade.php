@@ -68,10 +68,10 @@
             </x-card.crate>
         @endforeach
 
-
+{{--
         <x-card.crate>
             <x-slot name="name">Výsledky OVERALL</x-slot>
-            <x-results.championship.drivers-overal :results="$over_results">
+            <x-results.championship.drivers-overal :results="$overal_results">
             </x-results.championship.drivers-overal>
         </x-card.crate>
 
@@ -86,6 +86,7 @@
                 </x-results.championship.drivers-class>
             </x-card.crate>
         @endforeach
+--}}
 
 
     </x-element.content-box>

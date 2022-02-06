@@ -22,6 +22,9 @@ class RaceController extends Controller{
     public function show( $id ){
         $race = Race::findOrFail( $id );
         $set = $race->set()->first();
+        $championship = $set->championship()->first();
+        $simulator = $championship->simulator()->first();
+        $classes = $set->classes()->orderBy('order')->get();
         $race_res = DB::table( 'race_result' )
                       ->leftjoin( 'participation', 'participation.participation_id', '=', 'race_result.participation_id' )
                       ->leftjoin( 'application', 'application.participation_id', '=', 'participation.participation_id' )
@@ -30,9 +33,9 @@ class RaceController extends Controller{
                       ->where( 'class.set_id', $set->set_id )
                       ->orderBy( 'race_result.res_position', 'asc' )
                       ->get();
-        $championship = $set->championship()->first();
-        $simulator = $championship->simulator()->first();
-        $classes = $set->classes()->get();
+
+
+        //TODO: Výsledky se načítají dost pomalu. Upravit data tak aby se vše načetlo v kontroleru jednou Query a pak už jenom vypsalo. (Eager loading)
 
 
         return view( 'subsites.race' )
