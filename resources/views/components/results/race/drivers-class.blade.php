@@ -28,7 +28,7 @@
             <x-table.result-cell>{{ ($result->consistency)*100 }}</x-table.result-cell>
             <x-table.result-cell>{{ $result->pitstops_no }}</x-table.result-cell>
             <x-table.result-cell>{{ $result->class_points }}</x-table.result-cell>
-            <x-table.result-cell>@if($result->penalty_flag_id){{ \App\Models\Penalty_flag::findorfail($result->penalty_flag_id)->first()->name }}@endif </x-table.result-cell>
+            <x-table.result-cell>{{ $result->penalty_name ?: null}} </x-table.result-cell>
         </x-table.result-row>
     @endforeach
 </x-table.result-table>

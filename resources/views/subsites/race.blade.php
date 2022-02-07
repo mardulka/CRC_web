@@ -25,22 +25,20 @@
                 </x-table.attr-headrow>
                 <x-table.attr-row>
                     <x-table.attr-cell>{{$race->name}}</x-table.attr-cell>
-                    <x-table.attr-cell>{{$race->set()->first()->set_no}}</x-table.attr-cell>
+                    <x-table.attr-cell>{{$set->set_no}}</x-table.attr-cell>
                     <x-table.attr-cell>
                         <x-link.basic link="{{route('championship', ['id' => $championship->championship_id])}}">
                             {{$championship->description}}
                         </x-link.basic>
                     </x-table.attr-cell>
-                    @foreach($classes as $class)
-                        <x-table.attr-cell>
-                            <x-link.basic link="{{route('car_category', ['id' => $class->raceCategory()->first()->carCategory()->first()->car_category_id])}}">
-                                {{$class->abbr}}
-                            </x-link.basic>
-                        </x-table.attr-cell>
-                    @endforeach
                     <x-table.attr-cell>
-                        <x-link.basic link="{{route('simulator', ['id' => $championship->simulator()->first()->simulator_id])}}">
-                            {{$championship->simulator()->first()->name}}
+                        @foreach($classes as $class)
+                            {{$class->name}} </br>
+                        @endforeach
+                    </x-table.attr-cell>
+                    <x-table.attr-cell>
+                        <x-link.basic link="{{route('simulator', ['id' => $simulator->simulator_id])}}">
+                            {{$simulator->name}}
                         </x-link.basic>
                     </x-table.attr-cell>
                 </x-table.attr-row>
@@ -73,12 +71,12 @@
                 </x-table.attr-headrow>
                 <x-table.attr-row>
                     <x-table.attr-cell>
-                        <x-link.basic link="{{route('circuit', ['id' => $race->circuitLayout()->first()->circuit()->first()->circuit_id])}}">
-                            {{$race->circuitLayout()->first()->circuit()->first()->name}}
+                        <x-link.basic link="{{route('circuit', ['id' => $circuit->circuit_id])}}">
+                            {{$circuit->name}}
                         </x-link.basic>
                         >>
-                        <x-link.basic link="{{route('circuit_layout', ['id' => $race->circuitLayout()->first()->circuit_layout_id])}}">
-                            {{$race->circuitLayout()->first()->name}} {{$race->circuitLayout()->first()->year}}
+                        <x-link.basic link="{{route('circuit_layout', ['id' => $circuit_layout->circuit_layout_id])}}">
+                            {{$circuit_layout->name}} {{$circuit_layout->year}}
                         </x-link.basic>
                     </x-table.attr-cell>
                 </x-table.attr-row>
@@ -95,14 +93,14 @@
 
         <x-card.crate>
             <x-slot name="name">Tréninky a kvalifikace</x-slot>
-            @foreach($race->practices()->get() as $practice)
+            @foreach($practices as $practice)
                 <x-card.card>
                     <x-slot name="name">{{ $practice->name }}</x-slot>
                     <x-slot name="info">{{ date('d.m.Y' ,strtotime($practice->date)) }}</x-slot>
                     <x-slot name="link">{{ $url = route('practice', ['id' => $practice->practice_id]) }}</x-slot>
                 </x-card.card>
             @endforeach
-            @foreach($race->qualifications()->get() as $qualification)
+            @foreach($qualifications as $qualification)
                 <x-card.card>
                     <x-slot name="name">{{ $qualification->name }}</x-slot>
                     <x-slot name="info">{{ date('d.m.Y' ,strtotime($qualification->date)) }}</x-slot>

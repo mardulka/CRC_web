@@ -30,8 +30,8 @@
             <x-table.result-cell>{{ ($result->consistency)*100 }}</x-table.result-cell>
             <x-table.result-cell>{{ $result->pitstops_no }}</x-table.result-cell>
             <x-table.result-cell>{{ $result->points }}</x-table.result-cell>
-            <x-table.result-cell>@if($result->penalty_flag_id){{ \App\Models\Penalty_flag::findorfail($result->penalty_flag_id)->first()->name }}@endif </x-table.result-cell>
-            <x-table.result-cell>{{ \App\Models\Race_result::find($result->race_result_id)->penalization()->get()->sum('position_penalty') > 0 ? '+'.\App\Models\Race_result::find($result->race_result_id)->penalization()->get()->sum('position_penalty') : "" }}</x-table.result-cell>
+            <x-table.result-cell>{{ $result->penalty_name ?: null}}</x-table.result-cell>
+            <x-table.result-cell>{{ $result->penalty ? '+'.$result->penalty : null}}</x-table.result-cell>
             <x-table.result-cell>{{ $result->init_position }}</x-table.result-cell>
         </x-table.result-row>
     @endforeach
