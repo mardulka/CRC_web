@@ -99,7 +99,7 @@ class RaceResult{
      * @param $id
      *
      * @return bool
-     * @throws InvalidLockMode
+     * @throws ResultsLockedException
      */
     public static function calculate( $id ) : bool{
         self::$id = $id;
@@ -135,11 +135,15 @@ class RaceResult{
 
 
         //fill or change field class_position and class_points
+        //self::$results->fresh();
         foreach(self::$classes as $class){
 
+            if($class->overall) continue;
+
             //filter $results by participations
-            $class_results = self::$results->whereIn( 'race_result_id', $class->participation()->get()->only( 'participation_id' ) );
+            $class_results = self::$results->whereIn( 'participation_id', $class->participation()->get()->modelKeys() );
             $class_results = $class_results->values();
+
 
             //apply positions and points --> should be already sorted
             $class_results->transform( function( $item, $key ){

@@ -21,14 +21,17 @@ class PenReorder{
 
 
         //sort by position and then init position (before penalties), both ascending
-        $results = $results->sortBy( [ 'res_position', 'asc' ], [ 'init_position', 'asc' ] );
+        $results = $results->sortBy([
+            [ 'res_position', 'asc' ],
+            [ 'init_position', 'desc' ],
+        ]);
 
 
         //DQ to end
-        [ $dq, $unpenalized ] = $results->partition( function( $item, $key ){
-            return $item->penaltyFlag && $item->penaltyFlag->name == 'DQ';
+        [ $pen, $unpenalizied ] = $results->partition( function( $item, $key ){
+            return $item->penalty_flag;
         } );
-        $results = $unpenalized->concat( $dq );
+        $results = $unpenalizied->concat( $pen );
 
 
         //again reset keys and apply them as positions
