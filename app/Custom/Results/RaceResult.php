@@ -6,9 +6,7 @@ use App\Exceptions\ResultsLockedException;
 use App\Models\Championship;
 use App\Models\Race;
 use App\Models\Set;
-use Doctrine\DBAL\Exception\InvalidLockMode;
 use Illuminate\Support\Collection;
-use mysql_xdevapi\Exception;
 
 /**
  * Calculates results for given race_id
@@ -77,13 +75,8 @@ class RaceResult{
      * @return bool true if changed ok, false otherwise
      */
     public static function needRecalculate( $id ) : bool{
-        //load race from DB
-        self::$race = Race::findOrFail( self::$id );
-
-        //change attribute
+        self::$race = Race::findOrFail( $id );
         self::$race->res_updated = false;
-
-        //save into DB
         self::$race->save();
 
         //call same for championship
@@ -104,7 +97,6 @@ class RaceResult{
     public static function calculate( $id ) : bool{
         self::$id = $id;
 
-
         //load data from DB
         if(!self::DbLoad()){
             return false;
@@ -113,18 +105,16 @@ class RaceResult{
         //check if race is locked for recalculating
         if(self::$race->res_locked == true){
             throw new ResultsLockedException( 'Závod je uzamčen pro přepočítání výsledků!' );
-
         }
 
 
         //calling PenReorder Class/Object to apply penalties, fill res_position attribute and sort it
-        self::$results = PenReorder::RacePenalties( self::$results );
+        self::$results = self::RacePenalties( self::$results );
 
 
         //fill or change field "points"
         self::$results->transform( function( $item, $key ){
-            $pt = self::$valuations->find( $item->res_position )->points ?? 0;
-            $item->points = $pt;
+            $item->points = self::$valuations->find( $item->res_position )->points ?? 0;
             return $item;
         } );
 
@@ -138,7 +128,8 @@ class RaceResult{
         //self::$results->fresh();
         foreach(self::$classes as $class){
 
-            if($class->overall) continue;
+            if($class->overall)
+                continue;
 
             //filter $results by participations
             $class_results = self::$results->whereIn( 'participation_id', $class->participation()->get()->modelKeys() );
@@ -191,6 +182,48 @@ class RaceResult{
         self::$race->save();
 
         return true;
+    }
+
+    /**
+     * Write final position after applied penalization and order them by.
+     *
+     * @param $results Collection of results to reorder
+     *
+     * @return Collection modified collection of results
+     */
+    private static function RacePenalties( $results ) : Collection{
+
+        //reset keys to make it usable
+        $results = $results->values();
+
+        //load position penalties and sum them into new result attribute
+        $results->transform( function( $item, $key ){
+            //they are sorted, key restarted --> position is key + 1 + sum of position penalties
+            $item->res_position = $key + 1 + $item->penalization->sum( 'position_penalty' );
+            return $item;
+        } );
+
+
+        //sort by position and then init position (before penalties), both ascending
+        $results = $results->sortBy( [ [ 'res_position', 'asc' ], [ 'init_position', 'desc' ] ] );
+
+
+        //Put PEN FLAGS to end
+        [ $pen_flags, $not_penalized ] = $results->partition( function( $item, $key ){
+            return $item->penalty_flag;
+        } );
+        $results = $not_penalized->concat( $pen_flags );
+
+
+        //again reset keys and apply them as positions
+        $results = $results->values();
+        $results->transform( function( $item, $key ){
+            //they are sorted, key restarted --> position is key + 1
+            $item->res_position = $key + 1;
+            return $item;
+        } );
+
+        return $results;
     }
 
 
