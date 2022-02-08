@@ -135,11 +135,10 @@ class RaceResult{
 
 
         //fill or change field class_position and class_points
-        self::$results->refresh();
         foreach(self::$classes as $class){
 
             //filter $results by participations
-            $class_results = self::$results->whereIn( 'race_result_id', $class->participation()->get()->attributestoarray( 'participation_id' ) );
+            $class_results = self::$results->whereIn( 'race_result_id', $class->participation()->get()->only( 'participation_id' ) );
             $class_results = $class_results->values();
 
             //apply positions and points --> should be already sorted
@@ -150,11 +149,14 @@ class RaceResult{
             } );
 
             //save results
-            $class_results->save();
+            foreach($class_results as $class_result){
+                $class_result->save();
+            }
+
         }
 
         //for those who has penalty flag gets no points, if they are on position allows to get some
-        self::$results->refresh();
+        self::$results->fresh();
         self::$results->transform( function( $item, $key ){
             if($item->penalty_flag){
                 $item->points = 0;
@@ -196,11 +198,11 @@ class RaceResult{
     private static function DbLoad() : bool{
 
         //load race
-        if(!self::$race = Race::find( self::$id )->load( 'penalization', 'penalty_flag' ))
+        if(!self::$race = Race::find( self::$id ))
             return false;
 
         //load results and sort by initial position
-        if(!self::$results = self::$race->raceResults()->get()->sortBy( 'init_position' ))
+        if(!self::$results = self::$race->raceResults()->get()->sortBy( 'init_position' )->load( 'penalization', 'penalty_flag' ))
             return false;
 
         //load set

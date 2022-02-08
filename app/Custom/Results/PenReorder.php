@@ -26,7 +26,7 @@ class PenReorder{
 
         //DQ to end
         [ $dq, $unpenalized ] = $results->partition( function( $item, $key ){
-            return $item->penaltyFlag->name == 'DQ';
+            return $item->penaltyFlag && $item->penaltyFlag->name == 'DQ';
         } );
         $results = $unpenalized->concat( $dq );
 
