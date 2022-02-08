@@ -2,9 +2,11 @@
 
 namespace App\Custom\Results;
 
+use App\Exceptions\ResultsLockedException;
 use App\Models\Championship;
 use App\Models\Race;
 use App\Models\Set;
+use Doctrine\DBAL\Exception\InvalidLockMode;
 use Illuminate\Support\Collection;
 use mysql_xdevapi\Exception;
 
@@ -64,16 +66,8 @@ class RaceResult{
      */
     private static Collection $classes;
 
-    /**
-     * Help value
-     *
-     * @var int
-     */
-    private static int $pos;
 
     //--methods---------------------------------------------------------------------------------------------------------------------------------------
-
-    //TODO: Revise methods for calculating results. Add switch for marking results as updated.
 
     /**
      * Mark race that results of it need to be recalculated. Provide it in set and championship too.
@@ -82,10 +76,9 @@ class RaceResult{
      *
      * @return bool true if changed ok, false otherwise
      */
-    public static function needRecalculate($id) : bool{
+    public static function needRecalculate( $id ) : bool{
         //load race from DB
-        if(!self::$race = Race::find( self::$id ))
-            return false;
+        self::$race = Race::findOrFail( self::$id );
 
         //change attribute
         self::$race->res_updated = false;
@@ -94,19 +87,19 @@ class RaceResult{
         self::$race->save();
 
         //call same for championship
-        ChampionshipResult::needRecalculate(self::$race->set_id);
+        SetResult::needRecalculate( self::$race->set_id );
 
         return true;
     }
 
 
-
     /**
-     * Only public function for calling outside and start process
+     * Public function for recalculating results
      *
      * @param $id
      *
      * @return bool
+     * @throws InvalidLockMode
      */
     public static function calculate( $id ) : bool{
         self::$id = $id;
@@ -117,17 +110,15 @@ class RaceResult{
             return false;
         }
 
-        //calling PenReorder Class/Object to fill res_position attribute
-        self::$results = PenReorder::RacePenalties(self::$results);
+        //check if race is locked for recalculating
+        if(self::$race->res_locked == true){
+            throw new ResultsLockedException( 'Závod je uzamčen pro přepočítání výsledků!' );
 
-
-        // place res_positions according to results order
-        $iteration = 1;
-        foreach(self::$results as $result){
-            $result->res_position = $iteration;
-            ++$iteration;
         }
-        self::$results->sortBy('res_position');
+
+
+        //calling PenReorder Class/Object to apply penalties, fill res_position attribute and sort it
+        self::$results = PenReorder::RacePenalties( self::$results );
 
 
         //fill or change field "points"
@@ -142,33 +133,30 @@ class RaceResult{
             return false;
         }
 
-    //TODO: test if it is OK
 
         //fill or change field class_position and class_points
+        self::$results->refresh();
         foreach(self::$classes as $class){
-            self::$pos = 1;
-            $participations = $class->participation()->get()->attributestoarray('participation_id');
-            $class_results = self::$race->raceResults()->get()->intersect(RaceResult::all()->whereIn('race_result_id', $participations))->sortBy('res_position')->get();
 
-            //change class position and class points
+            //filter $results by participations
+            $class_results = self::$results->whereIn( 'race_result_id', $class->participation()->get()->attributestoarray( 'participation_id' ) );
+            $class_results = $class_results->values();
+
+            //apply positions and points --> should be already sorted
             $class_results->transform( function( $item, $key ){
-                $item->res_class_position = self::$pos;
-                $item->class_points = self::$valuations->find( self::$pos )->points ?? 0;
-                self::$pos += 1;
-
+                $item->res_class_position = $key + 1;
+                $item->class_points = self::$valuations->find( $key + 1 )->points ?? 0;
                 return $item;
-            });
+            } );
 
             //save results
             $class_results->save();
         }
 
-    //TODO: What about if first gets DQ?
-
         //for those who has penalty flag gets no points, if they are on position allows to get some
         self::$results->refresh();
         self::$results->transform( function( $item, $key ){
-            if($item->penalty_flag()->first()){
+            if($item->penalty_flag){
                 $item->points = 0;
                 $item->class_points = 0;
             }
@@ -178,15 +166,23 @@ class RaceResult{
 
         // If there are additional points, it will be laced here (best lap, won Q) - based on championship attribute if applicable
         if(self::$championship->points_best_lap > 0){
-            self::$results->sortBy('best_lap')->where('best_lap', '>', '00:00:00.000')->first()->points += self::$championship->points_best_lap;
+            self::$results->sortBy( 'best_lap' )->where( 'best_lap', '>', '00:00:00.000' )->first()->points += self::$championship->points_best_lap;
         }
         if(self::$championship->points_q_won > 0){
-            $qw = self::$race->qualifications()->orderByDesc('qualification_no')->first()->qualifyResults()->orderBy('res_position')->first()->participation()->first()->participation_id;
-            self::$results->where('participation_id', '=', $qw)->first()->points += self::$championship->points_q_won;
+            $qw = self::$race->qualifications()->orderByDesc( 'qualification_no' )->first()->qualifyResults()->orderBy( 'res_position' )->first()->participation()->first()->participation_id;
+            self::$results->where( 'participation_id', '=', $qw )->first()->points += self::$championship->points_q_won;
         }
 
 
+        //saving
+        if(!self::DbSave()){
+            return false;
+        }
 
+
+        // update updated status of race results in race
+        self::$race->res_updated = true;
+        self::$race->save();
 
         return true;
     }
@@ -200,7 +196,7 @@ class RaceResult{
     private static function DbLoad() : bool{
 
         //load race
-        if(!self::$race = Race::find( self::$id ))
+        if(!self::$race = Race::find( self::$id )->load( 'penalization', 'penalty_flag' ))
             return false;
 
         //load results and sort by initial position
