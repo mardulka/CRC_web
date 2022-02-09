@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData" autoUpload="Always" serverName="XAMPP PHP" deleteMissingItems="true" createEmptyFolders="true" uploadOnCheckin="621628fe-dfc4-4487-bcbb-10cbc29b1c01" exclude=".svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc; .env">
+  <component name="PublishConfigData" autoUpload="Always" serverName="XAMPP PHP" deleteMissingItems="true" createEmptyFolders="true" uploadOnCheckin="621628fe-dfc4-4487-bcbb-10cbc29b1c01" exclude=".svn;.cvs;.idea;.DS_Store;.git;.hg;*.hprof;*.pyc; .env" showDifferentInSync="false" showNewOnSourceInSync="false" showNewOnTargetInSync="false">
     <serverData>
       <paths name="Active24">
         <serverdata>
           <mappings>
             <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
           </mappings>
+          <excludedPaths>
+            <excludedPath local="true" path="$PROJECT_DIR$/config/database.php" />
+          </excludedPaths>
         </serverdata>
       </paths>
       <paths name="WEDOS">
@@ -19,7 +22,7 @@
       <paths name="XAMPP PHP">
         <serverdata>
           <mappings>
-            <mapping deploy="\" local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="\" local="$PROJECT_DIR$" web="/web/" />
           </mappings>
         </serverdata>
       </paths>

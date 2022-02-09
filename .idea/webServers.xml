@@ -15,7 +15,7 @@
       <webServer id="47a910c2-910d-45eb-897c-441af31c540e" name="Active24" url="http://www.crcgroup.cz.uvirt116.active24.cz">
         <fileTransfer host="www.crcgroup.cz.uvirt116.active24.cz" port="21">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
