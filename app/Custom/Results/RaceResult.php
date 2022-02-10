@@ -114,9 +114,10 @@ class RaceResult{
 
         //fill or change field "points"
         self::$results->transform( function( $item, $key ){
-            $item->points = self::$valuations->find( $item->res_position )->points ?? 0;
+            $item->points = self::$valuations->where( 'position', '=', $item->res_position )->first()->points ?? 0;
             return $item;
         } );
+
 
         //saving
         if(!self::DbSave()){
