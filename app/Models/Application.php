@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasManyThrough;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Application extends Model{
@@ -66,5 +68,14 @@ class Application extends Model{
         return $this->belongsTo( Livery::class, 'livery_id', 'livery_id' );
     }
 
+
+    /**
+     * Method returning all related race results from OneToManyThrough relation.
+     *
+     * @return Collection
+     */
+    public function raceResults(){
+        return $this->participation()->first()->raceResults();
+    }
 
 }
