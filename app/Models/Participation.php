@@ -84,8 +84,8 @@ class Participation extends Model{
      *
      * @return BelongsTo
      */
-    public function team(){
-        return $this->belongsTo( Team::class, 'team_id', 'team_id' );
+    public function teamParticipation(){
+        return $this->belongsTo( Team_participation::class, 'team_participation_id', 'team_participation_id' );
     }
 
 
