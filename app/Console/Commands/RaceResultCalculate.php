@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Custom\Results\RaceResult;
+use App\Exceptions\ResultsLockedException;
 use App\Models\Race;
 use App\Models\Race_result;
 use Illuminate\Console\Command;
@@ -38,12 +39,23 @@ class RaceResultCalculate extends Command{
      */
     public function handle(){
 
-        if($this->argument('id') == 'all'){
+        if($this->argument( 'id' ) == 'all'){
             foreach(Race::all() as $race){
-                RaceResult::calculate($race->race_id);
+                try{
+                    RaceResult::calculate( $race->race_id );
+                }
+                catch(ResultsLockedException $e){
+                    continue;
+                }
+
             }
-        } else{
-            RaceResult::calculate( $this->argument( 'id' ) );
+        }else{
+            try{
+                RaceResult::calculate( $this->argument( 'id' ) );
+            }
+            catch(ResultsLockedException $e){
+                echo $e->getMessage();
+            }
         }
 
         return true;
