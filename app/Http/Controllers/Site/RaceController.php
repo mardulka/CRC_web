@@ -44,12 +44,13 @@ class RaceController extends Controller{
                                 participation.driver_first_name,
                                 participation.driver_last_name,
                                 participation.team_id,
-                                participation.team_name,
+                                team_participation.name as team_name,
                                 class.class_id,
                                 class.name as class_name,
                                 penalty_flag.name as penalty_name,
                                 sum(penalization.position_penalty) as penalty' )
                       ->leftjoin( 'participation', 'participation.participation_id', '=', 'race_result.participation_id' )
+                      ->leftJoin( 'team_participation', 'team_participation.team_participation_id', '=', 'participation.team_participation_id' )
                       ->leftjoin( 'application', 'application.participation_id', '=', 'participation.participation_id' )
                       ->leftjoin( 'class', 'class.class_id', '=', 'application.class_id' )
                       ->leftjoin( 'penalty_flag', 'race_result.penalty_flag_id', '=', 'penalty_flag.penalty_flag_id' )
@@ -71,13 +72,12 @@ class RaceController extends Controller{
                                  'participation.driver_first_name',
                                  'participation.driver_last_name',
                                  'participation.team_id',
-                                 'participation.team_name',
+                                 'team_participation.name',
                                  'class.class_id',
                                  'class.name',
                                  'penalty_flag.name' )
                       ->orderBy( 'race_result.res_position', 'asc' )
                       ->get();
-
 
 
         return view( 'subsites.race' )

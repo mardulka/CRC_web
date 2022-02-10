@@ -67,27 +67,27 @@
 
             </x-card.crate>
         @endforeach
+        {{--
+                <x-card.crate>
+                    <x-slot name="name">Výsledky OVERALL</x-slot>
+                    <x-results.championship.drivers-overal :results="$participation">
+                    </x-results.championship.drivers-overal>
+                </x-card.crate>
 
-        <x-card.crate>
-            <x-slot name="name">Výsledky OVERALL</x-slot>
-            <x-results.championship.drivers-overal :results="$participation">
-            </x-results.championship.drivers-overal>
-        </x-card.crate>
 
-{{--
 
-        @foreach($race_categories as $race_category)
-            @if($race_category->overall == 1)
-                @continue
-            @endif
-            <x-card.crate>
-                <x-slot name="name">Výsledky {{$race_category->name}}</x-slot>
-                <x-results.championship.drivers-class :participation="array($participation, $race_category)">
-                </x-results.championship.drivers-class>
-            </x-card.crate>
-        @endforeach
+                @foreach($race_categories as $race_category)
+                    @if($race_category->overall == 1)
+                        @continue
+                    @endif
+                    <x-card.crate>
+                        <x-slot name="name">Výsledky {{$race_category->name}}</x-slot>
+                        <x-results.championship.drivers-class :participation="array($participation, $race_category)">
+                        </x-results.championship.drivers-class>
+                    </x-card.crate>
+                @endforeach
 
---}}
+        --}}
 
 
     </x-element.content-box>
