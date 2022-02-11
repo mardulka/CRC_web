@@ -114,8 +114,8 @@ class Participation extends Model{
      *
      * @return HasMany
      */
-    public function qualificationResults(){
-        return $this->hasMany( Qualification_result::class, 'participation_id', 'participation_id' );
+    public function qualifyResults(){
+        return $this->hasMany( Qualify_result::class, 'participation_id', 'participation_id' );
     }
 
 

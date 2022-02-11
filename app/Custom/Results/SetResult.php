@@ -24,9 +24,6 @@ class SetResult{
 
     //--methods---------------------------------------------------------------------------------------------------------------------------------------
 
-    //TODO: Add methods for calculating results
-
-
     /**
      * Mark set that results of it need to be recalculated. Provide it in championship too.
      *

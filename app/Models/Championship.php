@@ -110,6 +110,15 @@ class Championship extends Model{
         return $this->hasMany( Participation::class, 'championship_id', 'championship_id' );
     }
 
+    /**
+     * Method returning all related participation from OneToMany relation.
+     *
+     * @return HasMany
+     */
+    public function teamParticipation(){
+        return $this->hasMany( Team_participation::class, 'championship_id', 'championship_id' );
+    }
+
 
     /**
      * Method returning all related sets from OneToMany relation.
@@ -137,6 +146,16 @@ class Championship extends Model{
      */
     public function raceCategories(){
         return $this->hasMany( Race_category::class, 'championship_id', 'championship_id' );
+    }
+
+
+    /**
+     * Method returning all classes belong to championship through race_categories.
+     *
+     * @return HasManyThrough
+     */
+    public function classes(){
+        return $this->hasManyThrough( Class_mod::class, Race_category::class, 'championship_id', 'race_category_id', 'championship_id', 'race_category_id', );
     }
 
 }
