@@ -111,9 +111,9 @@
 
 
 
-        <div class = "container mx-auto min-h-screen p-8 antialiased">
+        <div class = "container mx-auto min-h-screen p-2 md:p-8">
             @foreach($race_res as $result)
-                <x-results.race.driver-res :result="$result"></x-results.race.driver-res>
+                <x-results.race.driver-res :result="$result"/>
             @endforeach
         </div>
 
