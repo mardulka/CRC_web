@@ -109,6 +109,16 @@
             @endforeach
         </x-card.crate>
 
+
+
+        <div class = "container mx-auto min-h-screen p-8 antialiased">
+            @foreach($race_res as $result)
+                <x-results.race.driver-res :result="$result"></x-results.race.driver-res>
+            @endforeach
+        </div>
+
+
+{{--
         <x-card.crate>
             <x-slot name="name">Výsledky OVERALL</x-slot>
             <x-results.race.drivers-overal :results="$race_res">
@@ -125,6 +135,7 @@
                 </x-results.race.drivers-class>
             </x-card.crate>
         @endforeach
+        --}}
 
     </x-element.content-box>
 </x-app-layout>
