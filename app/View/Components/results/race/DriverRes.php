@@ -1,6 +1,6 @@
 <?php
 
-namespace App\View\Components\results\race;
+namespace App\View\Components\Results\Race;
 
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
