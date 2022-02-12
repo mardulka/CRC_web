@@ -12,10 +12,10 @@
       <webServer id="75c04679-a8fe-4f16-a010-b5ba24685774" name="XAMPP PHP" url="http://localhost">
         <fileTransfer mountedRoot="C:\xampp\htdocs" accessType="MOUNT" port="0" />
       </webServer>
-      <webServer id="47a910c2-910d-45eb-897c-441af31c540e" name="Active24" url="http://www.crcgroup.cz.uvirt116.active24.cz">
-        <fileTransfer host="www.crcgroup.cz.uvirt116.active24.cz" port="21">
+      <webServer id="47a910c2-910d-45eb-897c-441af31c540e" name="Active24" url="crcgroup.cz">
+        <fileTransfer accessType="SFTP" host="crcgroup.cz" port="22" sshConfigId="7c57f08d-16d7-45f4-88af-e4fabb130276" sshConfig="crcgroupcz1@crcgroup.cz:22 password">
           <advancedOptions>
-            <advancedOptions dataProtectionLevel="Private" shareSSLContext="true" />
+            <advancedOptions dataProtectionLevel="Private" keepAliveTimeout="0" shareSSLContext="true" />
           </advancedOptions>
         </fileTransfer>
       </webServer>
