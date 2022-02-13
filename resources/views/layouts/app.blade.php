@@ -22,7 +22,7 @@
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="https://cdn.tailwindcss.com"></script>
-        <script src="./node_modules/flowbite/dist/flowbite.js"></script>
+        <script src="https://unpkg.com/flowbite@1.3.3/dist/flowbite.js"></script>
 
     </head>
     <body class="font-sans  antialiased">
