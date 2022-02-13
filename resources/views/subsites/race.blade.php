@@ -33,7 +33,7 @@
                     </x-table.attr-cell>
                     <x-table.attr-cell>
                         @foreach($classes as $class)
-                            {{$class->name}} </br>
+                        {{$class->name}} </br>
                         @endforeach
                     </x-table.attr-cell>
                     <x-table.attr-cell>
@@ -110,32 +110,49 @@
         </x-card.crate>
 
 
+        <x-tabs.header link="RaceTab">
+            <x-tabs.header-item link="information" status="active">Informace</x-tabs.header-item>
+            <x-tabs.header-item link="results">Výsledky</x-tabs.header-item>
+            <x-tabs.header-item link="records">Záznamy</x-tabs.header-item>
+        </x-tabs.header>
+        <x-tabs.content id="RaceTab">
+            <x-tabs.content-item id="information">
+                <div class="container mx-auto min-h-screen p-2 md:p-8">
+                    <p class="text-sm text-gray-500">
+                        Informace o závodu
+                    </p>
+                </div>
+            </x-tabs.content-item>
+            <x-tabs.content-item id="results" status="hidden">
+                <div class=" container mx-auto min-h-screen p-2 md:p-8">
+                    @foreach($race_res as $result)
+                        <x-results.race.driver-res :result="$result"/>
+                    @endforeach
+                </div>
+            </x-tabs.content-item>
+            <x-tabs.content-item id="records" status="hidden">
+                <div class="container mx-auto min-h-screen p-2 md:p-8">
+                    <p class="text-sm text-gray-500">
+                        Záznamy ze závodu
+                    </p>
+                </div>
+            </x-tabs.content-item>
+        </x-tabs.content>
 
-        <div class = "container mx-auto min-h-screen p-2 md:p-8">
-            @foreach($race_res as $result)
-                <x-results.race.driver-res :result="$result"/>
-            @endforeach
-        </div>
 
+        {{-- Výsledky pro další třídy !!!!!
 
-{{--
-        <x-card.crate>
-            <x-slot name="name">Výsledky OVERALL</x-slot>
-            <x-results.race.drivers-overal :results="$race_res">
-            </x-results.race.drivers-overal>
-        </x-card.crate>
-
-        @foreach($classes as $class)
-            @if($class->overall == 1)
-                @continue
-            @endif
-            <x-card.crate>
-                <x-slot name="name">Výsledky pro {{$class->name}}</x-slot>
-                <x-results.race.drivers-class :results="$race_res->where('class_id', $class->class_id)->sortBy('res_class_position')">
-                </x-results.race.drivers-class>
-            </x-card.crate>
-        @endforeach
-        --}}
+                @foreach($classes as $class)
+                    @if($class->overall == 1)
+                        @continue
+                    @endif
+                    <x-card.crate>
+                        <x-slot name="name">Výsledky pro {{$class->name}}</x-slot>
+                        <x-results.race.drivers-class :results="$race_res->where('class_id', $class->class_id)->sortBy('res_class_position')">
+                        </x-results.race.drivers-class>
+                    </x-card.crate>
+                @endforeach
+                --}}
 
     </x-element.content-box>
 </x-app-layout>

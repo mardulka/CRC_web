@@ -10,8 +10,16 @@
                 <img class="w-20 h-20" src="/public/storage/img/placeholders/avatar.png" alt="Driver photo">
             </div>
             <div class="flex-1 px-1 md:px-3">
-                <p class="text-sm font-medium text-gray-900 md:text-lg">{{$result->driver_first_name}} {{$result->driver_last_name}}</p>
-                <p class="text-xs text-gray-500 md:text-sm">{{$result->team_name}}</p>
+                <p class="text-sm font-medium text-gray-900 md:text-lg">
+                    <x-link.basic link="{{route('user', ['id' => $result->user_id])}}">
+                        {{ $result->driver_first_name}} {{ $result->driver_last_name }}
+                    </x-link.basic>
+                </p>
+                <p class="text-xs text-gray-500 md:text-sm">
+                    <x-link.basic link="{{route('team', ['id' => $result->team_id])}}">
+                        {{ $result->team_name }}
+                    </x-link.basic>
+                </p>
             </div>
         </div>
         <div class="items-center text-center hidden lg:flex">
