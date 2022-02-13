@@ -22,13 +22,23 @@
                 </p>
             </div>
         </div>
+        <div class="items-center hidden md:flex">
+            <div class="flex-none w-48 lg:w-64 px-3">
+                <div class="text-sm lg:text-base font-medium text-gray-900 truncate">
+                    <x-link.basic link="{{route('car', ['id' => $result->car_id])}}">
+                        {{$result->car_name}}
+                    </x-link.basic>
+                </div>
+                <div class="text-xs lg:text-sm text-gray-400 truncate">Vůz</div>
+            </div>
+        </div>
         <div class="items-center text-center hidden lg:flex">
             <div class="flex-none px-3">
                 <div class="text-base font-medium text-gray-900 truncate">{{$result->best_lap}}</div>
                 <div class="text-sm text-gray-400 truncate">Nejlepší kolo</div>
             </div>
             <div class="flex-none px-3">
-                <div class="text-base font-medium text-gray-900">{{$result->consistency * 100}}</div>
+                <div class="text-base font-medium text-gray-900">{{number_format($result->consistency * 100, 2)}}</div>
                 <div class="text-sm text-gray-400 truncate">Konzistence</div>
             </div>
             <div class="flex-none px-3">
