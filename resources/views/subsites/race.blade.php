@@ -1,11 +1,12 @@
 <x-app-layout>
     <x-element.content-box>
 
-        <x-element.basic-navigation>
-            <x-element.back-button link="{{route('championship', ['id' => $championship->championship_id])}}">
-                {{$championship->description}}
-            </x-element.back-button>
-        </x-element.basic-navigation>
+
+        <x-breadcrumb.body>
+            <x-breadcrumb.item-top link="{{route('championship', ['id' => $championship->championship_id])}}">{{$championship->description}}</x-breadcrumb.item-top>
+            <x-breadcrumb.item-inter link="#">{{"Set ".$set->set_no}}</x-breadcrumb.item-inter>
+            <x-breadcrumb.item-current>{{$race->name}}</x-breadcrumb.item-current>
+        </x-breadcrumb.body>
 
 
         <x-element.site-headline>
@@ -117,25 +118,15 @@
         </x-tabs.header>
         <x-tabs.content id="RaceTab">
             <x-tabs.content-item id="information">
-                <div class="container mx-auto min-h-screen p-2 md:p-8">
-                    <p class="text-sm text-gray-500">
-                        Informace o závodu
-                    </p>
-                </div>
+                <p class="text-sm text-gray-500">Informace o závodu</p>
             </x-tabs.content-item>
             <x-tabs.content-item id="results" status="hidden">
-                <div class=" container mx-auto min-h-screen p-2 md:p-8">
-                    @foreach($race_res as $result)
-                        <x-results.race.driver-res :result="$result"/>
-                    @endforeach
-                </div>
+                @foreach($race_res as $result)
+                    <x-results.race.driver-res :result="$result"/>
+                @endforeach
             </x-tabs.content-item>
             <x-tabs.content-item id="records" status="hidden">
-                <div class="container mx-auto min-h-screen p-2 md:p-8">
-                    <p class="text-sm text-gray-500">
-                        Záznamy ze závodu
-                    </p>
-                </div>
+                <p class="text-sm text-gray-500">Záznamy ze závodu</p>
             </x-tabs.content-item>
         </x-tabs.content>
 
