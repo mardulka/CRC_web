@@ -23,13 +23,13 @@
             </div>
         </div>
         <div class="items-center hidden md:flex">
-            <div class="flex-none w-48 lg:w-64 px-3">
-                <div class="text-sm lg:text-base font-medium text-gray-900 truncate">
+            <div class="flex-none w-48 xl:w-64 px-3">
+                <div class="text-sm xl:text-base font-medium text-gray-900 truncate">
                     <x-link.basic link="{{route('car', ['id' => $result->car_id])}}">
                         {{$result->car_name}}
                     </x-link.basic>
                 </div>
-                <div class="text-xs lg:text-sm text-gray-400 truncate">Vůz</div>
+                <div class="text-xs xl:text-sm text-gray-400 truncate">Vůz</div>
             </div>
         </div>
         <div class="items-center text-center hidden lg:flex">
