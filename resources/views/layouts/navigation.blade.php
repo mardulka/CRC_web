@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }" class="bg-black sticky top-0 z-50">
     <!-- Primary Navigation Menu -->
-    <div class=" mx-auto px-4 sm:px-6 lg:px-8 ">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8 ">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
@@ -11,32 +11,32 @@
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 lg:flex">
                     <x-nav.nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ 'Přehled' }}
                     </x-nav.nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 lg:flex">
                     <x-nav.nav-link :href="route('news')" :active="request()->routeIs('news')">
                         {{ 'Novinky' }}
                     </x-nav.nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 lg:flex">
                     <x-nav.nav-link :href="route('championships')" :active="request()->routeIs('championships')">
                         {{ 'Šampionáty' }}
                     </x-nav.nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 lg:flex">
                     <x-nav.nav-link :href="route('stats')" :active="request()->routeIs('stats')">
                         {{ 'Statistiky' }}
                     </x-nav.nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 lg:flex">
                     <x-nav.nav-link :href="route('rules')" :active="request()->routeIs('rules')">
                         {{ 'Pravidla' }}
                     </x-nav.nav-link>
                 </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 lg:flex">
                     <x-nav.nav-link :href="route('contacts')" :active="request()->routeIs('contacts')">
                         {{ 'Kontakty' }}
                     </x-nav.nav-link>
@@ -45,7 +45,7 @@
 
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ml-6">
+            <div class="hidden lg:flex sm:items-center sm:ml-6">
                 <x-nav.dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="flex items-center text-md font-medium text-white hover:text-yellow-300 hover:border-yellow-300 focus:outline-none focus:text-yellow-500 focus:border-gray-500 transition duration-150 ease-in-out">
@@ -101,7 +101,7 @@
 
 
             <!-- Hamburger -->
-            <div class="-mr-2 flex items-center sm:hidden">
+            <div class="-mr-2 flex items-center lg:hidden">
                 <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                         <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -114,7 +114,7 @@
 
 
     <!-- Responsive Navigation Menu -->
-    <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
+    <div :class="{'block': open, 'hidden': ! open}" class="lg:hidden">
         <div class="pt-2 pb-3 space-y-1">
             <x-nav.responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ 'Přehled' }}
