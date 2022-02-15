@@ -117,9 +117,30 @@
                 </x-card.crate>
             </x-tabs.content-item>
             <x-tabs.content-item id="results" status="hidden">
-                @foreach($race_res as $result)
-                    <x-results.race.driver-res :result="$result"/>
-                @endforeach
+
+                <x-accordion.accordion-open id="accordion-open">
+                    @foreach($classes as $class)
+                        @if($class->overall)
+                            <x-accordion.heading link="{{'class_'.$class->class_id.'_body'}}" id="{{'class_'.$class->class_id.'_head'}}" >
+                                {{$class->name}}
+                            </x-accordion.heading>
+                            <x-accordion.body id="{{'class_'.$class->class_id.'_body'}}" linked_by="{{'class_'.$class->class_id.'_head'}}" >
+                                @foreach($race_res as $result)
+                                    <x-results.race.driver-res :result="$result"/>
+                                @endforeach
+                            </x-accordion.body>
+                        @else
+                            <x-accordion.heading link="{{'class_'.$class->class_id.'_body'}}" id="{{'class_'.$class->class_id.'_head'}}" >
+                                {{$class->name}}
+                            </x-accordion.heading>
+                            <x-accordion.body id="{{'class_'.$class->class_id.'_body'}}" linked_by="{{'class_'.$class->class_id.'_head'}}" >
+                                @foreach($race_res->where('class_id', $class->class_id)->sortBy('res_class_position') as $result)
+                                    <x-results.race.driver-res-class :result="$result"/>
+                                @endforeach
+                            </x-accordion.body>
+                        @endif
+                    @endforeach
+                </x-accordion.accordion-open>
             </x-tabs.content-item>
             <x-tabs.content-item id="incidents" status="hidden">
                 <p class="text-sm min-h-screen text-gray-500">Seznam nahlášených incidentů a verdiktů</p>
@@ -129,20 +150,6 @@
             </x-tabs.content-item>
         </x-tabs.content>
 
-
-        {{-- Výsledky pro další třídy !!!!!
-
-                @foreach($classes as $class)
-                    @if($class->overall == 1)
-                        @continue
-                    @endif
-                    <x-card.crate>
-                        <x-slot name="name">Výsledky pro {{$class->name}}</x-slot>
-                        <x-results.race.drivers-class :results="$race_res->where('class_id', $class->class_id)->sortBy('res_class_position')">
-                        </x-results.race.drivers-class>
-                    </x-card.crate>
-                @endforeach
-                --}}
 
     </x-element.content-box>
 </x-app-layout>
