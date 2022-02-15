@@ -16,6 +16,7 @@
         <x-tabs.header link="RaceTab">
             <x-tabs.header-item link="information" status="active">Informace</x-tabs.header-item>
             <x-tabs.header-item link="results">Výsledky</x-tabs.header-item>
+            <x-tabs.header-item link="incidents">Incidenty</x-tabs.header-item>
             <x-tabs.header-item link="records">Záznamy</x-tabs.header-item>
         </x-tabs.header>
         <x-tabs.content id="RaceTab">
@@ -119,6 +120,9 @@
                 @foreach($race_res as $result)
                     <x-results.race.driver-res :result="$result"/>
                 @endforeach
+            </x-tabs.content-item>
+            <x-tabs.content-item id="incidents" status="hidden">
+                <p class="text-sm min-h-screen text-gray-500">Seznam nahlášených incidentů a verdiktů</p>
             </x-tabs.content-item>
             <x-tabs.content-item id="records" status="hidden">
                 <p class="text-sm min-h-screen text-gray-500">Záznamy ze závodu</p>
