@@ -12,15 +12,19 @@ class UserController extends Controller{
     public function show( $id ){
 
         $user = User::findorFail( $id );
-        $memberships = $user->memberships()->get();
-        $user_rank = $user->userRanks()->WhereNull('until')->first();
+        $country = $user->country()->first();
+        $teams = $user->teams()->get();
+        $licenses = $user->licenses()->first();
+        $active_license = $user->licenses()->whereNull('until')->first();
         $race_results = $user->race_results()->get();
 
 
         return view( 'subsites.user' )
             ->with( 'user', $user )
-            ->with('memberships', $memberships)
-            ->with('user_rank', $user_rank)
+            ->with( 'country', $country )
+            ->with('teams', $teams)
+            ->with('licenses', $licenses)
+            ->with('active_license', $active_license)
             ->with('race_results', $race_results);
     }
 

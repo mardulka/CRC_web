@@ -20,15 +20,15 @@
                     <x-table.result-headcell>Příjmení</x-table.result-headcell>
                     <x-table.result-headcell>Přezdívka</x-table.result-headcell>
                     <x-table.result-headcell>Národnost</x-table.result-headcell>
-                    <x-table.result-headcell>Úroveň</x-table.result-headcell>
+                    <x-table.result-headcell>Licence</x-table.result-headcell>
                     <x-table.result-headcell>Aktivní</x-table.result-headcell>
                 </x-table.result-headrow>
                 <x-table.result-row>
                     <x-table.result-cell>{{ $user->first_name }}</x-table.result-cell>
                     <x-table.result-cell>{{ $user->last_name}}</x-table.result-cell>
                     <x-table.result-cell>{{ $user->nick_name }}</x-table.result-cell>
-                    <x-table.result-cell>{{ $user->country()->first()->name }}</x-table.result-cell>
-                    <x-table.result-cell>{{$user_rank->rank()->first()->abbr}}</x-table.result-cell>
+                    <x-table.result-cell>{{ $country->name }}</x-table.result-cell>
+                    <x-table.result-cell>{{$active_license->abbr}}</x-table.result-cell>
                     <x-table.result-cell>{{ $user->active ? 'Ano' : 'Ne'}}</x-table.result-cell>
                 </x-table.result-row>
             </x-table.result-table>
@@ -36,11 +36,11 @@
 
         <x-card.crate>
             <x-slot name="name">Týmy</x-slot>
-            @foreach($memberships as $membership)
+            @foreach($teams as $team)
                 <x-card.card>
-                    <x-slot name="name">{{ $membership->team()->first()->name }}</x-slot>
-                    <x-slot name="info">Od: {{ $membership->from }}</x-slot>
-                    <x-slot name="link">{{ $url = route('team', ['id' => $membership->team()->first()->team_id ])  }}</x-slot>
+                    <x-slot name="name">{{ $team->name }}</x-slot>
+                    <x-slot name="info">Od: {{ $team->from }}</x-slot>
+                    <x-slot name="link">{{ $url = route('team', ['id' => $team->team_id ])  }}</x-slot>
                 </x-card.card>
             @endforeach
         </x-card.crate>
@@ -62,7 +62,7 @@
                     <x-table.result-headcell>Status</x-table.result-headcell>
                     <x-table.result-headcell>Penalizace</x-table.result-headcell>
                 </x-table.result-headrow>
-                @foreach($race_results as $result)
+                {{--@foreach($race_results as $result)
                     <x-table.result-row>
                         <x-table.result-cell>{{ $result->res_position }}</x-table.result-cell>
                         <x-table.result-cell>{{ $result->points }}</x-table.result-cell>
@@ -88,7 +88,7 @@
                         <x-table.result-cell>@if($result->penalty_flag()->first()){{ $result->penalty_flag()->first()->name }}@endif </x-table.result-cell>
                         <x-table.result-cell>{{ $result->penalization()->get()->sum('position_penalty') > 0 ? "+".$result->penalization()->get()->sum('position_penalty'): "" }}</x-table.result-cell>
                     </x-table.result-row>
-                @endforeach
+                @endforeach--}}
             </x-table.result-table>
         </x-card.crate>
 

@@ -114,14 +114,17 @@ class User extends Authenticatable{
     }
 
 
+
     /**
-     * Method returning all user_ranks from One ToMany relation.
+     * Method returning lincenses.
      *
-     * @return HasMany
+     * @return BelongsToMany
      */
-    public function userLicenses(){
-        return $this->hasMany( User_license::class, 'user_id', 'user_id' );
+    public function licenses(){
+        return $this->belongsToMany( License::class, 'user_license', 'user_id', 'license_id' )
+                    ->withPivot('from', 'until');
     }
+
 
 
     /**
@@ -137,10 +140,11 @@ class User extends Authenticatable{
     /**
      * Method returning all memberships from One ToMany relation.
      *
-     * @return HasMany
+     * @return BelongsToMany
      */
-    public function memberships(){
-        return $this->hasMany( Membership::class, 'user_id', 'user_id' );
+    public function teams(){
+        return $this->belongsToMany( Team::class, 'membership','user_id', 'team_id' )
+            ->withPivot('from', 'until', 'owner', 'active');
     }
 
 
