@@ -121,10 +121,10 @@
                 <x-accordion.accordion-open id="accordion-open">
                     @foreach($classes as $class)
                         @if($class->overall)
-                            <x-accordion.heading link="{{'class_'.$class->class_id.'_body'}}" id="{{'class_'.$class->class_id.'_head'}}" >
+                            <x-accordion.heading link="{{'class_'.$class->class_id.'_body'}}" id="{{'class_'.$class->class_id.'_head'}}" expanded="true" >
                                 {{$class->name}}
                             </x-accordion.heading>
-                            <x-accordion.body id="{{'class_'.$class->class_id.'_body'}}" linked_by="{{'class_'.$class->class_id.'_head'}}" >
+                            <x-accordion.body id="{{'class_'.$class->class_id.'_body'}}" linked_by="{{'class_'.$class->class_id.'_head'}}" status="" >
                                 @foreach($race_res as $result)
                                     <x-results.race.driver-res :result="$result"/>
                                 @endforeach
