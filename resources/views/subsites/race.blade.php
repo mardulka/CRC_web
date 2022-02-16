@@ -117,7 +117,6 @@
                 </x-card.crate>
             </x-tabs.content-item>
             <x-tabs.content-item id="results" status="hidden">
-
                 <x-accordion.accordion-open id="accordion-open">
                     @foreach($classes as $class)
                         @if($class->overall)
