@@ -142,10 +142,10 @@
                 </x-accordion.accordion-open>
             </x-tabs.content-item>
             <x-tabs.content-item id="incidents" status="hidden">
-                <p class="text-sm min-h-screen text-gray-500">Seznam nahlášených incidentů a verdiktů</p>
+                <p class="text-sm text-gray-500">Seznam nahlášených incidentů a verdiktů</p>
             </x-tabs.content-item>
             <x-tabs.content-item id="records" status="hidden">
-                <p class="text-sm min-h-screen text-gray-500">Záznamy ze závodu</p>
+                <p class="text-sm text-gray-500">Záznamy ze závodu</p>
             </x-tabs.content-item>
         </x-tabs.content>
 
